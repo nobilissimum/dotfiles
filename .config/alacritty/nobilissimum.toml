@@ -1,0 +1,44 @@
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding.x = 12
+padding.y = 12
+dynamic_padding = true
+
+decorations = "transparent"
+
+opacity = 1
+blur = true
+
+startup_mode = "Maximized"
+decorations_theme_variant = "Dark"
+
+[cursor.style]
+shape = "Underline"
+blinking = "Off"
+
+[font]
+size = 10.5
+
+offset.y = 0
+glyph_offset.y = 0
+
+[font.normal]
+family = "SauceCodePro Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "SauceCodePro Nerd Font"
+style = "Regular"
+
+[font.italic]
+family = "SauceCodePro Nerd Font"
+style = "Italic"
+
+[font.bold_italic]
+family = "SauceCodePro Nerd Font"
+style = "Italic"
+
+[terminal]
+osc52 = "CopyPaste"

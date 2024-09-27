@@ -1,0 +1,12 @@
+.stow-global-ignore
+
+.git
+.gitignore
+
+.tenshiro
+.vscode
+
+alacritty
+etc
+
+README.*
