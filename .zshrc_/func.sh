@@ -36,10 +36,3 @@ srcenv () {
     source $filename;
     set +o allexport;
 }
-
-# Tools
-luainit () {
-    if ! luarocks --version $COMMAND &> /dev/null; then
-        sudo apt install luarocks -y
-    fi
-}

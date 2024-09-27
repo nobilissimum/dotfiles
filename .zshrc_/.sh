@@ -71,6 +71,11 @@ ENV_CREDS="$ZSH_DIR/credentials.sh"
 [[ -f "$ENV_CREDS" ]] && source "$ENV_CREDS"
 
 
+# Install prerequisites of neovim
+ENV_NVIM="$ZSH_DIR/nvim.sh"
+[[ -f "$ENV_NVIM" ]] && source "$ENV_NVIM"
+
+
 # Use powerlevel10k theme
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 

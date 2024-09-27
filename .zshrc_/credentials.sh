@@ -1,7 +1,8 @@
 # GNU Pass
 initpass () {
     if [[ ! -f /usr/bin/pass ]]; then
-        sudo apt install pass -y
+        [[ "$OSTYPE" == "linux-gnu"* ]] && sudo apt install pass -y &> /dev/null
+        [[ "$OSTYPE" == "darwin"* ]] && sudo brew install pass -y &> /dev/null
     fi
 
     if [[ ! -f /usr/bin/docker-credentials-pass ]]; then
