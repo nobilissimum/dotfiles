@@ -17,7 +17,6 @@ else
     vim_eol = "↓"
 end
 
-print(vim_eol)
 vim.opt.listchars = {
     eol = vim_eol,
     nbsp = "+",
