@@ -9,5 +9,11 @@ vim.opt.shiftwidth = 0
 vim.opt.expandtab = true
 vim.opt.autoindent = true
 
--- vim.opt.listchars = "eol:↓,tab:>·,trail:~,extends:>,precedes:<,space:·"
--- vim.opt.list = true
+vim.opt.listchars = {
+    eol = "↓",
+    nbsp = "+",
+    space = "·",
+    tab = ">·",
+    trail = "·",
+}
+vim.opt.list = true
