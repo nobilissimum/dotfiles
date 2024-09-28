@@ -1,0 +1,25 @@
+keybinding:
+    universal:
+        prevItem-alt: j
+        nextItem-alt: k
+gui:
+    mouseEvents: false
+    sidePanelWidth: 0.3
+
+    theme:
+        activeBorderColor:
+            - '#ffffff'
+            - bold
+
+        inactiveBorderColor:
+            - '#6c7077'
+
+        selectedLineBgColor:
+            - '#121c26'
+            - bold
+
+    showIcons: true
+    nerdFontsVersion: '2'
+    showFileIcons: true
+
+    border: 'rounded'
