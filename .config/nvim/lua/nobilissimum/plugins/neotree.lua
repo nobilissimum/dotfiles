@@ -18,5 +18,7 @@ return {
                 position = "right",
             },
         })
+
+        vim.keymap.set("n", "<C-\\>", ":Neotree toggle<CR>", { noremap = true, silent = true })
     end,
 }
