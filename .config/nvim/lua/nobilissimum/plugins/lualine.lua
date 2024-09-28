@@ -61,17 +61,19 @@ return {
             },
         }
 
-        local separators = { left = "", right = "" }
+        local separator_left = ""
+        local separator_right = ""
+        local separators = { left = separator_left, right = separator_right }
 
         require("lualine").setup({
             options = {
                 theme = hush_theme,
                 component_separators = { left = '•', right = '•'},
-                section_separators = { left = "", right = "" },
+                section_separators = { left = separator_right, right = separator_left },
                 globalstatus = true,
             },
             sections = {
-                lualine_a = {{ "mode", separator = separators } },
+                lualine_a = {{ "mode", separator = { right = separator_right } } },
                 lualine_b = { "branch", "diff", "diagnostics" },
                 lualine_c = { "filename" },
                 lualine_x = {
@@ -99,7 +101,7 @@ return {
                 lualine_z = {{
                     "location",
                     padding = { left = 0, right = 1 },
-                    separator = separators,
+                    separator = { left = separator_left },
                 }},
             },
         })
