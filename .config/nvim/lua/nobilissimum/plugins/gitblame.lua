@@ -1,7 +1,7 @@
 return {
     "f-person/git-blame.nvim",
     name = "gitblame",
-    config = function ()
+    config = function()
         require("gitblame").setup({
             enabled = true,
             delay = 0,

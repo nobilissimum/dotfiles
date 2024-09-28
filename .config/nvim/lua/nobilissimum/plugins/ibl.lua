@@ -1,7 +1,7 @@
 return {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
-    config = function ()
+    config = function()
         local highlight = {
             "CursorColumn",
             "Whitespace",
