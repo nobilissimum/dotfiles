@@ -81,6 +81,7 @@ return {
                     },
                     {
                         "fileformat",
+                        separator = separators,
                         symbols = {
                             unix = "LF",
                             dos = "CRLF",
