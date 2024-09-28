@@ -1,11 +1,6 @@
 vim.opt.number = true
 vim.opt.relativenumber = false
 
-vim.opt.termguicolors = true
-vim.opt.cursorline = true
-vim.api.nvim_set_hl(0, "CursorLine", { bg = "#121c26" })
-vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "#121c26", fg = "#eeeeee" })
-
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 1
 vim.opt.shiftwidth = 0
