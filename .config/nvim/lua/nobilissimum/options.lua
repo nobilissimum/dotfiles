@@ -7,5 +7,8 @@ vim.opt.shiftwidth = 0
 vim.opt.expandtab = true
 vim.opt.autoindent = true
 
-vim.api.nvim_set_keymap("n", "j", "k", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "k", "j", { noremap = true, silent = true })
+local move_modes = { "n", "v", "s" }
+for _, move_mode in pairs(move_modes) do
+    vim.api.nvim_set_keymap(move_mode, "j", "k", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap(move_mode, "k", "j", { noremap = true, silent = true })
+end
