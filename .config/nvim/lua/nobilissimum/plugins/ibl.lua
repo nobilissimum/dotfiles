@@ -20,5 +20,22 @@ return {
             },
             scope = { enabled = false },
         })
+
+        local vim_eol = ""
+        local file_format = vim.bo.fileformat
+        if file_format == "dos" then
+            vim_eol = ""
+        else
+            vim_eol = "↓"
+        end
+
+        vim.opt.listchars = {
+            eol = vim_eol,
+            nbsp = "+",
+            space = "·",
+            tab = ">·",
+            trail = "·",
+        }
+        vim.opt.list = true
     end,
 }
