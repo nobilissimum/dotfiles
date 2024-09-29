@@ -1,3 +1,6 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -22,26 +25,5 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
-
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
-vim.g.have_nerd_font = true
-
-vim.opt.breakindent = true
-
-vim.opt.undofile = true
-
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
-vim.opt.signcolumn = "yes"
-
-vim.opt.updatetime = 250
-
-vim.opt.scrolloff = 10
-
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-
 
 require("nobilissimum.core")
