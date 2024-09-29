@@ -8,7 +8,7 @@ gui:
 
     theme:
         activeBorderColor:
-            - '#ffffff'
+            - '#74add2'
             - bold
 
         inactiveBorderColor:
