@@ -15,7 +15,8 @@ return {
             cyan = "#2d949f",
             white = "#eeeeee",
 
-            bright_black = "#203A4A",
+            bright_black = "#203a4a",
+            bright_black2 = "#1e2a36",
 
             hush_main = "#1D232E",
         }
@@ -24,33 +25,33 @@ return {
             normal = {
                 a = { fg = colors.bg, bg = colors.blue, gui = "bold" },
                 b = { fg = colors.fg, bg = colors.bright_black },
-                c = { fg = colors.fg, bg = colors.hush_main },
+                c = { fg = colors.fg, bg = colors.bright_black2 },
                 x = { fg = colors.fg, bg = colors.bright_black },
-                y = { fg = colors.fg, bg = colors.hush_main },
+                y = { fg = colors.fg, bg = colors.bright_black2 },
             },
             command = {
                 a = { fg = colors.bg, bg = colors.yellow, gui = "bold" },
                 b = { fg = colors.fg, bg = colors.bright_black },
                 x = { fg = colors.fg, bg = colors.bright_black },
-                y = { fg = colors.fg, bg = colors.hush_main },
+                y = { fg = colors.fg, bg = colors.bright_black2 },
             },
             insert = {
                 a = { fg = colors.bg, bg = colors.green, gui = "bold" },
                 b = { fg = colors.fg, bg = colors.bright_black },
                 x = { fg = colors.fg, bg = colors.bright_black },
-                y = { fg = colors.fg, bg = colors.hush_main },
+                y = { fg = colors.fg, bg = colors.bright_black2 },
             },
             visual = {
                 a = { fg = colors.bg, bg = colors.magenta, gui = "bold" },
                 b = { fg = colors.fg, bg = colors.bright_black },
                 x = { fg = colors.fg, bg = colors.bright_black },
-                y = { fg = colors.fg, bg = colors.hush_main },
+                y = { fg = colors.fg, bg = colors.bright_black2 },
             },
             replace = {
                 a = { fg = colors.bg, bg = colors.red, gui = "bold" },
                 b = { fg = colors.fg, bg = colors.bright_black },
                 x = { fg = colors.fg, bg = colors.bright_black },
-                y = { fg = colors.fg, bg = colors.hush_main },
+                y = { fg = colors.fg, bg = colors.bright_black2 },
             },
             inactive = {
                 a = { fg = colors.fg, bg = colors.bg, gui = "bold" },
