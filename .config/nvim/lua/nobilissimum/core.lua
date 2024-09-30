@@ -1,7 +1,15 @@
 local opts = {}
 
 require("lazy").setup(
-    { import = "nobilissimum.plugins" },
+    {
+        import = "nobilissimum.plugins",
+        ui = {
+            keymaps = {
+                ["j"] = "k",
+                ["k"] = "j",
+            },
+        },
+    },
     {
         checker = {
             enabled = true,
