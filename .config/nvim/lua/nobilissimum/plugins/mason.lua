@@ -48,6 +48,22 @@ return {
                     },
                 },
             })
+
+            if lspconfig.ruff_lsp then
+                lspconfig.ruff_lsp.setup({
+                    init_options = {
+                        settings = {
+                            enable = true,
+                            organizeImports = true,
+                            fixAll = true,
+                            lint = {
+                                enable = true,
+                                run = "onType",
+                            },
+                        },
+                    },
+                })
+            end
         end,
     },
 }
