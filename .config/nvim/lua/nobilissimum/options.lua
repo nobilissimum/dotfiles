@@ -9,17 +9,14 @@ vim.opt.softtabstop = 1
 vim.opt.shiftwidth = 0
 vim.opt.expandtab = true
 vim.opt.autoindent = true
-
 vim.opt.breakindent = true
 
 vim.g.have_nerd_font = true
-
 
 vim.opt.undofile = true
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-
 
 vim.opt.updatetime = 250
 
@@ -35,3 +32,7 @@ for _, move_mode in pairs(move_modes) do
     vim.keymap.set(move_mode, "j", "k", { noremap = true, silent = true })
     vim.keymap.set(move_mode, "k", "j", { noremap = true, silent = true })
 end
+
+
+-- Diagnostics keymaps
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
