@@ -4,6 +4,9 @@ return {
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "hrsh7th/nvim-cmp",
+            "hrsh7th/cmp-nvim-lsp",
+            "nvim-lua/plenary.nvim",
         },
         config = function()
             -- Vim options
@@ -29,8 +32,11 @@ return {
                 },
             })
 
-            -- Mason LSP config
-            local language_server_configurations = {
+            -- LSP configuration
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+            local server_configurations = {
                 lua_ls = {
                     settings = {
                         Lua = {
@@ -55,13 +61,21 @@ return {
                 },
             }
 
+            -- LSP installation
+            local ensure_installed = vim.tbl_keys(server_configurations or {})
+
+            -- Mason LSP config
             require("mason-lspconfig").setup({
+                ensure_installed = ensure_installed,
                 handlers = {
                     function(language_server_name)
-                        local server_configuration = language_server_configurations[language_server_name]
-                        if not server_configuration then
-                            return
-                        end
+                        local server_configuration = server_configurations[language_server_name] or {}
+                        server_configuration.capabilities = vim.tbl_deep_extend(
+                            "force",
+                            {},
+                            capabilities,
+                            server_configuration.capabilities or {}
+                        )
                         require("lspconfig")[language_server_name].setup(server_configuration)
                     end,
                 },
