@@ -1,6 +1,10 @@
 return {
     {
-        "williamboman/mason.nvim",
+        "neovim/nvim-lspconfig",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+        },
         config = function()
             require("mason").setup({
                 ui = {
@@ -15,11 +19,7 @@ return {
                     },
                 },
             })
-        end,
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        config = function()
+
             vim.diagnostic.config({
                 virtual_text = true,
                 signs = true,
@@ -33,11 +33,7 @@ return {
                     "lua_ls",
                 },
             })
-        end,
-    },
-    {
-        "neovim/nvim-lspconfig",
-        config = function()
+
             local lspconfig = require("lspconfig")
             lspconfig.lua_ls.setup({
                 settings = {
