@@ -1,6 +1,19 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.g.clipboard = {
+    name = "xclip",
+    copy = {
+        ["+"] = "xclip -selection clipboard",
+        ["*"] = "xclip -selection clipboard",
+    },
+    paste = {
+        ["+"] = "xclip -selection clipboard -o",
+        ["*"] = "xclip -selection clipboard -o",
+    },
+    cache_enabled = 0,
+}
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
