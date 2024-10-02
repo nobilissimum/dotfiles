@@ -6,6 +6,15 @@ return {
             "williamboman/mason-lspconfig.nvim",
         },
         config = function()
+            -- Vim options
+            vim.diagnostic.config({
+                virtual_text = true,
+                signs = true,
+                underline = true,
+                update_in_insert = true,
+            })
+
+            -- Mason
             require("mason").setup({
                 ui = {
                     icons = {
@@ -20,13 +29,7 @@ return {
                 },
             })
 
-            vim.diagnostic.config({
-                virtual_text = true,
-                signs = true,
-                underline = true,
-                update_in_insert = true,
-            })
-
+            -- Mason LSP config
             local language_server_configurations = {
                 lua_ls = {
                     settings = {
