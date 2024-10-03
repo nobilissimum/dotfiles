@@ -3,14 +3,11 @@ return {
     main = "ibl",
     config = function()
         local highlight = {
-            "CursorColumn",
+            "Indent",
             "Whitespace",
         }
 
-        local hooks = require("ibl.hooks")
-        hooks.register(hooks.type.HIGHLIGHT_SETUP, function ()
-            vim.api.nvim_set_hl(0, "CursorColumn", { bg = "#202733" })
-        end)
+        vim.api.nvim_set_hl(0, highlight[1], { bg = "#202733" })
 
         require("ibl").setup({
             indent = { highlight = highlight, char = "" },
