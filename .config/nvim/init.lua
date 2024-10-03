@@ -1,4 +1,4 @@
-GhostCharacterColor = "#6c7086"
+GhostCharacterColor = "#535b68"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
