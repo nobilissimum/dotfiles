@@ -19,6 +19,6 @@ return {
         vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#74add2", bold = true })
         vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#f77172", bold = true })
 
-        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#6c7086" }) -- #ffffff33 on #1d232e
+        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = GhostCharacterColor }) -- #ffffff33 on #1d232e
     end,
 }

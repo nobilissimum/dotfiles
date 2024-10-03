@@ -1,3 +1,5 @@
+GhostCharacterColor = "#6c7086"
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
