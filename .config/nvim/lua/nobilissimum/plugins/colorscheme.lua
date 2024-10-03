@@ -14,7 +14,10 @@ return {
         vim.cmd.colorscheme("catppuccin")
 
         vim.opt.cursorline = true
-        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#121c26" })
-        vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "#121c26", fg = "#eeeeee" })
+
+        local number_line_bg = "#121c26"
+        vim.api.nvim_set_hl(0, "CursorLine", { bg = number_line_bg })
+        vim.api.nvim_set_hl(0, "CursorLineNr", { bg = number_line_bg, fg = "#eeeeee" })
+        vim.api.nvim_set_hl(0, "CursorLineSign", { bg = number_line_bg })
     end,
 }
