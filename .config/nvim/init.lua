@@ -1,4 +1,5 @@
 GhostCharacterColor = "#535b68"
+NumberLineColor = "#121c26"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "

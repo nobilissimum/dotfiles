@@ -22,9 +22,8 @@ return {
 
         -- Cursor line
         vim.opt.cursorline = true
-        local number_line_bg = "#121c26"
-        vim.api.nvim_set_hl(0, "CursorLine", { bg = number_line_bg })
-        vim.api.nvim_set_hl(0, "CursorLineNr", { bg = number_line_bg, fg = "#eeeeee" })
-        vim.api.nvim_set_hl(0, "CursorLineSign", { bg = number_line_bg })
+        vim.api.nvim_set_hl(0, "CursorLine", { bg = NumberLineColor })
+        vim.api.nvim_set_hl(0, "CursorLineNr", { bg = NumberLineColor, fg = "#eeeeee" })
+        vim.api.nvim_set_hl(0, "CursorLineSign", { bg = NumberLineColor })
     end,
 }
