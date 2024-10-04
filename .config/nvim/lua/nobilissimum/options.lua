@@ -16,6 +16,9 @@ vim.opt.breakindent = true
 -- Fonts
 vim.g.have_nerd_font = true
 
+-- Modes
+vim.opt.showmode = false
+
 
 -- Utilities
 vim.opt.undofile = true
