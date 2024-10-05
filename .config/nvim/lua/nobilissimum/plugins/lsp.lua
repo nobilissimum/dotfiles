@@ -9,7 +9,7 @@ return {
             "nvim-lua/plenary.nvim",
         },
         config = function()
-            -- Vim options
+            -- Vim diagnostic
             vim.diagnostic.config({
                 virtual_text = true,
                 signs = true,
@@ -33,8 +33,12 @@ return {
             })
 
             -- LSP configuration
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+            local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
+
+            -- CMP configuration
+            local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+            local capabilities = vim.tbl_deep_extend("force", lsp_capabilities, cmp_capabilities)
 
             local server_configurations = {
                 lua_ls = {
