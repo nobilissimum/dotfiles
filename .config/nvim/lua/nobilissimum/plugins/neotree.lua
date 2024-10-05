@@ -38,9 +38,9 @@ return {
                         renamed = "󰁕",
 
                         untracked = "",
-                        ignored = "",
-                        unstaged = "",
-                        staged = "",
+                        ignored = "",
+                        unstaged = "",
+                        staged = "󰏫",
                         conflict = "",
                     },
                 },
