@@ -62,8 +62,8 @@ return {
             },
         }
 
-        local separator_left = ""
-        local separator_right = ""
+        local separator_left = ""
+        local separator_right = ""
         local separators = { left = separator_left, right = separator_right }
 
         require("lualine").setup({
