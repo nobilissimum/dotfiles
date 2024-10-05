@@ -70,7 +70,7 @@ return {
         vim.api.nvim_set_hl(0, "LualineGitAdded", { fg = colors.green, bg = colors.bright_black, bold = true })
         vim.api.nvim_set_hl(0, "LualineGitModified", { fg = colors.blue, bg = colors.bright_black, bold = true })
         vim.api.nvim_set_hl(0, "LualineGitRemoved", { fg = colors.red, bg = colors.bright_black, bold = true })
-        vim.api.nvim_set_hl(0, "LualineGitUntracked", { fg = colors.yellow, bg = colors.bright_black, bold = true })
+        vim.api.nvim_set_hl(0, "LualineGitUntracked", { fg = colors.magenta, bg = colors.bright_black, bold = true })
         vim.api.nvim_set_hl(0, "LualineGitStaged", { fg = colors.cyan, bg = colors.bright_black, bold = true })
 
         require("lualine").setup({
