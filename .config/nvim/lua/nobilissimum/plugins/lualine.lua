@@ -66,6 +66,13 @@ return {
         local separator_right = ""
         local separators = { left = separator_left, right = separator_right }
 
+        -- Git status colors
+        vim.api.nvim_set_hl(0, "LualineGitAdded", { fg = colors.green, bg = colors.bright_black, bold = true })
+        vim.api.nvim_set_hl(0, "LualineGitModified", { fg = colors.blue, bg = colors.bright_black, bold = true })
+        vim.api.nvim_set_hl(0, "LualineGitRemoved", { fg = colors.red, bg = colors.bright_black, bold = true })
+        vim.api.nvim_set_hl(0, "LualineGitUntracked", { fg = colors.yellow, bg = colors.bright_black, bold = true })
+        vim.api.nvim_set_hl(0, "LualineGitStaged", { fg = colors.cyan, bg = colors.bright_black, bold = true })
+
         require("lualine").setup({
             options = {
                 theme = hush_theme,
@@ -75,7 +82,53 @@ return {
             },
             sections = {
                 lualine_a = {{ "mode", separator = { right = separator_right } } },
-                lualine_b = { "branch", "diff", "diagnostics" },
+                lualine_b = {
+                    "branch",
+                    {
+                        function()
+                            local gitsigns = vim.b.gitsigns_status_dict
+                            if not gitsigns then return "" end
+
+                            local added = gitsigns.added or 0
+                            local modified = gitsigns.changed or 0
+                            local removed = gitsigns.removed or 0
+                            local untracked = gitsigns.untracked or 0
+                            local staged = gitsigns.staged or 0
+
+                            local diff = {}
+                            local diff_sign_separator = " "
+
+                            if added > 0 then
+                                table.insert(diff, "%#LualineGitAdded#" .. string.format(" %s", added))
+                            end
+
+                            if modified > 0 then
+                                local diff_separator = #diff > 0 and diff_sign_separator or ""
+                                table.insert(diff, diff_separator .. "%#LualineGitModified#" .. string.format(" %s", modified))
+                            end
+
+                            if removed > 0 then
+                                local diff_separator = #diff > 0 and diff_sign_separator or ""
+                                table.insert(diff, diff_separator .. "%#LualineGitRemoved#" .. string.format(" %s", removed))
+                            end
+
+                            if untracked > 0 then
+                                local diff_separator = #diff > 0 and diff_sign_separator or ""
+                                table.insert(diff, diff_separator .. "%#LualineGitUntracked#" .. string.format(" %s", untracked))
+                            end
+
+                            if staged > 0 then
+                                local diff_separator = #diff > 0 and diff_sign_separator or ""
+                                table.insert(diff, diff_separator .. "%#LualineGitStaged#" .. string.format("󰏫 %s", staged))
+                            end
+
+                            return table.concat(diff)
+                        end,
+                        color = {},
+                        icons_enabled = true,
+                    },
+                    "diagnostics",
+                },
                 lualine_c = {{ "filename", path = 1 }},
                 lualine_x = {
                     {
