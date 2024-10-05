@@ -28,7 +28,7 @@ return {
 
         vim.opt.listchars = {
             eol = vim_eol,
-            nbsp = "␣",
+            nbsp = "+",
             tab = "» ",
             lead = "·",
             trail = "·",
