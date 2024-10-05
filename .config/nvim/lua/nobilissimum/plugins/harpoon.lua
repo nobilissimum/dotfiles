@@ -23,13 +23,13 @@ return {
             }):find()
         end
 
-        vim.keymap.set(
-            "n",
-            "<F2>",
-            function()
-                toggle_telescope(harpoon:list())
-            end,
-            { desc = "Open harpoon window" }
-        )
+        -- vim.keymap.set(
+        --     "n",
+        --     "<F2>",
+        --     function()
+        --         toggle_telescope(harpoon:list())
+        --     end,
+        --     { desc = "Open harpoon window" }
+        -- )
     end,
 }
