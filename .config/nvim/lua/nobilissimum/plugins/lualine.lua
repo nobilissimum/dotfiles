@@ -76,7 +76,7 @@ return {
             sections = {
                 lualine_a = {{ "mode", separator = { right = separator_right } } },
                 lualine_b = { "branch", "diff", "diagnostics" },
-                lualine_c = { "filename" },
+                lualine_c = {{ "filename", path = 1 }},
                 lualine_x = {
                     {
                         "encoding",
