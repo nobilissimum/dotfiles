@@ -29,3 +29,9 @@ config.hide_tab_bar_if_only_one_tab = true
 config.window_close_confirmation = "NeverPrompt"
 
 return config
+
+-- Add this to ~/.config/wezterm/wezterm.lua
+
+-- local config = require("wezterm-nobilissimum")
+-- config.default_prog = { "C:\\Windows\\System32\\wsl.exe", "-d", "Ubuntu-24.04", "--cd", "~" }
+-- return config
