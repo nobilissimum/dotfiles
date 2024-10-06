@@ -16,7 +16,7 @@ config.font_size = 10
 config.color_scheme = "Catppuccin Macchiato"
 
 -- Spacing
-config.line_height = 1.4
+config.line_height = 1.6
 config.window_padding = {
     left = 0,
     right = 0,
