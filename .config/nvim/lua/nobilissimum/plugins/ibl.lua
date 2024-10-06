@@ -31,6 +31,7 @@ return {
             nbsp = "+",
             tab = "» ",
             lead = "·",
+            space = "·",
             trail = "·",
         }
         vim.opt.list = true
