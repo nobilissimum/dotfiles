@@ -106,10 +106,10 @@ export TERM="tmux-256color"
 
     #####################################[ vcs: git status ]######################################
     # Version control background colors.
-    typeset -g POWERLEVEL9K_VCS_BEHIND_FOREGROUND=7
+    typeset -g POWERLEVEL9K_VCS_BEHIND_FOREGROUND=0
     typeset -g POWERLEVEL9K_VCS_BEHIND_BACKGROUND=4
 
-    typeset -g POWERLEVEL9K_VCS_AHEAD_FOREGROUND=7
+    typeset -g POWERLEVEL9K_VCS_AHEAD_FOREGROUND=0
     typeset -g POWERLEVEL9K_VCS_AHEAD_BACKGROUND=4
 
     typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=0
