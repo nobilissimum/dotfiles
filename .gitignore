@@ -1,3 +1,7 @@
 .zshrc
 
+# Alacritty terminal
 alacritty.toml
+
+# Wezterm
+wezterm.lua
