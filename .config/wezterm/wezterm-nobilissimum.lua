@@ -10,7 +10,7 @@ config.font = wezterm.font_with_fallback({
     { family = "Source Code Pro", harfbuzz_features = { "calt=0", "clig=0", "liga=0" }},
     { family = "SauceCodePro Nerd Font", harfbuzz_features = { "calt=0", "clig=0", "liga=0" }},
 })
-config.font_size = 10
+config.font_size = 10.5
 
 -- Colors
 config.colors = {
@@ -49,7 +49,7 @@ config.colors = {
 }
 
 -- Spacing
-config.line_height = 1.6
+config.line_height = 1.45
 config.window_padding = {
     left = 0,
     right = 0,
