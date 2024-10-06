@@ -15,7 +15,7 @@ return {
             cyan = "#2d949f",
             white = "#eeeeee",
 
-            bright_black = "#203a4a",
+            bright_black = "#313244",
             bright_black2 = "#1e2a36",
 
             hush_main = "#1a232e",

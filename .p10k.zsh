@@ -79,7 +79,7 @@ export TERM="tmux-256color"
 
     ##################################[ dir: current directory ]##################################
     # Current directory background color.
-    typeset -g POWERLEVEL9K_DIR_BACKGROUND="#203a4a"
+    typeset -g POWERLEVEL9K_DIR_BACKGROUND="#313244"
     typeset -g POWERLEVEL9K_DIR_FOREGROUND=7
     typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
     typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
