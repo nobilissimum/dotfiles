@@ -57,6 +57,7 @@ config.window_padding = {
     top = 1,
     bottom = 0,
 }
+config.scrollback_lines = 9999
 
 -- Window and tabs
 config.hide_tab_bar_if_only_one_tab = true
