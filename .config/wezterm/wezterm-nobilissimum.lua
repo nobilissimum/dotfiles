@@ -15,7 +15,7 @@ config.font_size = 10
 -- Colors
 config.colors = {
     foreground = "silver",
-    background = "#1D232E",
+    background = "#1d232e",
 
     cursor_bg = "silver",
     cursor_fg = "black",
