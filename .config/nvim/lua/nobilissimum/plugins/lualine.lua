@@ -109,7 +109,7 @@ return {
 
                             if removed > 0 then
                                 local diff_separator = #diff > 0 and diff_sign_separator or ""
-                                table.insert(diff, diff_separator .. "%#LualineGitRemoved#" .. string.format(" %s", removed))
+                                table.insert(diff, diff_separator .. "%#LualineGitRemoved#" .. string.format("󰇾 %s", removed))
                             end
 
                             if untracked > 0 then

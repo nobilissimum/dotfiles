@@ -34,7 +34,7 @@ return {
                     symbols = {
                         added = "",
                         modified = "",
-                        deleted = "",
+                        deleted = "󰇾",
                         renamed = "󰁕",
 
                         untracked = "",
