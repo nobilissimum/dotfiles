@@ -13,7 +13,6 @@ config.font = wezterm.font_with_fallback({
 config.font_size = 10
 
 -- Colors
--- config.color_scheme = "Catppuccin Macchiato"
 config.colors = {
     foreground = "silver",
     background = "#1D232E",
