@@ -18,7 +18,7 @@ return {
             bright_black = "#203a4a",
             bright_black2 = "#1e2a36",
 
-            hush_main = "#1D232E",
+            hush_main = "#1a232e",
         }
 
         local hush_theme = {
