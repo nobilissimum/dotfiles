@@ -13,7 +13,41 @@ config.font = wezterm.font_with_fallback({
 config.font_size = 10
 
 -- Colors
-config.color_scheme = "Catppuccin Macchiato"
+-- config.color_scheme = "Catppuccin Macchiato"
+config.colors = {
+    foreground = "silver",
+    background = "#1D232E",
+
+    cursor_bg = "silver",
+    cursor_fg = "black",
+
+    cursor_border = "#52ad70",
+
+    selection_fg = "black",
+    selection_bg = "#fffacd",
+
+    ansi = {
+        "#000000",
+        "#f77172",
+        "#65a884",
+        "#65a884",
+        "#74add2",
+        "#a980c4",
+        "#2d949f",
+        "#eeeeee",
+    },
+
+    brights = {
+        "#000000",
+        "#f77172",
+        "#65a884",
+        "#65a884",
+        "#74add2",
+        "#a980c4",
+        "#2d949f",
+        "#eeeeee",
+    },
+}
 
 -- Spacing
 config.line_height = 1.6
@@ -29,9 +63,3 @@ config.hide_tab_bar_if_only_one_tab = true
 config.window_close_confirmation = "NeverPrompt"
 
 return config
-
--- Add this to ~/.config/wezterm/wezterm.lua
-
--- local config = require("wezterm-nobilissimum")
--- config.default_prog = { "C:\\Windows\\System32\\wsl.exe", "-d", "Ubuntu-24.04", "--cd", "~" }
--- return config
