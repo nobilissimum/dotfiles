@@ -130,7 +130,7 @@
 
     # Untracked files icon. It's really a question mark, your font isn't broken.
     # Change the value of this parameter to show a different icon.
-    typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
+    typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON=''
 
     # Formatter for Git status.
     #
