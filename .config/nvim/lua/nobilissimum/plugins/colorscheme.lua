@@ -15,9 +15,9 @@ return {
         vim.cmd.colorscheme("catppuccin")
 
         -- Ghost characters
-        vim.api.nvim_set_hl(0, "Whitespace", { fg = GhostCharacterColor })
-        vim.api.nvim_set_hl(0, "NonText", { fg = GhostCharacterColor })
-        vim.api.nvim_set_hl(0, "SpecialKey", { fg = GhostCharacterColor })
+        vim.api.nvim_set_hl(0, "Whitespace", { fg = GhostCharacterColor2 })
+        vim.api.nvim_set_hl(0, "NonText", { fg = GhostCharacterColor2 })
+        vim.api.nvim_set_hl(0, "SpecialKey", { fg = GhostCharacterColor2 })
 
 
         -- Cursor line
