@@ -1,5 +1,6 @@
 GhostCharacterColor = "#535b68"
 GhostCharacterColor2 = "#393c4d"
+GhostCharacterColor3 = "#1e2a36"
 NumberLineColor = "#121c26"
 
 vim.g.mapleader = " "
