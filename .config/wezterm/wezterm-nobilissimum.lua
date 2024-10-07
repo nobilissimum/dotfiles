@@ -10,6 +10,37 @@ config.font = wezterm.font_with_fallback({
     { family = "Source Code Pro", harfbuzz_features = { "calt=0", "clig=0", "liga=0" }},
     { family = "SauceCodePro Nerd Font", harfbuzz_features = { "calt=0", "clig=0", "liga=0" }},
 })
+config.font_rules = {
+    -- Bold
+    {
+        intensity = "Bold",
+        italic = false,
+        font = wezterm.font_with_fallback({ "Source Code Pro ExtraBold" }),
+    },
+    {
+        intensity = "Bold",
+        italic = true,
+        font = wezterm.font_with_fallback({
+            family = "Source Code Pro ExtraBold",
+            italic = true,
+        }),
+    },
+
+    -- Half
+    {
+        intensity = "Half",
+        italic = false,
+        font = wezterm.font_with_fallback({ "Source Code Pro ExtraBold" }),
+    },
+    {
+        intensity = "Half",
+        italic = true,
+        font = wezterm.font_with_fallback({
+            family = "Source Code Pro ExtraBold",
+            italic = true,
+        }),
+    },
+}
 config.font_size = 10
 
 -- Colors
