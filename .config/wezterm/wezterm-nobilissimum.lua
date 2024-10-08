@@ -30,7 +30,7 @@ config.font_rules = {
     {
         intensity = "Half",
         italic = false,
-        font = wezterm.font_with_fallback({ "Source Code Pro ExtraBold" }),
+        font = wezterm.font_with_fallback({ "Source Code Pro Bold" }),
     },
     -- {
     --     intensity = "Half",
