@@ -17,14 +17,14 @@ config.font_rules = {
         italic = false,
         font = wezterm.font_with_fallback({ "Source Code Pro ExtraBold" }),
     },
-    {
-        intensity = "Bold",
-        italic = true,
-        font = wezterm.font_with_fallback({
-            family = "Source Code Pro ExtraBold",
-            italic = true,
-        }),
-    },
+    -- {
+    --     intensity = "Bold",
+    --     italic = true,
+    --     font = wezterm.font_with_fallback({
+    --         family = "Source Code Pro ExtraBold",
+    --         italic = true,
+    --     }),
+    -- },
 
     -- Half
     {
@@ -32,14 +32,14 @@ config.font_rules = {
         italic = false,
         font = wezterm.font_with_fallback({ "Source Code Pro ExtraBold" }),
     },
-    {
-        intensity = "Half",
-        italic = true,
-        font = wezterm.font_with_fallback({
-            family = "Source Code Pro ExtraBold",
-            italic = true,
-        }),
-    },
+    -- {
+    --     intensity = "Half",
+    --     italic = true,
+    --     font = wezterm.font_with_fallback({
+    --         family = "Source Code Pro ExtraBold",
+    --         italic = true,
+    --     }),
+    -- },
 }
 config.font_size = 10
 
