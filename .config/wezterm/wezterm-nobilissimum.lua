@@ -93,4 +93,10 @@ config.scrollback_lines = 9999
 config.hide_tab_bar_if_only_one_tab = true
 config.window_close_confirmation = "NeverPrompt"
 
+
+-- Keybinds
+config.keys = {
+    { key = "v", mods = "CTRL", action = wezterm.action.PasteFrom("Clipboard") },
+}
+
 return config
