@@ -1,3 +1,7 @@
+# Neovim
+NEOVIM_HOME="/usr/bin/nvim"
+[[ -d "$NEOVIM_HOME" ]] && export PATH="$PATH:$NEOVIM_HOME/bin"
+
 # Lazy
 if ! luarocks --version $COMMAND &> /dev/null; then
     [[ "$OSTYPE" == "linux-gnu"* ]] && sudo apt install luarocks -y &> /dev/null
