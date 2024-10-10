@@ -5,6 +5,7 @@ return {
             -- LSP
             { "williamboman/mason.nvim", config = true },
             "williamboman/mason-lspconfig.nvim",
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
 
             -- Code suggestion
             "hrsh7th/nvim-cmp",
@@ -114,7 +115,6 @@ return {
                         },
                     },
                 },
-                stylua = {},
 
                 -- Python
                 ruff_lsp = {
@@ -134,6 +134,15 @@ return {
 
             -- LSP installation
             local ensure_installed = vim.tbl_keys(server_configurations or {})
+            require("mason-tool-installer").setup({
+                ensured_installed = vim.tbl_deep_extend(
+                    "force",
+                    ensure_installed,
+                    {
+                        "stylua",
+                    }
+                ),
+            })
 
             -- Mason LSP config
             require("mason-lspconfig").setup({
