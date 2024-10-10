@@ -20,6 +20,7 @@ return {
                 update_in_insert = true,
             })
 
+            -- LSP keymaps
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("nobilissimum-lsp-attach", { clear = true }),
                 callback = function(event)
