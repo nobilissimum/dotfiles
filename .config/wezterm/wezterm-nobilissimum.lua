@@ -53,7 +53,7 @@ config.colors = {
         "#74add2",
         "#a980c4",
         "#2d949f",
-        "#eeeeee",
+        "#ffffff",
     },
 
     brights = {
@@ -64,7 +64,7 @@ config.colors = {
         "#74add2",
         "#a980c4",
         "#2d949f",
-        "#eeeeee",
+        "#ffffff",
     },
 }
 
