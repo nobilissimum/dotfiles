@@ -16,7 +16,7 @@ return {
             -- Vim diagnostic
             vim.diagnostic.config({
                 virtual_text = true,
-                signs = true,
+                signs = false,
                 underline = true,
                 update_in_insert = true,
             })
