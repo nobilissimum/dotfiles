@@ -5,43 +5,32 @@ if wezterm.config_builder then
     config = wezterm.config_builder()
 end
 
+
 -- Font
+local base_font = "Source Code Pro"
+local nerd_font = "SauceCodePro Nerd Font"
+
 config.font = wezterm.font_with_fallback({
-    { family = "Source Code Pro", harfbuzz_features = { "calt=0", "clig=0", "liga=0" }},
-    { family = "SauceCodePro Nerd Font", harfbuzz_features = { "calt=0", "clig=0", "liga=0" }},
+    { family = base_font, harfbuzz_features = { "calt=0", "clig=0", "liga=0" }},
+    { family = nerd_font, harfbuzz_features = { "calt=0", "clig=0", "liga=0" }},
 })
 config.font_rules = {
     -- Bold
     {
         intensity = "Bold",
         italic = false,
-        font = wezterm.font_with_fallback({ "Source Code Pro ExtraBold" }),
+        font = wezterm.font_with_fallback({ base_font .. " ExtraBold" }),
     },
-    -- {
-    --     intensity = "Bold",
-    --     italic = true,
-    --     font = wezterm.font_with_fallback({
-    --         family = "Source Code Pro ExtraBold",
-    --         italic = true,
-    --     }),
-    -- },
 
     -- Half
     {
         intensity = "Half",
         italic = false,
-        font = wezterm.font_with_fallback({ "Source Code Pro Bold" }),
+        font = wezterm.font_with_fallback({ base_font .. " Bold" }),
     },
-    -- {
-    --     intensity = "Half",
-    --     italic = true,
-    --     font = wezterm.font_with_fallback({
-    --         family = "Source Code Pro ExtraBold",
-    --         italic = true,
-    --     }),
-    -- },
 }
 config.font_size = 10
+
 
 -- Colors
 config.colors = {
@@ -79,6 +68,7 @@ config.colors = {
     },
 }
 
+
 -- Spacing
 config.line_height = 1.25
 config.window_padding = {
@@ -87,7 +77,15 @@ config.window_padding = {
     top = 1,
     bottom = 0,
 }
+
+
+-- Scrolling
 config.scrollback_lines = 9999
+config.keys = {
+    { key = "PageUp", mods = "SHIFT", action = wezterm.action.ScrollByPage(-1) },
+    { key = "PageDown", mods = "SHIFT", action = wezterm.action.ScrollByPage(1) },
+}
+
 
 -- Window and tabs
 config.hide_tab_bar_if_only_one_tab = true
