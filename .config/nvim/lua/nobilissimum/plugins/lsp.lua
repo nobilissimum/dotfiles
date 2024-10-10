@@ -132,6 +132,9 @@ return {
                 },
             }
 
+            -- LSP installation
+            local ensure_installed = vim.tbl_keys(server_configurations or {})
+
             -- Mason LSP config
             require("mason-lspconfig").setup({
                 ensure_installed = ensure_installed,
