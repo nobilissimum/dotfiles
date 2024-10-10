@@ -78,6 +78,9 @@ return {
                 end,
             })
 
+            -- LSP configurations
+            require("nobilissimum.lsp.python")
+
             -- Mason
             require("mason").setup({
                 ui = {
@@ -117,6 +120,18 @@ return {
                 },
 
                 -- Python
+                pyright = {
+                    settings = {
+                        pyright = {
+                            disableOrganizeImports = true,
+                        },
+                        python = {
+                            analysis = {
+                                ignore = { "*" },
+                            },
+                        },
+                    },
+                },
                 ruff_lsp = {
                     init_options = {
                         settings = {
