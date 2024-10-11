@@ -1,11 +1,40 @@
 inittools () {
-    if ! luarocks --version $COMMAND &> /dev/null; then
+    # Build and C
+    make --version $COMMAND &> /dev/null || sudo apt install build-essential
+    gcc --version $COMMAND &> /dev/null || sudo apt install gcc g++
+
+    # zip
+    zip $COMMAND &> /dev/null || sudo apt install zip
+    unzip $COMMAND &> /dev/null | sudo apt install unzip
+
+    # cd
+    if ! zoxide --version $COMMAND &> /dev/null; then
         sudo curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sudo sh
     fi
+
+    # ls
     if ! eza --version $COMMAND &> /dev/null; then
         [[ "$OSTYPE" == "linux-gnu"* ]] && sudo apt install eza -y &> /dev/null
         [[ "$OSTYPE" == "darwin"* ]] && sudo brew install eza -y &> /dev/null
     fi
+
+    # yazi
+    ffmpegthumbnailer -v $COMMAND &> /dev/null || sudo apt install ffmpegthumbnailer -y
+    7z $COMMAND &> /dev/null || sudo apt install p7zip-full -y
+    jq --version $COMMAND &> /dev/null || sudo apt install jq -y
+    pdftoppm -v $COMMAND &> /dev/null || sudo apt install poppler-utils -y
+    fdfind --version $COMMAND &> /dev/null || sudo apt install fd-find -y
+    rg --version $COMMAND &> /dev/null || sudo apt install ripgrep -y
+    fzf --version $COMMAND &> /dev/null || sudo apt install fzf -y
+    convert --version $COMMAND &> /dev/null || sudo apt install imagemagick -y
+    xclip -version $COMMAND &> /dev/null || sud apt install xclip -y
+}
+
+
+initrust () {
+    # If err, try running commands individually
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    rustup update
 }
 
 
