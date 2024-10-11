@@ -105,4 +105,9 @@ config.keys = {
     { key = "v", mods = "CTRL", action = wezterm.action.PasteFrom("Clipboard") },
 }
 
+
+-- Rendering
+config.enable_wayland = true
+config.use_ime = true
+
 return config
