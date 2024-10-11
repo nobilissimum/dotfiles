@@ -19,7 +19,7 @@ gui:
             - bold
 
     showIcons: true
-    nerdFontsVersion: '2'
+    nerdFontsVersion: '3'
     showFileIcons: true
 
     border: 'rounded'
