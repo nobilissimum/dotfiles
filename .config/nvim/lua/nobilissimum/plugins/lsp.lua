@@ -89,10 +89,6 @@ return {
                         package_installed = " ",
                         package_uninstalled = " ",
                     },
-                    keymaps = {
-                        ["j"] = "k",
-                        ["k"] = "j",
-                    },
                 },
             })
 

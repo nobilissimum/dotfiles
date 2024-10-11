@@ -9,14 +9,6 @@ return {
     },
     config = function()
         require("telescope").setup({
-            defaults = {
-                mappings = {
-                    n = {
-                        ["j"] = require("telescope.actions").move_selection_previous,
-                        ["k"] = require("telescope.actions").move_selection_next,
-                    },
-                },
-            },
             extensions = {
                 fzf = {
                     fuzzy = true,

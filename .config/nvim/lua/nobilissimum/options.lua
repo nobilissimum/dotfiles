@@ -35,14 +35,6 @@ vim.opt.smartcase = true
 vim.opt.scrolloff = 10
 
 
--- Movement keymaps
-local move_modes = { "n", "v", "s" }
-for _, move_mode in pairs(move_modes) do
-    vim.keymap.set(move_mode, "j", "k", { noremap = true, silent = true })
-    vim.keymap.set(move_mode, "k", "j", { noremap = true, silent = true })
-end
-
-
 -- Other keymaps
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
