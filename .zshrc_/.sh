@@ -42,39 +42,14 @@ zinit cdreplay -q
 # ZShell configuration
 ZSH_DIR="$HOME/.zshrc_"
 
-ZSH_SH="$ZSH_DIR/config.sh"
-[[ -f "$ZSH_SH" ]] && source "$ZSH_SH"
-
-
 # Initialize tools
-TOOLS_SH="$ZSH_DIR/tools.sh"
-[[ -f "$TOOLS_SH" ]] && source "$TOOLS_SH"
-
-
-# Initialize aliases
-ALIAS_SH="$ZSH_DIR/alias.sh"
-[[ -f "$ALIAS_SH" ]] && source "$ALIAS_SH"
-
-
-# Initialize utility functions
-FUNC_SH="$ZSH_DIR/func.sh"
-[[ -f "$FUNC_SH" ]] && source "$FUNC_SH"
-
-
-# Initialize environment variables
-ENV_SH="$ZSH_DIR/env.sh"
-[[ -f "$ENV_SH" ]] && source "$ENV_SH"
-
-
-# Initialize credentials utilities
-ENV_CREDS="$ZSH_DIR/credentials.sh"
-[[ -f "$ENV_CREDS" ]] && source "$ENV_CREDS"
-
-
-# Install prerequisites of neovim
-ENV_NVIM="$ZSH_DIR/nvim.sh"
-[[ -f "$ENV_NVIM" ]] && source "$ENV_NVIM"
-
+source "$ZSH_DIR/config.sh"
+source "$ZSH_DIR/tools.sh"
+source "$ZSH_DIR/alias.sh"
+source "$ZSH_DIR/func.sh"
+source "$ZSH_DIR/env.sh"
+source "$ZSH_DIR/credentials.sh"
+source "$ZSH_DIR/nvim.sh"
 
 # Use powerlevel10k theme
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh

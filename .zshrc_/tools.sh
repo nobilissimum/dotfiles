@@ -1,3 +1,14 @@
+inittools () {
+    if ! luarocks --version $COMMAND &> /dev/null; then
+        sudo curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sudo sh
+    fi
+    if ! eza --version $COMMAND &> /dev/null; then
+        [[ "$OSTYPE" == "linux-gnu"* ]] && sudo apt install eza -y &> /dev/null
+        [[ "$OSTYPE" == "darwin"* ]] && sudo brew install eza -y &> /dev/null
+    fi
+}
+
+
 # Resolve Python modules
 path+=('$HOME/.local/bin')
 export PATH=$PATH:$HOME/.local/bin
@@ -33,8 +44,6 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 # Zoxide
 if zoxide --version $COMMAND &> /dev/null; then
     eval "$(zoxide init --cmd cd zsh)"
-else
-    sudo curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sudo sh
 fi
 
 # OhMyPosh

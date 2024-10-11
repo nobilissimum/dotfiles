@@ -1,9 +1,8 @@
-if ! eza --version $COMMAND &> /dev/null; then
-    [[ "$OSTYPE" == "linux-gnu"* ]] && sudo apt install eza -y &> /dev/null
-    [[ "$OSTYPE" == "darwin"* ]] && sudo brew install eza -y &> /dev/null
+ls_alias="ls --color=always"
+if eza --version $COMMAND &> /dev/null; then
+    ls_alias="eza --color=always --long --git --icons=always"
 fi
-
-alias ls='eza --color=always --long --git --icons=always'
+alias ls=$ls_alias
 alias ll='ls --color -AlhF'
 alias la='ls --color -Ah'
 
