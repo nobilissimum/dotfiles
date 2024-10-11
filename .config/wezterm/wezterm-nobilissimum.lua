@@ -22,7 +22,7 @@ config.font_rules = {
         italic = false,
         font = wezterm.font_with_fallback({
             { family = base_font .. " ExtraBold", harfbuzz_features = harfbuzz_features },
-            { family = nerd_font, harfbuzz_faetures = harfbuzz_features },
+            { family = nerd_font, harfbuzz_features = harfbuzz_features },
         }),
     },
 
@@ -32,7 +32,7 @@ config.font_rules = {
         italic = false,
         font = wezterm.font_with_fallback({
             { family = base_font .. " Bold", harfbuzz_features = harfbuzz_features },
-            { family = nerd_font, harfbuzz_faetures = harfbuzz_features },
+            { family = nerd_font, harfbuzz_features = harfbuzz_features },
 
         }),
     },
