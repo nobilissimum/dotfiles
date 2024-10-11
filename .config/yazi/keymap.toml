@@ -1,9 +1,58 @@
+# Manager
 [[manager.prepend_keymap]]
 on = "j"
 run = "arrow -1"
 desc = "Move up"
 
 [[manager.prepend_keymap]]
+on = "k"
+run = "arrow 1"
+desc = "Move up"
+
+
+# Tasks
+[[tasks.prepend_keymap]]
+on = "j"
+run = "arrow -1"
+desc = "Move up"
+
+[[tasks.prepend_keymap]]
+on = "k"
+run = "arrow 1"
+desc = "Move up"
+
+
+# Select
+[[select.prepend_keymap]]
+on = "j"
+run = "arrow -1"
+desc = "Move up"
+
+[[select.prepend_keymap]]
+on = "k"
+run = "arrow 1"
+desc = "Move up"
+
+
+# Completion
+[[completion.prepend_keymap]]
+on = "j"
+run = "arrow -1"
+desc = "Move up"
+
+[[completion.prepend_keymap]]
+on = "k"
+run = "arrow 1"
+desc = "Move up"
+
+
+# Help
+[[help.prepend_keymap]]
+on = "j"
+run = "arrow -1"
+desc = "Move up"
+
+[[help.prepend_keymap]]
 on = "k"
 run = "arrow 1"
 desc = "Move up"
