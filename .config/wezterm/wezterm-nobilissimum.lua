@@ -10,23 +10,31 @@ end
 local base_font = "Source Code Pro"
 local nerd_font = "SauceCodePro Nerd Font"
 
+local harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 config.font = wezterm.font_with_fallback({
-    { family = base_font, harfbuzz_features = { "calt=0", "clig=0", "liga=0" }},
-    { family = nerd_font, harfbuzz_features = { "calt=0", "clig=0", "liga=0" }},
+    { family = base_font, harfbuzz_features = harfbuzz_features },
+    { family = nerd_font, harfbuzz_features = harfbuzz_features },
 })
 config.font_rules = {
     -- Bold
     {
         intensity = "Bold",
         italic = false,
-        font = wezterm.font_with_fallback({ base_font .. " ExtraBold" }),
+        font = wezterm.font_with_fallback({
+            { family = base_font .. " ExtraBold", harfbuzz_features = harfbuzz_features },
+            { family = nerd_font, harfbuzz_faetures = harfbuzz_features },
+        }),
     },
 
     -- Half
     {
         intensity = "Half",
         italic = false,
-        font = wezterm.font_with_fallback({ base_font .. " Bold" }),
+        font = wezterm.font_with_fallback({
+            { family = base_font .. " Bold", harfbuzz_features = harfbuzz_features },
+            { family = nerd_font, harfbuzz_faetures = harfbuzz_features },
+
+        }),
     },
 }
 config.font_size = 10
