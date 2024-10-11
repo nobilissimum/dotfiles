@@ -79,18 +79,19 @@ return {
             end,
         })
 
-        local add_color = "#65a884"
+        -- Git signs
+        local add_color = Colors.green
         vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = add_color, bold = true })
-        vim.api.nvim_set_hl(0, "GitSignsAddCul", { fg = add_color, bg = NumberLineColor, bold = true })
+        vim.api.nvim_set_hl(0, "GitSignsAddCul", { fg = add_color, bg = Colors.hush.dark, bold = true })
 
-        local change_color = "#74add2"
+        local change_color = Colors.blue
         vim.api.nvim_set_hl(0, "GitSignsChange", { fg = change_color, bold = true })
-        vim.api.nvim_set_hl(0, "GitSignsChangeCul", { fg = change_color, bg = NumberLineColor, bold = true })
+        vim.api.nvim_set_hl(0, "GitSignsChangeCul", { fg = change_color, bg = Colors.hush.dark, bold = true })
 
-        local delete_color = "#f77172"
+        local delete_color = Colors.red
         vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = delete_color, bold = true })
-        vim.api.nvim_set_hl(0, "GitSignsDeleteCul", { fg = delete_color, bg = NumberLineColor, bold = true })
+        vim.api.nvim_set_hl(0, "GitSignsDeleteCul", { fg = delete_color, bg = Colors.hush.dark, bold = true })
 
-        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = GhostCharacterColor })
+        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = Colors.bright_black })
     end,
 }

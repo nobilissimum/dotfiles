@@ -15,15 +15,15 @@ return {
         vim.cmd.colorscheme("catppuccin")
 
         -- Ghost characters
-        vim.api.nvim_set_hl(0, "Whitespace", { fg = GhostCharacterColor2 })
-        vim.api.nvim_set_hl(0, "NonText", { fg = GhostCharacterColor2 })
-        vim.api.nvim_set_hl(0, "SpecialKey", { fg = GhostCharacterColor2 })
+        vim.api.nvim_set_hl(0, "Whitespace", { fg = Colors.bright_black2 })
+        vim.api.nvim_set_hl(0, "NonText", { fg = Colors.bright_black2 })
+        vim.api.nvim_set_hl(0, "SpecialKey", { fg = Colors.bright_black2 })
 
 
         -- Cursor line
         vim.opt.cursorline = true
-        vim.api.nvim_set_hl(0, "CursorLine", { bg = NumberLineColor })
-        vim.api.nvim_set_hl(0, "CursorLineNr", { bg = NumberLineColor, fg = "#eeeeee" })
-        vim.api.nvim_set_hl(0, "CursorLineSign", { bg = NumberLineColor })
+        vim.api.nvim_set_hl(0, "CursorLine", { bg = Colors.hush.dark })
+        vim.api.nvim_set_hl(0, "CursorLineNr", { bg = Colors.hush.dark, fg = Colors.white })
+        vim.api.nvim_set_hl(0, "CursorLineSign", { bg = Colors.hush.dark })
     end,
 }

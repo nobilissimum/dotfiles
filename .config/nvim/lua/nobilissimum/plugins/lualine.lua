@@ -2,64 +2,44 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-        local colors = {
-            fg = "#eeeeee",
-            bg = "#121C26",
-
-            black = "#000000",
-            red = "#f77172",
-            green = "#65a884",
-            yellow = "#cec999",
-            blue = "#74add2",
-            magenta = "#a980c4",
-            cyan = "#2d949f",
-            white = "#eeeeee",
-
-            -- bright_black = "#313244",
-            bright_black = GhostCharacterColor2,
-            bright_black2 = GhostCharacterColor3,
-
-            hush_main = "#1a232e",
-        }
-
         local hush_theme = {
             normal = {
-                a = { fg = colors.bg, bg = colors.blue, gui = "bold" },
-                b = { fg = colors.fg, bg = colors.bright_black },
-                c = { fg = colors.fg, bg = colors.bright_black2 },
-                x = { fg = colors.fg, bg = colors.bright_black },
-                y = { fg = colors.fg, bg = colors.bright_black2 },
+                a = { fg = Colors.hush.dark, bg = Colors.blue, gui = "bold" },
+                b = { fg = Colors.white, bg = Colors.bright_black2 },
+                c = { fg = Colors.white, bg = Colors.bright_black3 },
+                x = { fg = Colors.white, bg = Colors.bright_black2 },
+                y = { fg = Colors.white, bg = Colors.bright_black3 },
             },
             command = {
-                a = { fg = colors.bg, bg = colors.yellow, gui = "bold" },
-                b = { fg = colors.fg, bg = colors.bright_black },
-                x = { fg = colors.fg, bg = colors.bright_black },
-                y = { fg = colors.fg, bg = colors.bright_black2 },
+                a = { fg = Colors.hush.dark, bg = Colors.yellow, gui = "bold" },
+                b = { fg = Colors.white, bg = Colors.bright_black2 },
+                x = { fg = Colors.white, bg = Colors.bright_black2 },
+                y = { fg = Colors.white, bg = Colors.bright_black3 },
             },
             insert = {
-                a = { fg = colors.bg, bg = colors.green, gui = "bold" },
-                b = { fg = colors.fg, bg = colors.bright_black },
-                x = { fg = colors.fg, bg = colors.bright_black },
-                y = { fg = colors.fg, bg = colors.bright_black2 },
+                a = { fg = Colors.hush.dark, bg = Colors.green, gui = "bold" },
+                b = { fg = Colors.white, bg = Colors.bright_black2 },
+                x = { fg = Colors.white, bg = Colors.bright_black2 },
+                y = { fg = Colors.white, bg = Colors.bright_black3 },
             },
             visual = {
-                a = { fg = colors.bg, bg = colors.magenta, gui = "bold" },
-                b = { fg = colors.fg, bg = colors.bright_black },
-                x = { fg = colors.fg, bg = colors.bright_black },
-                y = { fg = colors.fg, bg = colors.bright_black2 },
+                a = { fg = Colors.hush.dark, bg = Colors.magenta, gui = "bold" },
+                b = { fg = Colors.white, bg = Colors.bright_black2 },
+                x = { fg = Colors.white, bg = Colors.bright_black2 },
+                y = { fg = Colors.white, bg = Colors.bright_black3 },
             },
             replace = {
-                a = { fg = colors.bg, bg = colors.red, gui = "bold" },
-                b = { fg = colors.fg, bg = colors.bright_black },
-                x = { fg = colors.fg, bg = colors.bright_black },
-                y = { fg = colors.fg, bg = colors.bright_black2 },
+                a = { fg = Colors.hush.dark, bg = Colors.red, gui = "bold" },
+                b = { fg = Colors.white, bg = Colors.bright_black2 },
+                x = { fg = Colors.white, bg = Colors.bright_black2 },
+                y = { fg = Colors.white, bg = Colors.bright_black3 },
             },
             inactive = {
-                a = { fg = colors.fg, bg = colors.bg, gui = "bold" },
-                b = { fg = colors.fg, bg = colors.bg },
-                c = { fg = colors.fg, bg = colors.bg },
-                x = { fg = colors.fg, bg = colors.bg },
-                y = { fg = colors.fg, bg = colors.bg },
+                a = { fg = Colors.white, bg = Colors.hush.dark, gui = "bold" },
+                b = { fg = Colors.white, bg = Colors.hush.dark },
+                c = { fg = Colors.white, bg = Colors.hush.dark },
+                x = { fg = Colors.white, bg = Colors.hush.dark },
+                y = { fg = Colors.white, bg = Colors.hush.dark },
             },
         }
 
@@ -68,11 +48,11 @@ return {
         local separators = { left = separator_left, right = separator_right }
 
         -- Git status colors
-        vim.api.nvim_set_hl(0, "LualineGitAdded", { fg = colors.green, bg = colors.bright_black, bold = true })
-        vim.api.nvim_set_hl(0, "LualineGitModified", { fg = colors.blue, bg = colors.bright_black, bold = true })
-        vim.api.nvim_set_hl(0, "LualineGitRemoved", { fg = colors.red, bg = colors.bright_black, bold = true })
-        vim.api.nvim_set_hl(0, "LualineGitUntracked", { fg = colors.magenta, bg = colors.bright_black, bold = true })
-        vim.api.nvim_set_hl(0, "LualineGitStaged", { fg = colors.cyan, bg = colors.bright_black, bold = true })
+        vim.api.nvim_set_hl(0, "LualineGitAdded", { fg = Colors.green, bg = Colors.bright_black2, bold = true })
+        vim.api.nvim_set_hl(0, "LualineGitModified", { fg = Colors.blue, bg = Colors.bright_black2, bold = true })
+        vim.api.nvim_set_hl(0, "LualineGitRemoved", { fg = Colors.red, bg = Colors.bright_black2, bold = true })
+        vim.api.nvim_set_hl(0, "LualineGitUntracked", { fg = Colors.magenta, bg = Colors.bright_black2, bold = true })
+        vim.api.nvim_set_hl(0, "LualineGitStaged", { fg = Colors.cyan, bg = Colors.bright_black2, bold = true })
 
         require("lualine").setup({
             options = {

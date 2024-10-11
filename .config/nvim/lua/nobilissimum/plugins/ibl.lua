@@ -7,7 +7,7 @@ return {
             "Whitespace",
         }
 
-        vim.api.nvim_set_hl(0, highlight[1], { bg = GhostCharacterColor3 })
+        vim.api.nvim_set_hl(0, highlight[1], { bg = Colors.bright_black3 })
 
         require("ibl").setup({
             indent = { highlight = highlight, char = "" },

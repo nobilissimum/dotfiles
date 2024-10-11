@@ -1,7 +1,25 @@
-GhostCharacterColor = "#535b68"
-GhostCharacterColor2 = "#393c4d"
-GhostCharacterColor3 = "#1e2a36"
-NumberLineColor = "#121c26"
+Colors = {
+    black = "#000000",
+
+    hush = {
+        light = "#202733",
+        main = "#1d232e",
+        dark = "#121c26",
+    },
+
+    bright_black = "#535b68",
+    bright_black2 = "#393c4d",
+    bright_black3 = "#1e2a36",
+
+    red = "#f77172",
+    green = "#65a884",
+    yellow = "#cec999",
+    blue = "#74add2",
+    magenta = "#a980c4",
+    cyan = "#2d949f",
+
+    white = "#ffffff",
+}
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
