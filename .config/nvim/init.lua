@@ -9,7 +9,7 @@ Colors = {
 
     bright_black = "#535b68",
     bright_black2 = "#393c4d",
-    bright_black3 = "#1e2a36",
+    bright_black3 = "#1f2a35",
 
     red = "#f77172",
     green = "#65a884",
