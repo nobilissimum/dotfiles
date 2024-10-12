@@ -110,4 +110,8 @@ config.keys = {
 config.enable_wayland = true
 config.use_ime = true
 
+
+-- Audio
+config.audible_bell = "Disabled"
+
 return config
