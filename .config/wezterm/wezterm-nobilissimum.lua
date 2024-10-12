@@ -90,8 +90,8 @@ config.window_padding = {
 -- Scrolling
 config.scrollback_lines = 9999
 config.keys = {
-    { key = "PageUp", mods = "SHIFT", action = wezterm.action.ScrollByPage(-1) },
-    { key = "PageDown", mods = "SHIFT", action = wezterm.action.ScrollByPage(1) },
+    { key = "PageUp", mods = "SHIFT", action = wezterm.action.ScrollByPage(-2) },
+    { key = "PageDown", mods = "SHIFT", action = wezterm.action.ScrollByPage(2) },
 }
 
 
