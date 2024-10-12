@@ -18,6 +18,7 @@ return {
                 }
             },
             pickers = {
+                current_buffer_fuzzy_find = { sorting_strategy = "ascending" },
                 find_files = {
                     hidden = true,
                     no_ignore = true,
