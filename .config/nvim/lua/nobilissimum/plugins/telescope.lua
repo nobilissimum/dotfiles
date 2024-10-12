@@ -9,6 +9,12 @@ return {
     },
     config = function()
         require("telescope").setup({
+            defaults = {
+                sorting_strategy = "ascending",
+                layout_config = {
+                    prompt_position = "top",
+                },
+            },
             extensions = {
                 fzf = {
                     fuzzy = true,
@@ -18,7 +24,6 @@ return {
                 }
             },
             pickers = {
-                current_buffer_fuzzy_find = { sorting_strategy = "ascending" },
                 find_files = {
                     hidden = true,
                     no_ignore = true,
