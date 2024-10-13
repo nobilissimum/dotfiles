@@ -99,6 +99,7 @@ fi
 
 
 # Lua
+lua_version="${${LUA_VERSION}:-5.4.7}"
 [ -d /usr/local/lua-5.4.7 ] && export PATH="$PATH:/usr/local/lua-5.4.7/src"
 
 
