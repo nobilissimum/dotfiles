@@ -43,16 +43,21 @@ path+=('$HOME/.local/bin')
 export PATH=$PATH:$HOME/.local/bin
 
 # PostgreSQL
-# if ! pgrep -x "postgres" >/dev/null; then
-#   sudo pg_ctlcluster 12 main start  # Starts PostgreSQL
-#   echo "Postgres service started;"
-# fi
+psqlstart () {
+    if ! pgrep -x "postgres" >/dev/null; then
+        sudo pg_ctlcluster 12 main start  # Starts PostgreSQL
+        echo "Postgres service started;"
+    fi
+}
 
 # Docker
-# if ! docker info > /dev/null 2>&1; then
-#   echo "Docker is not running. Starting Docker..."
-#   sudo service docker start
-# fi
+dockerstart () {
+    if ! docker info > /dev/null 2>&1; then
+        echo "Docker is not running. Starting Docker..."
+        sudo service docker start
+    fi
+}
+
 
 # Node Version Manager
 export NVM_DIR="$HOME/.nvm"
@@ -63,6 +68,7 @@ if [ -d "$NVM_DIR" ]; then
     source "$NVM_DIR/nvm.sh"
 fi
 
+
 # FZF
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
     --color=fg:#8e9196,hl:#74add2
@@ -70,26 +76,20 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
     --color=info:#65a884,prompt:#f77172,pointer:#cec999
     --color=marker:#2d949f,spinner:#a980c4,header:#8e9196'
 
+
 # Zoxide
 if zoxide --version $COMMAND &> /dev/null; then
     eval "$(zoxide init --cmd cd zsh)"
 fi
 
-# OhMyPosh
-# if oh-my-posh --version $COMMAND &> /dev/null; then
-#   eval "$(oh-my-posh init zsh --config ~/tenshiro.omp.toml)"
-# fi
-
-# Inshellisense
-# if inshellisense --version $COMMAND &> /dev/null; then
-#   eval "$(inshellisense init zsh)"
-# fi
 
 # Golang
 [ -d /usr/local/go ] && export PATH=$PATH:/usr/local/go/bin
 
+
 # Lua
 [ -d /usr/local/lua-5.4.7 ] && export PATH="$PATH:/usr/local/lua-5.4.7/src"
+
 
 # pnpm
 export PNPM_HOME="/home/tenshiro/.local/share/pnpm"
