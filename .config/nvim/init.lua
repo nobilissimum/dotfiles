@@ -1,5 +1,5 @@
 Colors = {
-    black = "#000000",
+    black = "#0f1820",
 
     hush = {
         light = "#202733",
