@@ -41,5 +41,6 @@ return {
         vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { bg = Colors.hush.dark, fg = Colors.hush.dark })
 
         vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = Colors.white, bold = true })
+        vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = Colors.black })
     end,
 }
