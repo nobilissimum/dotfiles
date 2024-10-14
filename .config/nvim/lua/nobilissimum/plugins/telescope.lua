@@ -24,6 +24,9 @@ return {
                 }
             },
             pickers = {
+                buffers = {
+                    initial_mode = "normal",
+                },
                 find_files = {
                     hidden = true,
                     no_ignore = true,
