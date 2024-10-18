@@ -28,6 +28,17 @@ inittools () {
     fzf --version $COMMAND &> /dev/null || sudo apt install fzf -y
     convert --version $COMMAND &> /dev/null || sudo apt install imagemagick -y
     xclip -version $COMMAND &> /dev/null || sud apt install xclip -y
+
+    # lazydocker
+    curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+    echo "Lazydocker version \n$(lazydocker --version)"
+
+    # lazygit
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    sudo install lazygit /usr/local/bin
+    echo "Lazygit version \n$(lazygit --version)"
 }
 
 
