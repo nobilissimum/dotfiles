@@ -31,6 +31,11 @@ inittools () {
         sudo curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sudo sh
     fi
 
+    if ! lf -version $COMMAND &> /dev/null; then
+        echo "Installing lf..."
+        sudo apt install lf -y
+    fi
+
     if ! eza --version $COMMAND &> /dev/null; then
         echo "Installing eza..."
         [[ "$OSTYPE" == "linux-gnu"* ]] && sudo apt install eza -y &> /dev/null
