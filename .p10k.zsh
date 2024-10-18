@@ -1,4 +1,6 @@
-export TERM="tmux-256color"
+if [[ -n "$TMUX" ]]; then
+    export TERM="tmux-256color"
+fi
 
 # Temporarily change options.
 'builtin' 'local' '-a' 'p10k_config_opts'
