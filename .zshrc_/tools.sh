@@ -76,12 +76,11 @@ inittools () {
         sudo install lazygit /usr/local/bin
     fi
 
-    # Htop
+    # System monitoring
     if ! htop --version $COMMAND &> /dev/null; then
-        echo "Installing htop..."
-        sudo apt install libncurses5-dev libncursesw5-dev -y
-        sudo apt install libncursesw5-dev autotools-dev autoconf automake build-essential -y
-        sudo apt install htop -y
+        echo "Installing btm..."
+        curl -LO https://github.com/ClementTsang/bottom/releases/download/0.10.2/bottom_0.10.2-1_amd64.deb
+        sudo dpkg -i bottom_0.10.2-1_amd64.deb
     fi
 }
 
