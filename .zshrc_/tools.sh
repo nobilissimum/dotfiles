@@ -1,51 +1,88 @@
 inittools () {
     # Build and C
-    make --version $COMMAND &> /dev/null || sudo apt install build-essential
-    gcc --version $COMMAND &> /dev/null || sudo apt install gcc g++
+    if ! make --version $COMMAND &> /dev/null; then
+        echo "Installing build-essential..."
+        sudo apt install build-essential -y
+    fi
+    if ! gcc --version $COMMAND &> /dev/null; then
+        echo "Installing gcc and g++...."
+        sudo apt install gcc g++ -y
+    fi
 
-    # zip
-    zip $COMMAND &> /dev/null || sudo apt install zip
-    unzip $COMMAND &> /dev/null | sudo apt install unzip
+    # Compression and extract
+    if ! zip -v $COMMAND &> /dev/null; then
+        echo "Installing zip..."
+        sudo apt install zip -y
+    fi
 
-    # cd
+    if ! unzip -v $COMMAND &> /dev/null; then
+        echo "Installing unzip..."
+        sudo apt install unzip -y
+    fi
+
+    if ! 7z $COMMAND &> /dev/null; then
+        echo "Installing p7zip-full..."
+        sudo apt install p7zip-full -y
+    fi
+
+    # File navigation
     if ! zoxide --version $COMMAND &> /dev/null; then
+        echo "Installing zoxide..."
         sudo curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sudo sh
     fi
 
-    # ls
     if ! eza --version $COMMAND &> /dev/null; then
+        echo "Installing eza..."
         [[ "$OSTYPE" == "linux-gnu"* ]] && sudo apt install eza -y &> /dev/null
         [[ "$OSTYPE" == "darwin"* ]] && sudo brew install eza -y &> /dev/null
     fi
 
-    # Compression and extraction
-    7z $COMMAND &> /dev/null || sudo apt install p7zip-full -y
-
     # JSON
-    jq --version $COMMAND &> /dev/null || sudo apt install jq -y
-    echo "Jq version \n$(jq --version)\n"
+    if ! jq --version $COMMAND &> /dev/null; then
+        echo "Installing jq..."
+        sudo apt install jq -y
+    fi
 
     # Ripgrep
-    rg --version $COMMAND &> /dev/null || sudo apt install ripgrep -y
-    echo "Ripgrep version \n$(rg --version)\n"
+    if ! rg --version $COMMAND &> /dev/null; then
+        echo "Installing ripgrep..."
+        sudo apt install ripgrep -y
+    fi
 
     # Fuzzy find
-    fzf --version $COMMAND &> /dev/null || sudo apt install fzf -y
-    echo "Fzf version \n$(fzf --version)\n"
+    if ! fzf --version $COMMAND &> /dev/null; then
+        echo "Installing fzf..."
+        sudo apt install fzf -y
+    fi
 
     # Clipboard
-    xclip -version $COMMAND &> /dev/null || sud apt install xclip -y
+    if ! xclip -version $COMMAND &> /dev/null; then
+        echo "Installng xclip..."
+        sudo apt install xclip -y
+    fi
 
     # Lazydocker
-    curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
-    echo "Lazydocker version \n$(lazydocker --version)\n"
+    if ! lazydocker --version $COMMAND &> /dev/null; then
+        echo "Installing lazydocker..."
+        curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+    fi
 
     # Lazygit
-    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-    tar xf lazygit.tar.gz lazygit
-    sudo install lazygit /usr/local/bin
-    echo "Lazygit version \n$(lazygit --version)\n"
+    if ! lazygit --version $COMMAND &> /dev/null; then
+        echo "Installing lazygit..."
+        LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+        curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+        tar xf lazygit.tar.gz lazygit
+        sudo install lazygit /usr/local/bin
+    fi
+
+    # Htop
+    if ! htop --version $COMMAND &> /dev/null; then
+        echo "Installing htop..."
+        sudo apt install libncurses5-dev libncursesw5-dev -y
+        sudo apt install libncursesw5-dev autotools-dev autoconf automake build-essential -y
+        sudo apt install htop -y
+    fi
 }
 
 
