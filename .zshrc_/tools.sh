@@ -99,12 +99,12 @@ initrust () {
 
 # Tmux
 tmx () {
-    session_name="$(basename $(pwd))"
-    tmux new-session -d -s $session_name
-    tmux new-window -d -n git
-    tmux new-window -d -n run
-    tmux new-window -d -n ext1
-    tmux attach-session -d -t $session_name
+    session_name="$(basename $(pwd) | sed 's/\./_/g')"
+    tmux new-session -d -s "$session_name"
+    tmux new-window -d
+    tmux new-window -d
+    tmux new-window -d
+    tmux attach-session -d -t "$session_name"
 }
 
 
