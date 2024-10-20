@@ -84,16 +84,15 @@ return {
 
 
         -- Colors
-        vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = Colors.hush.dark })
-        vim.api.nvim_set_hl(0, "TelescopePromptBorder", { bg = Colors.hush.dark, fg = Colors.hush.dark })
+        vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = Colors.hush.main })
+        vim.api.nvim_set_hl(0, "TelescopePromptBorder", { bg = Colors.hush.main, fg = Colors.bright_black })
 
-        vim.api.nvim_set_hl(0, "TelescopeResultsNormal", { bg = Colors.hush.dark })
-        vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { bg = Colors.hush.dark , fg = Colors.hush.dark })
+        vim.api.nvim_set_hl(0, "TelescopeResultsNormal", { bg = Colors.hush.main })
+        vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { bg = Colors.hush.main , fg = Colors.bright_black })
 
-        vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { bg = Colors.hush.dark })
-        vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { bg = Colors.hush.dark, fg = Colors.hush.dark })
+        vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { bg = Colors.hush.main })
+        vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { bg = Colors.hush.main, fg = Colors.bright_black })
 
-        vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = Colors.white, bold = true })
-        vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = Colors.black })
+        vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = Colors.hush.dark })
    end,
 }
