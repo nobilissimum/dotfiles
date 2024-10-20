@@ -11,6 +11,9 @@ return {
             "hrsh7th/nvim-cmp",
             "hrsh7th/cmp-nvim-lsp",
             "nvim-lua/plenary.nvim",
+
+            -- Navigation
+            "nvim-telescope/telescope.nvim",
         },
         config = function()
             -- Vim diagnostic
