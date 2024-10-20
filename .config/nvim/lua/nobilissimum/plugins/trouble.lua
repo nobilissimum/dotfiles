@@ -6,33 +6,63 @@ return {
     keys = {
         {
             "<leader>xx",
-            "<cmd>Trouble diagnostics toggle focus=true<cr>",
-            desc = "Diagnostics (Trouble)",
-        },
-        {
-            "<leader>xX",
             "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>",
-            desc = "Buffer Diagnostics (Trouble)",
+            desc = "Toggle buffer diagnostics (Trouble)",
         },
         {
-            "<leader>cs",
+            "<leader>xf",
+            "<cmd>Trouble diagnostics focus=true filter.buf=0<cr>",
+            desc = "[F]ocus diagnostics (Trouble)",
+        },
+        {
+            "<leader>Xx",
+            "<cmd>Trouble diagnostics toggle focus=true<cr>",
+            desc = "Toggle diagnostics (Trouble)",
+        },
+        {
+            "<leader>Xf",
+            "<cmd>Trouble diagnostics focus=true<cr>",
+            desc = "[F]ocus toggle diagnostics (Trouble)",
+        },
+        {
+            "<leader>cst",
             "<cmd>Trouble symbols toggle focus=true win.position=bottom<cr>",
-            desc = "Symbols (Trouble)",
+            desc = "[S]ymbols [T]oggle (Trouble)",
         },
         {
-            "<leader>cl",
+            "<leader>csf",
+            "<cmd>Trouble symbols focus=true win.position=bottom<cr>",
+            desc = "[S]ymbols [F]ocus (Trouble)",
+        },
+        {
+            "<leader>clt",
             "<cmd>Trouble lsp toggle focus=true<cr>",
-            desc = "LSP Definitions / references / ... (Trouble)",
+            desc = "[L]SP definition and references [T]oggle (Trouble)",
         },
         {
-            "<leader>xL",
-            "<cmd>Trouble loclist toggle<cr>",
-            desc = "Location List (Trouble)",
+            "<leader>clf",
+            "<cmd>Trouble lsp focus=true<cr>",
+            desc = "[L]SP definition and references [F]ocus (Trouble)",
         },
         {
-            "<leader>xQ",
-            "<cmd>Trouble qflist toggle<cr>",
-            desc = "Quickfix List (Trouble)",
+            "<leader>xlt",
+            "<cmd>Trouble loclist toggle focus=true<cr>",
+            desc = "[L]ocation list [T]oggle (Trouble)",
+        },
+        {
+            "<leader>xlf",
+            "<cmd>Trouble loclist focus=true<cr>",
+            desc = "[L]ocation list [F]ocus (Trouble)",
+        },
+        {
+            "<leader>xqt",
+            "<cmd>Trouble qflist toggle focus=true<cr>",
+            desc = "[Q]uickfix list [T]oggle (Trouble)",
+        },
+        {
+            "<leader>xqf",
+            "<cmd>Trouble qflist focus=true<cr>",
+            desc = "[Q]uickfix list [F]ocus (Trouble)",
         },
     },
 }
