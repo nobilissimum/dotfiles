@@ -5,9 +5,9 @@ return {
     cmd = "Trouble",
     keys = {
         {
-            "<leader>xx",
+            "<leader>xt",
             "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>",
-            desc = "Toggle buffer diagnostics (Trouble)",
+            desc = "Buffer diagnostics [T]oggle (Trouble)",
         },
         {
             "<leader>xf",
@@ -15,9 +15,9 @@ return {
             desc = "[F]ocus diagnostics (Trouble)",
         },
         {
-            "<leader>Xx",
+            "<leader>Xt",
             "<cmd>Trouble diagnostics toggle focus=true<cr>",
-            desc = "Toggle diagnostics (Trouble)",
+            desc = "Diagnostics [T]oggle (Trouble)",
         },
         {
             "<leader>Xf",
