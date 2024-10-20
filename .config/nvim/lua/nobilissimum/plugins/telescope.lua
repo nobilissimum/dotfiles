@@ -93,6 +93,7 @@ return {
         vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { bg = Colors.hush.main })
         vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { bg = Colors.hush.main, fg = Colors.bright_black })
 
-        vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = Colors.hush.dark })
+        vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = Colors.hush.dark, bold = true })
+        vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { bg = Colors.hush.dark, bold = true })
    end,
 }
