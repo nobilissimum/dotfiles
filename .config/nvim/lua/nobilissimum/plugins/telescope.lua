@@ -41,6 +41,7 @@ return {
 
         require("telescope").load_extension("fzf")
 
+        -- Keymaps
         local telescope = require("telescope.builtin")
         vim.keymap.set("n", "<leader>sh", telescope.help_tags, { desc = "[S]earch [H]elp" })
         vim.keymap.set("n", "<leader>sk", telescope.keymaps, { desc = "[S]earch [K]eymaps" })
@@ -52,5 +53,19 @@ return {
         vim.keymap.set("n", "<leader>sr", telescope.resume, { desc = "[S]earch [R]esume" })
         vim.keymap.set("n", "<leader>s.", telescope.oldfiles, { desc = "[S]earch recent files ('.' for repeat)" })
         vim.keymap.set("n", "<leader><leader>", telescope.buffers, { desc = "[ ] Find existing buffers" })
+
+
+        -- Colors
+        vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = Colors.hush.dark })
+        vim.api.nvim_set_hl(0, "TelescopePromptBorder", { bg = Colors.hush.dark, fg = Colors.hush.dark })
+
+        vim.api.nvim_set_hl(0, "TelescopeResultsNormal", { bg = Colors.hush.dark })
+        vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { bg = Colors.hush.dark , fg = Colors.hush.dark })
+
+        vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { bg = Colors.hush.dark })
+        vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { bg = Colors.hush.dark, fg = Colors.hush.dark })
+
+        vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = Colors.white, bold = true })
+        vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = Colors.black })
    end,
 }

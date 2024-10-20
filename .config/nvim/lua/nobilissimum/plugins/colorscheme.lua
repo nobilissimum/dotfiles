@@ -19,7 +19,6 @@ return {
         vim.api.nvim_set_hl(0, "NonText", { fg = Colors.bright_black2 })
         vim.api.nvim_set_hl(0, "SpecialKey", { fg = Colors.bright_black2 })
 
-
         -- Cursor line
         vim.opt.cursorline = true
         vim.api.nvim_set_hl(0, "CursorLine", { bg = Colors.hush.dark })
@@ -30,17 +29,5 @@ return {
         local dark_bg = { bg = Colors.hush.dark }
         vim.api.nvim_set_hl(0, "NormalFLoat", dark_bg)
         vim.api.nvim_set_hl(0, "FloatBorder", dark_bg)
-
-        vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = Colors.hush.dark })
-        vim.api.nvim_set_hl(0, "TelescopePromptBorder", { bg = Colors.hush.dark, fg = Colors.hush.dark })
-
-        vim.api.nvim_set_hl(0, "TelescopeResultsNormal", { bg = Colors.hush.dark })
-        vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { bg = Colors.hush.dark , fg = Colors.hush.dark })
-
-        vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { bg = Colors.hush.dark })
-        vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { bg = Colors.hush.dark, fg = Colors.hush.dark })
-
-        vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = Colors.white, bold = true })
-        vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = Colors.black })
     end,
 }
