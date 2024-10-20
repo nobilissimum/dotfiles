@@ -8,12 +8,40 @@ return {
         },
     },
     config = function()
+        require("telescope.pickers.layout_strategies").horizontal_merged = function(
+            picker,
+            max_columns,
+            max_lines,
+            layout_config
+        )
+            local layout = require("telescope.pickers.layout_strategies").horizontal(
+                picker,
+                max_columns,
+                max_lines,
+                layout_config
+            )
+
+            layout.prompt.title = ""
+            layout.prompt.borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
+
+            layout.results.title = ""
+            layout.results.borderchars = { "─", "│", "─", "│", "├", "┤", "╯", "╰"  }
+            layout.results.line = layout.results.line - 1
+            layout.results.height = layout.results.height + 1
+
+            layout.preview.title = ""
+            layout.preview.borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰"  }
+
+            return layout
+        end
+
         require("telescope").setup({
             defaults = {
                 sorting_strategy = "ascending",
                 layout_config = {
                     prompt_position = "top",
                 },
+                layout_strategy = "horizontal_merged",
             },
             extensions = {
                 fzf = {
