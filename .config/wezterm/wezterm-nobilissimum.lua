@@ -37,7 +37,7 @@ config.font_rules = {
         }),
     },
 }
-config.font_size = 11
+config.font_size = 10.5
 
 
 -- Colors
@@ -78,7 +78,7 @@ config.colors = {
 
 
 -- Spacing
-config.line_height = 1.2
+config.line_height = 1.25
 config.window_padding = {
     left = 0,
     right = 0,
