@@ -65,7 +65,9 @@ return {
             },
             pickers = {
                 buffers = {
+                    ignore_current_buffer = true,
                     initial_mode = "normal",
+                    sort_mru = true,
                 },
                 find_files = {
                     hidden = true,
