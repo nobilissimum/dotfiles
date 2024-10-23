@@ -5,7 +5,7 @@ vim.g.maplocalleader = " "
 
 -- Number line
 vim.opt.number = true
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 
 
