@@ -27,6 +27,10 @@ return {
                 },
             },
             window = {
+                mappings = {
+                    ["h"] = "close_node",
+                    ["l"] = "open",
+                },
                 position = "right",
             },
             default_component_configs = {
