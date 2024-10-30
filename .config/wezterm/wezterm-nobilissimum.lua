@@ -37,7 +37,7 @@ config.font_rules = {
         }),
     },
 }
-config.font_size = 10.5
+config.font_size = 10.25
 
 
 -- Colors
@@ -109,6 +109,7 @@ config.keys = {
 -- Rendering
 config.enable_wayland = true
 config.use_ime = true
+config.front_end = "OpenGL"
 
 
 -- Audio
