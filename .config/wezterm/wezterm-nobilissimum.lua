@@ -7,8 +7,11 @@ end
 
 
 -- Font
-local base_font = "Source Code Pro"
-local nerd_font = "SauceCodePro Nerd Font"
+local base_font = "JetBrains Mono"
+local nerd_font = "JetBrainsMono Nerd Font"
+
+local half_prefix = "Medium"
+local bold_prefix = "Bold"
 
 local harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 config.font = wezterm.font_with_fallback({
@@ -21,8 +24,8 @@ config.font_rules = {
         intensity = "Bold",
         italic = false,
         font = wezterm.font_with_fallback({
-            { family = base_font .. " ExtraBold", harfbuzz_features = harfbuzz_features },
-            { family = nerd_font, harfbuzz_features = harfbuzz_features },
+            { family = base_font .. " " .. bold_prefix, harfbuzz_features = harfbuzz_features },
+            { family = nerd_font .. " " .. bold_prefix, harfbuzz_features = harfbuzz_features },
         }),
     },
 
@@ -31,8 +34,8 @@ config.font_rules = {
         intensity = "Half",
         italic = false,
         font = wezterm.font_with_fallback({
-            { family = base_font .. " Bold", harfbuzz_features = harfbuzz_features },
-            { family = nerd_font, harfbuzz_features = harfbuzz_features },
+            { family = base_font .. " " .. half_prefix, harfbuzz_features = harfbuzz_features },
+            { family = nerd_font .. " " .. half_prefix, harfbuzz_features = harfbuzz_features },
 
         }),
     },
