@@ -14,10 +14,13 @@ local half_prefix = "Medium"
 local bold_prefix = "Bold"
 
 local harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
-config.font = wezterm.font_with_fallback({
+local font_with_fallback = wezterm.font_with_fallback({
     { family = base_font, harfbuzz_features = harfbuzz_features },
     { family = nerd_font, harfbuzz_features = harfbuzz_features },
 })
+local font_size = 10.25
+
+config.font = font_with_fallback
 config.font_rules = {
     -- Bold
     {
@@ -40,7 +43,7 @@ config.font_rules = {
         }),
     },
 }
-config.font_size = 10.25
+config.font_size = font_size
 
 
 -- Colors
@@ -100,7 +103,18 @@ config.keys = {
 
 -- Window and tabs
 config.hide_tab_bar_if_only_one_tab = true
+config.use_fancy_tab_bar = false
 config.window_close_confirmation = "NeverPrompt"
+config.window_frame = {
+    inactive_titlebar_bg = "#1D232E",
+    inactive_titlebar_fg = "#1D232E",
+
+    active_titlebar_bg = "#1F2A35",
+    active_titlebar_fg = "#ffffff",
+
+    font = font_with_fallback,
+    font_size = font_size - 2,
+}
 
 
 -- Keybinds
