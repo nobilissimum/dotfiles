@@ -24,113 +24,86 @@ return {
         vim.api.nvim_set_hl(0, "DashboardHeaderEO", { bg = Colors.cyan, fg = Colors.blue })
         vim.api.nvim_set_hl(0, "DashboardHeaderOV", { bg = Colors.green, fg = Colors.cyan })
         vim.api.nvim_set_hl(0, "DashboardHeaderVI", { bg = Colors.yellow, fg = Colors.green })
+        vim.api.nvim_set_hl(0, "DashboardHeaderIM", { bg = Colors.red, fg = Colors.yellow })
 
         vim.api.nvim_set_hl(0, "DashboardFooterPlugins", { bg = nil, fg = Colors.yellow })
         vim.api.nvim_set_hl(0, "DashboardFooterPlatform", { bg = nil, fg = Colors.blue })
         vim.api.nvim_set_hl(0, "DashboardFooterVersion", { bg = nil, fg = Colors.green })
         vim.api.nvim_set_hl(0, "DashboardFooterSeparator", { bg = nil, fg = Colors.bright_black2 })
 
-        -- _______                  __        
-        -- ██████  ____________  _▀▀ _____  
-        -- ████████████████████████ 
-        --█████▐█████████████████▌█▐██
-        --█████▐████████████ ████▌█▐██
-        --                                
+
+        --   █▌ █               █        
+        --  ██▌█████████▌ █████████
+        -- █▐████▄██ ██▌███ █ █
+        --█ ▐███████████████ █ █ 
 
         dashboard.section.header = {
             type = "group",
             val = {
                 {
                     type = "text",
-                    val = " _______                  __         ",
+                    val = "   █▌ █               █        ",
                     opts = {
                         hl = {
-                            { "DashboardHeaderN", 0, 8 },
-                            { "DashboardHeaderI", 26, 28 },
+                            { "DashboardHeaderN", 3, 22 },
+                            { "DashboardHeaderI", 37, 46 },
                         },
                         position = "center",
                     },
                 },
                 {
                     type = "text",
-                    val = " ██████  ____________  _▀▀ _____   ",
+                    val = "  ██▌█████████▌ █████████",
                     opts = {
                         hl = {
-                            { "DashboardHeaderN", 1, 25 },
-                            { "DashboardHeaderE", 27, 33 },
-                            { "DashboardHeaderO", 33, 37 },
-                            { "DashboardHeaderV", 37, 42 },
-                            { "DashboardHeaderI", 42, 48 },
-                            { "DashboardHeaderM", 49, 54 },
+                            { "DashboardHeaderN", 2, 20 },
+                            { "DashboardHeaderNE", 20, 23 },
+                            { "DashboardHeaderE", 23, 35 },
+                            { "DashboardHeaderO", 35, 50 },
+                            { "DashboardHeaderOV", 50, 53 },
+                            { "DashboardHeaderV", 53, 66 },
+                            { "DashboardHeaderVI", 66, 69 },
+                            { "DashboardHeaderI", 69, 72 },
+                            { "DashboardHeaderIM", 72, 75 },
+                            { "DashboardHeaderM", 75, 102 },
                         },
                         position = "center",
                     },
                 },
                 {
                     type = "text",
-                    val = " ████████████████████████  ",
+                    val = " █▐█████ ██▌███ █ █",
                     opts = {
                         hl = {
-                            { "DashboardHeaderN", 1, 28 },
-                            { "DashboardHeaderE", 28, 46 },
-                            { "DashboardHeaderEO", 46, 49 },
-                            { "DashboardHeaderO", 49, 61 },
-                            { "DashboardHeaderOV", 61, 64 },
-                            { "DashboardHeaderV", 64, 76 },
-                            { "DashboardHeaderVI", 76, 79 },
-                            { "DashboardHeaderI", 79, 82 },
-                            { "DashboardHeaderM", 82, 104 },
+                            { "DashboardHeaderN", 1, 19 },
+                            { "DashboardHeaderNE", 19, 22 },
+                            { "DashboardHeaderE", 22, 34 },
+                            { "DashboardHeaderEO", 34, 37 },
+                            { "DashboardHeaderO", 37, 49 },
+                            { "DashboardHeaderOV", 49, 52 },
+                            { "DashboardHeaderV", 52, 64 },
+                            { "DashboardHeaderVI", 64, 67 },
+                            { "DashboardHeaderI", 67, 70 },
+                            { "DashboardHeaderIM", 70, 73 },
+                            { "DashboardHeaderM", 73, 99 },
                         },
                         position = "center",
                     },
                 },
                 {
                     type = "text",
-                    val = "█████▐█████████████████▌█▐██ ",
+                    val = "█ ▐███████████████ █ █ ",
                     opts = {
                         hl = {
-                            { "DashboardHeaderN", 0, 30 },
-                            { "DashboardHeaderNAlt", 18, 21 },
-                            { "DashboardHeaderE", 30, 45 },
-                            { "DashboardHeaderEAlt", 36, 42 },
-                            { "DashboardHeaderEO", 45, 48 },
-                            { "DashboardHeaderO", 48, 66 },
-                            { "DashboardHeaderOAlt", 51, 60 },
-                            { "DashboardHeaderV", 66, 78 },
-                            { "DashboardHeaderI", 78, 84 },
-                            { "DashboardHeaderM", 84, 108 },
-                            { "DashboardHeaderMAlt", 90, 93 },
-                            { "DashboardHeaderMAlt", 96, 99 },
-                        },
-                        position = "center",
-                    },
-                },
-                {
-                    type = "text",
-                    val = "█████▐████████████ ████▌█▐██ ",
-                    opts = {
-                        hl = {
-                            { "DashboardHeaderN", 0, 30 },
-                            { "DashboardHeaderNAlt", 18, 21 },
-                            { "DashboardHeaderE", 30, 48 },
-                            { "DashboardHeaderEO", 48, 51 },
-                            { "DashboardHeaderO", 51, 66 },
-                            { "DashboardHeaderV", 66, 75 },
-                            { "DashboardHeaderI", 76, 82 },
-                            { "DashboardHeaderM", 82, 106 },
-                            { "DashboardHeaderMAlt", 88, 91 },
-                            { "DashboardHeaderMAlt", 94, 97 },
-                        },
-                        position = "center",
-                    },
-                },
-                {
-                    type = "text",
-                    val = "                                 ",
-                    opts = {
-                        hl = {
-                            { "DashboardHeaderN", 7, 13 },
-                            { "DashboardHeaderM", 35, 41 },
+                            { "DashboardHeaderN", 0, 19 },
+                            { "DashboardHeaderE", 19, 37 },
+                            { "DashboardHeaderEO", 37, 40 },
+                            { "DashboardHeaderO", 40, 52 },
+                            { "DashboardHeaderV", 52, 64 },
+                            { "DashboardHeaderVI", 64, 67 },
+                            { "DashboardHeaderI", 67, 70 },
+                            { "DashboardHeaderIM", 70, 73 },
+                            { "DashboardHeaderM", 73, 99 },
                         },
                         position = "center",
                     },
