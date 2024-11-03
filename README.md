@@ -27,16 +27,10 @@ git clone git@github.com:nobilissimum/dotfiles.git
 cd dotfiles
 ```
 
-Use `stow` command to create the symbolic links
+Use `stow` command to create the symbolic links. Use the `--no-folding` flag to prevent symbolic links for directories - this would make sure to create symlinks for individual files. The `--adopt` flag allows conflicts in the stow directory and home directory.
 
 ```sh
-stow .
-```
-
-Alternatively, the following command can be used. This will force resolve conflicting files but will overwrite your stow directory.
-
-```sh
-stow --adopt .
+stow --no-folding --adopt .
 ```
 
 Source `.zshrc_/.sh` in your shell rc file.
@@ -61,6 +55,16 @@ import = [
 
 #### Nix
 
-Nix is installed using the **[Determinate Nix installer](https://github.com/DeterminateSystems/nix-installer)**.
+Nix is installed using the **[Determinate Nix installer](https://github.com/DeterminateSystems/nix-installer?tab=readme-ov-file#install-determinate)**.
 
-To get started, open a new shell or run `. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh`.
+To get started, open a new shell or run
+
+```sh
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+```
+
+Install specified packages in `home.nix` by running
+
+```sh
+home-manager switch
+```
