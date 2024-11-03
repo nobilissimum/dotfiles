@@ -58,3 +58,9 @@ import = [
   "$HOME/.config/alacritty/hush.toml",
 ]
 ```
+
+#### Nix
+
+Nix is installed using the **[Determinate Nix installer](https://github.com/DeterminateSystems/nix-installer)**.
+
+To get started, open a new shell or run `. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh`.
