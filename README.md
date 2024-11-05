@@ -66,5 +66,5 @@ To get started, open a new shell or run
 Install specified packages in `home.nix` by running
 
 ```sh
-home-manager switch
+nix run home-manager switch
 ```
