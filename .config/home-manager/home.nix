@@ -46,5 +46,25 @@
     home-manager = {
       enable = true;
     };
+
+    tmux = {
+      enable = true;
+      terminal = "tmux-256color";
+      extraConfig = ''
+        set -g focus-events on
+        set -g escape-time 0
+      '';
+      plugins = with pkgs; [
+        {
+          plugin = tmuxPlugins.catppuccin;
+          extraConfig = ''
+            set -ga terminal-overrides ",xterm*:Tc"
+            set -ga terminal-overrides ",tmux-256color:RGB"
+          '';
+        }
+        tmuxPlugins.sensible
+        tmuxPlugins.vim-tmux-navigator
+      ];
+    };
   };
 }
