@@ -99,7 +99,7 @@ initrust () {
 
 # Tmux
 tmx () {
-    session_name="$(basename $(dirname $(pwd)))-$(basename $(pwd) | sed 's/\./-/g')"
+    session_name="$(basename $(dirname $(pwd)) | sed 's/\./-/g')-$(basename $(pwd) | sed 's/\./-/g')"
     if ! tmux a -t $session_name $COMMAND &> /dev/null; then
         tmux new-session -d -s "$session_name"
         tmux new-window -d
