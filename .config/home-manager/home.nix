@@ -16,12 +16,16 @@
       # # fonts?
       # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
-      # # You can also create simple shell scripts directly inside your
-      # # configuration. For example, this adds a command 'my-hello' to your
-      # # environment:
-      # (pkgs.writeShellScriptBin "my-hello" ''
-      #   echo "Hello, ${config.home.username}!"
-      # '')
+      (pkgs.writeShellScriptBin "tmx" ''
+        session_name="$(basename $(dirname $(pwd)) | sed 's/\./-/g')-$(basename $(pwd) | sed 's/\./-/g')"
+        if ! tmux a -t $session_name $COMMAND &> /dev/null; then
+            tmux new-session -d -s "$session_name"
+            tmux new-window -d
+            tmux new-window -d
+            tmux new-window -d
+            tmux attach-session -d -t "$session_name"
+        fi
+      '')
     ];
 
     file = {
