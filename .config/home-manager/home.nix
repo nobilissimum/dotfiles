@@ -7,6 +7,7 @@
     stateVersion = "24.05";
 
     packages = [
+      pkgs.cowsay
       pkgs.lazygit
 
       # # It is sometimes useful to fine-tune packages, for example, by applying
