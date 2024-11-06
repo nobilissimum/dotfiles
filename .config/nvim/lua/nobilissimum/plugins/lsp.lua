@@ -131,7 +131,7 @@ return {
                         },
                     },
                 },
-                ruff_lsp = {
+                ruff = {
                     init_options = {
                         settings = {
                             enable = true,
