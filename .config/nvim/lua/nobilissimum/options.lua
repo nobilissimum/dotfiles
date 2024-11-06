@@ -1,6 +1,7 @@
 -- Leader
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.g.lazy_lock_disabled = true
 
 
 -- Number line
