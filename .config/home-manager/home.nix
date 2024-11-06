@@ -29,10 +29,8 @@
     ];
 
     file = {
-      # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-      # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-      # # symlink to the Nix store copy.
-      # ".screenrc".source = dotfiles/screenrc;
+      ".zshrc_".source = ~/dotfiles/.zshrc_;
+      ".p10k.zsh".source = ~/dotfiles/.p10k.zsh;
 
       # # You can also set the file content immediately.
       # ".gradle/gradle.properties".text = ''
@@ -69,6 +67,13 @@
         tmuxPlugins.sensible
         tmuxPlugins.vim-tmux-navigator
       ];
+    };
+
+    zsh = {
+      enable = true;
+      initExtra = ''
+        source ~/.zshrc_/.sh
+      '';
     };
   };
 }
