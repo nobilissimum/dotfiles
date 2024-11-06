@@ -31,7 +31,7 @@ return {
                     ["h"] = "close_node",
                     ["l"] = "open",
                 },
-                position = "right",
+                position = "current",
             },
             default_component_configs = {
                 git_status = {
@@ -54,15 +54,12 @@ return {
         vim.keymap.set("n", "<C-\\>", ":Neotree toggle<CR>", { noremap = true, silent = true })
 
         -- Colors
-        vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { bg = Colors.blue, fg = Colors.black, bold = true })
+        vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { bg = Colors.hush.main, fg = Colors.blue, bold = true })
+        vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = Colors.hush.dark, bold = true })
 
-        vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = Colors.hush.dark })
-        vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = Colors.hush.dark })
-        vim.api.nvim_set_hl(0, "VertSplit", { bg = Colors.hush.dark, fg = Colors.hush.dark })
-        vim.api.nvim_set_hl(0, "WinSeparator", { bg = Colors.hush.dark, fg = Colors.hush.dark })
+        vim.api.nvim_set_hl(0, "NeoTreeFileStats", { fg = Colors.bright_black })
 
-        vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = Colors.black })
-        vim.api.nvim_set_hl(0, "NeoTreeFloatNormal", { bg = Colors.hush.light })
-        vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { bg = Colors.hush.light, fg = Colors.hush.light })
+        vim.api.nvim_set_hl(0, "NeoTreeFloatNormal", { bg = Colors.hush.main })
+        vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { bg = Colors.hush.main, fg = Colors.hush.main })
     end,
 }
