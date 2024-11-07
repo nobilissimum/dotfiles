@@ -4,6 +4,7 @@ let
   sessionVariables = {
     EDITOR = "vim";
     FZF_HOME = "${pkgs.fzf}";
+    ZSH_HOME = "${pkgs.zsh}";
   };
 in
 {
