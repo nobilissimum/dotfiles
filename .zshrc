@@ -40,7 +40,7 @@ zinit cdreplay -q
 
 
 # ZShell configuration
-ZSH_DIR="$HOME/.zshrc_"
+ZSH_DIR="$HOME/.shrc"
 
 # Initialize tools
 source "$ZSH_DIR/config.sh"
@@ -51,9 +51,10 @@ source "$ZSH_DIR/env.sh"
 source "$ZSH_DIR/credentials.sh"
 source "$ZSH_DIR/nvim.sh"
 
+[[ -f "$SH_DIR/custom.sh" ]] && source "$SH_DIR/custom.sh"
+
 # Use powerlevel10k theme
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-
 
 # Show MOTD
 [[ -f ~/.motd_shown ]] && cat ~/.motd_shown

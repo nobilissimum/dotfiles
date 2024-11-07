@@ -1,4 +1,4 @@
-.zshrc
+.shrc/custom.sh
 
 # Alacritty terminal
 alacritty.toml
