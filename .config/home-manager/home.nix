@@ -9,8 +9,8 @@ let
 in
 {
   home = {
-    username = "tenshiro";
-    homeDirectory = "/home/tenshiro";
+    username = builtins.getEnv("USER");
+    homeDirectory = "/home/${config.home.username}";
     stateVersion = "24.05";
 
     packages = [
