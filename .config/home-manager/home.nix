@@ -52,6 +52,7 @@ in
       ".p10k.zsh".source = ~/dotfiles/.p10k.zsh;
 
       ".config/lazygit".source = ~/dotfiles/.config/lazygit;
+      ".config/lf".source = ~/dotfiles/.config/lf;
       ".config/nvim".source = ~/dotfiles/.config/nvim;
 
       # # You can also set the file content immediately.
