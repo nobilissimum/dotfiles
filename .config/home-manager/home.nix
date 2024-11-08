@@ -20,8 +20,8 @@ in
       pkgs.libgcc
       pkgs.libclang
       pkgs.ripgrep
+      pkgs.xclip
       pkgs.zig
-
 
       pkgs.cowsay
       pkgs.lazygit
