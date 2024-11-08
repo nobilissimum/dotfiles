@@ -40,16 +40,16 @@ zinit cdreplay -q
 
 
 # ZShell configuration
-ZSH_DIR="$HOME/.shrc"
+SH_DIR="$HOME/.shrc"
 
 # Initialize tools
-source "$ZSH_DIR/config.sh"
-source "$ZSH_DIR/tools.sh"
-source "$ZSH_DIR/alias.sh"
-source "$ZSH_DIR/func.sh"
-source "$ZSH_DIR/env.sh"
-source "$ZSH_DIR/credentials.sh"
-source "$ZSH_DIR/nvim.sh"
+source "$SH_DIR/config.sh"
+source "$SH_DIR/tools.sh"
+source "$SH_DIR/alias.sh"
+source "$SH_DIR/func.sh"
+source "$SH_DIR/env.sh"
+source "$SH_DIR/credentials.sh"
+source "$SH_DIR/nvim.sh"
 
 [[ -f "$SH_DIR/custom.sh" ]] && source "$SH_DIR/custom.sh"
 
