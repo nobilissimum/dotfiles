@@ -47,7 +47,8 @@ in
     ];
 
     file = {
-      ".zshrc_".source = ~/dotfiles/.zshrc_;
+      ".zshrc".source = ~/dotfiles/.zshrc;
+      ".shrc".source = ~/dotfiles/.shrc;
       ".p10k.zsh".source = ~/dotfiles/.p10k.zsh;
 
       ".config/lazygit".source = ~/dotfiles/.config/lazygit;
