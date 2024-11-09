@@ -48,7 +48,7 @@ To get started, open a new shell or run
 Install specified packages in `home.nix` by running
 
 ```sh
-nix run home-manager -- switch --flake ./home-manager/#linux --impure
+nix run home-manager -- switch --flake ./home-manager/#linux --impure -b backup
 ```
 
 ### Tools
