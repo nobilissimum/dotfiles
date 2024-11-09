@@ -1,0 +1,10 @@
+import = [
+  "$HOME/.config/alacritty/tenshiro.toml",
+  "$HOME/.config/alacritty/hush.toml",
+]
+
+working_directory = "\\\\wsl$\\Ubuntu-24.04\\home\\tenshiro"
+
+[shell]
+program = "C:\\Windows\\System32\\wsl.exe"
+args = ["-d Ubuntu-24.04"]
