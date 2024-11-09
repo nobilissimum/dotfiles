@@ -17,6 +17,7 @@ in
       pkgs.cl
       pkgs.fzf
       pkgs.gcc
+      pkgs.gnumake
       pkgs.libgcc
       pkgs.libclang
       pkgs.ripgrep
@@ -25,7 +26,6 @@ in
 
       pkgs.cowsay
       pkgs.lazygit
-      pkgs.neovim
       pkgs.vim
 
       # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -70,6 +70,12 @@ in
       enable = true;
     };
 
+    neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+    };
+
     tmux = {
       enable = true;
       terminal = "tmux-256color";
@@ -90,6 +96,7 @@ in
       ];
     };
 
+    # Shells
     bash = {
       enable = true;
       sessionVariables = sessionVariables;
