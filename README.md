@@ -4,21 +4,16 @@ This directory contains the dotfiles necessary for my workflow
 
 Ensure you have the following packages are install on your system
 
-#### Git
+- curl - for [determinate nix](#nix) _(recommended)_
+- git
+- stow _(deprecated)_
 
-```sh
-apt install git
-```
-
-#### Stow
-
-```sh
-apt install stow
-```
-
-### Installation
+### Setup
 
 #### Stow
+
+> [!WARNING]
+> This is deprecated and is no longer being maintained. Please use [nix home manager](#nix).
 
 Clone the dotfiles repository to your `$HOME` directory
 
@@ -33,27 +28,14 @@ Use `stow` command to create the symbolic links. Use the `--no-folding` flag to 
 stow --no-folding --adopt .
 ```
 
-Source `.zshrc_/.sh` in your shell rc file.
+#### Nix
+
+Clone the dotfiles repository to your `$HOME` directory
 
 ```sh
-ZSHRC_DIR="$HOME/.zshrc_"
-source "$ZSHRC_DIR/.sh"
+git clone git@github.com:nobilissimum/dotfiles.git
+cd dotfiles
 ```
-
-#### Alacritty
-
-Create `alacritty.toml` inside `.config/alacritty` directory to import `nobilissimum.toml` configuration and your preferred [hush theme](https://github.com/nobilissimum/hush-alacritty) configuration.
-
-```toml
-# alacritty.toml
-
-import = [
-  "$HOME/.config/alacritty/tenshiro.toml",
-  "$HOME/.config/alacritty/hush.toml",
-]
-```
-
-#### Nix
 
 Nix is installed using the **[Determinate Nix installer](https://github.com/DeterminateSystems/nix-installer?tab=readme-ov-file#install-determinate)**.
 
@@ -66,5 +48,20 @@ To get started, open a new shell or run
 Install specified packages in `home.nix` by running
 
 ```sh
-nix run home-manager switch --impure
+nix run home-manager -- switch --flake ./home-manager/#linux --impure
+```
+
+### Tools
+
+#### Alacritty
+
+Create `alacritty.toml` inside `.config/alacritty` directory to import `nobilissimum.toml` configuration and your preferred [hush theme](https://github.com/nobilissimum/hush-alacritty) configuration.
+
+```toml
+# alacritty.toml
+
+import = [
+  "$HOME/.config/alacritty/tenshiro.toml",
+  "$HOME/.config/alacritty/hush.toml",
+]
 ```
