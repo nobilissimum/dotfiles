@@ -20,6 +20,8 @@ in
       pkgs.gnumake
       pkgs.libgcc
       pkgs.libclang
+      pkgs.nodejs_22
+      pkgs.python312
       pkgs.ripgrep
       pkgs.xclip
       pkgs.zig
