@@ -14,19 +14,33 @@ in
     stateVersion = "24.05";
 
     packages = [
+      pkgs.p7zip
       pkgs.cl
+      pkgs.eza
+      pkgs.fd
       pkgs.fzf
       pkgs.gcc
       pkgs.gnumake
+      pkgs.gnupg
+      pkgs.htop
+      pkgs.jq
       pkgs.libgcc
       pkgs.libclang
+      pkgs.lf
+      pkgs.lua
+      pkgs.luajitPackages.luarocks
       pkgs.nodejs_22
+      pkgs.pass
       pkgs.python312
       pkgs.ripgrep
+      pkgs.tree-sitter
+      pkgs.unzip
+      pkgs.wget
       pkgs.xclip
       pkgs.zig
+      pkgs.zip
+      pkgs.zoxide
 
-      pkgs.cowsay
       pkgs.lazygit
       pkgs.vim
 
@@ -53,13 +67,13 @@ in
       ".shrc" = {
         source = ~/dotfiles/.shrc;
         recursive = true;
-      }
+      };
       ".p10k.zsh".source = ~/dotfiles/.p10k.zsh;
 
       ".config/lazygit" = {
         source = ~/dotfiles/.config/lazygit;
         recursive = true;
-      }
+      };
       ".config/lf" = {
         source = ~/dotfiles/.config/lf;
         recursive = true;
