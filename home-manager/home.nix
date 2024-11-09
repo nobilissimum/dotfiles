@@ -50,12 +50,28 @@ in
 
     file = {
       ".zshrc".source = ~/dotfiles/.zshrc;
-      ".shrc".source = ~/dotfiles/.shrc;
+      ".shrc" = {
+        source = ~/dotfiles/.shrc;
+        recursive = true;
+      }
       ".p10k.zsh".source = ~/dotfiles/.p10k.zsh;
 
-      ".config/lazygit".source = ~/dotfiles/.config/lazygit;
-      ".config/lf".source = ~/dotfiles/.config/lf;
-      ".config/nvim".source = ~/dotfiles/.config/nvim;
+      ".config/lazygit" = {
+        source = ~/dotfiles/.config/lazygit;
+        recursive = true;
+      }
+      ".config/lf" = {
+        source = ~/dotfiles/.config/lf;
+        recursive = true;
+      };
+      ".config/nvim" = {
+        source = ~/dotfiles/.config/nvim;
+        recursive = true;
+        executable = true;
+        onChange = ''
+          chmod -R u+w $HOME/.config/nvim
+        '';
+      };
 
       # # You can also set the file content immediately.
       # ".gradle/gradle.properties".text = ''
