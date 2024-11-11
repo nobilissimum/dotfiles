@@ -6,18 +6,28 @@ if wezterm.config_builder then
 end
 
 
+local function map(src_table, func)
+    local dist_table = {}
+    for key, value in pairs(src_table) do
+        dist_table[key] = func(value)
+    end
+
+    return dist_table
+end
+
+
 -- Font
-local base_font = "JetBrains Mono"
-local nerd_font = "JetBrainsMono Nerd Font"
-
-local half_prefix = "Medium"
-local bold_prefix = "Bold"
-
+local fonts = {
+    { name = "JetBrains Mono", half = "Medium", bold = "Bold" },
+    { name = "JetBrainsMono Nerd Font", half = "Medium", bold = "Bold" },
+}
 local harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
-local font_with_fallback = wezterm.font_with_fallback({
-    { family = base_font, harfbuzz_features = harfbuzz_features },
-    { family = nerd_font, harfbuzz_features = harfbuzz_features },
-})
+local font_with_fallback = wezterm.font_with_fallback(map(
+    fonts,
+    function(item)
+        return { family = item.name, harfbuzz_features = harfbuzz_features }
+    end
+))
 local font_size = 10.25
 
 config.font = font_with_fallback
@@ -26,21 +36,24 @@ config.font_rules = {
     {
         intensity = "Bold",
         italic = false,
-        font = wezterm.font_with_fallback({
-            { family = base_font .. " " .. bold_prefix, harfbuzz_features = harfbuzz_features },
-            { family = nerd_font .. " " .. bold_prefix, harfbuzz_features = harfbuzz_features },
-        }),
+        font = wezterm.font_with_fallback(map(
+            fonts,
+            function(item)
+                return { family = item.name .. " " .. item.bold, harfbuzz_features = harfbuzz_features }
+            end
+        )),
     },
 
     -- Half
     {
         intensity = "Half",
         italic = false,
-        font = wezterm.font_with_fallback({
-            { family = base_font .. " " .. half_prefix, harfbuzz_features = harfbuzz_features },
-            { family = nerd_font .. " " .. half_prefix, harfbuzz_features = harfbuzz_features },
-
-        }),
+        font = wezterm.font_with_fallback(map(
+            fonts,
+            function(item)
+                return { family = item.name .. " " .. item.half, harfbuzz_features = harfbuzz_features }
+            end
+        )),
     },
 }
 config.font_size = font_size
