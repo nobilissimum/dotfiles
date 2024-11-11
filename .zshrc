@@ -57,5 +57,9 @@ source "$SH_DIR/nvim.sh"
 
 [[ -f "$SH_DIR/custom.sh" ]] && source "$SH_DIR/custom.sh"
 
+bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+
 # Use powerlevel10k theme
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
