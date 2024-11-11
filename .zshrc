@@ -59,6 +59,3 @@ source "$SH_DIR/nvim.sh"
 
 # Use powerlevel10k theme
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-
-# Show MOTD
-[[ -f ~/.motd_shown ]] && cat ~/.motd_shown
