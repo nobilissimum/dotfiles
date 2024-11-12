@@ -31,12 +31,6 @@ return {
         vim.api.nvim_set_hl(0, "DashboardFooterVersion", { bg = nil, fg = Colors.green })
         vim.api.nvim_set_hl(0, "DashboardFooterSeparator", { bg = nil, fg = Colors.bright_black2 })
 
-
-        --   █▌ █               █        
-        --  ██▌█████████▌ █████████
-        -- █▐████▄██ ██▌███ █ █
-        --█ ▐███████████████ █ █ 
-
         dashboard.section.header = {
             type = "group",
             val = {
@@ -152,12 +146,3 @@ return {
         vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
     end,
 }
-
-
-
-
-
-
-
-
-
