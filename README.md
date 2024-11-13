@@ -45,7 +45,7 @@ To get started, open a new shell or run
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 ```
 
-Install specified packages in `home.nix` by running
+Install specified packages in `home.nix` by running. You may not use the flag `-b backup` for the succeeding switches after the initial switch.
 
 ```sh
 nix run home-manager -- switch --flake ./home-manager/#linux --impure -b backup
