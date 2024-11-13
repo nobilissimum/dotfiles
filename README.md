@@ -51,6 +51,13 @@ Install specified packages in `home.nix` by running. You may not use the flag `-
 nix run home-manager -- switch --flake ./home-manager/#linux --impure -b backup
 ```
 
+Append `zsh` executable filepath to `/etc/shells` then set it as the default shell.
+
+```sh
+command -v zsh | sudo tee -a /etc/shells
+chsh nobi -s $(which zsh)
+```
+
 ### Tools
 
 #### Alacritty
