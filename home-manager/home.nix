@@ -10,7 +10,7 @@ in
 {
   home = {
     username = builtins.getEnv("USER");
-    homeDirectory = "/home/${config.home.username}";
+    homeDirectory = builtins.getEnv("HOME");
     stateVersion = "24.05";
 
     packages = [
