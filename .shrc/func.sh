@@ -36,3 +36,11 @@ srcenv () {
     source $filename;
     set +o allexport;
 }
+
+srcvenv () {
+    local filename="${1-.venv}/${2-bin}/activate";
+    set -o allexport;
+    echo "sourcing $filename...";
+    source $filename;
+    set +o allexport;
+}
