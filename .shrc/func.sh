@@ -44,3 +44,7 @@ srcvenv () {
     source $filename;
     set +o allexport;
 }
+
+srcgo () {
+    export PATH="$PATH:$(go env GOPATH)/bin"
+}
