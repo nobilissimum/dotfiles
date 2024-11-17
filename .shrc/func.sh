@@ -32,7 +32,7 @@ gissb () {
 srcenv () {
     local filename=${1-.env};
     set -o allexport;
-    echo "source $filename";
+    echo "sourcing $filename...";
     source $filename;
     set +o allexport;
 }
