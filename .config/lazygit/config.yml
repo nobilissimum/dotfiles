@@ -21,4 +21,5 @@ gui:
     border: 'rounded'
 
 os:
+    editPreset: 'vim'
     copyToClipboardCmd: 'echo {{text}} | xclip -selection clipboard && kill -9 $(pgrep xclip)'
