@@ -14,6 +14,9 @@ return {
 
             -- Navigation
             "nvim-telescope/telescope.nvim",
+
+            -- Formatting
+            "stevearc/conform.nvim"
         },
         config = function()
             -- Vim diagnostic
@@ -174,6 +177,37 @@ return {
                     end,
                 },
             })
+
+            -- Formatting
+            local conform = require("conform")
+            local mason_registry = require("mason-registry")
+            local packages = mason_registry.get_installed_packages()
+
+            local formatters_by_ft = {}
+            for _, package in ipairs(packages) do
+                if not StringInTable("Formatter", package.spec.categories) then
+                    goto continue
+                end
+
+                for _, language in ipairs(package.spec.languages) do
+                    local lang = string.lower(language)
+                    Upsert(lang, package.name, formatters_by_ft)
+                end
+
+                ::continue::
+            end
+
+            conform.setup({
+                cmd = "ConformInfo",
+                default_format_opts = {
+                    lsp_format = "fallback",
+                },
+                formatters_by_ft = formatters_by_ft,
+            })
+
+            vim.api.nvim_create_user_command("FormatBuffer", function()
+                conform.format()
+            end, {})
         end,
     },
 }
