@@ -58,6 +58,23 @@ command -v zsh | sudo tee -a /etc/shells
 chsh nobi -s $(which zsh)
 ```
 
+### Environment
+
+#### WSL
+
+When using WSL, `systemd` should be enabled and `wsl` should be updated. Append the following to `/etc/wsl.conf`
+
+```
+[boot]
+systemd=true
+```
+
+Run the following command in PowerShell
+
+```sh
+wsl --update
+```
+
 ### Tools
 
 #### Alacritty
