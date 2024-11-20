@@ -214,6 +214,9 @@ return {
                 end
             end, {
                 nargs = "?",
+                complete = function()
+                    return conform.list_formatters_for_buffer()
+                end,
             })
 
             vim.keymap.set("n", "<leader>f", conform.format, { desc = "[F]ormat" })
