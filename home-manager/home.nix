@@ -63,21 +63,24 @@ in
       ".shrc" = {
         source = ~/dotfiles/.shrc;
         recursive = true;
+        force = true;
       };
       ".p10k.zsh".source = ~/dotfiles/.p10k.zsh;
-
       ".config/lazygit" = {
         source = ~/dotfiles/.config/lazygit;
         recursive = true;
+        force = true;
       };
       ".config/lf" = {
         source = ~/dotfiles/.config/lf;
         recursive = true;
+        force = true;
       };
       ".config/nvim" = {
         source = ~/dotfiles/.config/nvim;
         recursive = true;
         executable = true;
+        force = true;
         onChange = ''
           chmod -R u+w $HOME/.config/nvim
         '';
