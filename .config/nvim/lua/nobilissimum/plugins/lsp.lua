@@ -181,17 +181,15 @@ return {
             -- Formatting
             local conform = require("conform")
             local mason_registry = require("mason-registry")
-            local packages = mason_registry.get_installed_packages()
 
             local formatters_by_ft = {}
-            for _, package in ipairs(packages) do
+            for _, package in ipairs(mason_registry.get_installed_packages()) do
                 if not StringInTable("Formatter", package.spec.categories) then
                     goto continue
                 end
 
                 for _, language in ipairs(package.spec.languages) do
-                    local lang = string.lower(language)
-                    Upsert(lang, package.name, formatters_by_ft)
+                    Upsert(string.lower(language), package.name, formatters_by_ft)
                 end
 
                 ::continue::
