@@ -205,9 +205,16 @@ return {
                 formatters_by_ft = formatters_by_ft,
             })
 
-            vim.api.nvim_create_user_command("FormatBuffer", function()
-                conform.format()
-            end, {})
+            vim.api.nvim_create_user_command("FormatBuf", function(opts)
+                local formatter = opts.args
+                if formatter ~= "" then
+                    conform.format({ formatters = { formatter } })
+                else
+                    conform.format()
+                end
+            end, {
+                nargs = "?",
+            })
         end,
     },
 }
