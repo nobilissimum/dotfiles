@@ -215,6 +215,8 @@ return {
             end, {
                 nargs = "?",
             })
+
+            vim.keymap.set("n", "<leader>f", conform.format, { desc = "[F]ormat" })
         end,
     },
 }
