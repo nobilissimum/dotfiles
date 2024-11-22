@@ -60,10 +60,6 @@ in
         ];
 
         file = {
-            ".bashrc" = {
-                source = ~/dotfiles/.bashrc;
-                force = true;
-            };
             ".zshrc".source = ~/dotfiles/.zshrc;
             ".shrc" = {
                 source = ~/dotfiles/.shrc;
@@ -129,6 +125,7 @@ in
         # Shells
         bash = {
             enable = true;
+            initExtra = "source ~/dotfiles/.bashrc";
             sessionVariables = sessionVariables;
         };
         zsh = {
