@@ -43,7 +43,7 @@ SH_DIR="$HOME/.shrc"
 
 # Initialize tools
 source "$SH_DIR/config/zsh.sh"
-source "$SH_DIR/tools.sh"
+source "$SH_DIR/tools/zsh.sh"
 source "$SH_DIR/alias.sh"
 source "$SH_DIR/func.sh"
 source "$SH_DIR/env.sh"

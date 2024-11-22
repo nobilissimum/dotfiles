@@ -82,7 +82,7 @@ SH_DIR="$HOME/.shrc"
 
 # Initialize tools
 source "$SH_DIR/config/bash.sh"
-source "$SH_DIR/tools.sh"
+source "$SH_DIR/tools/bash.sh"
 source "$SH_DIR/alias.sh"
 source "$SH_DIR/func.sh"
 source "$SH_DIR/env.sh"
@@ -91,9 +91,5 @@ source "$SH_DIR/nvim.sh"
 
 [[ -f "$SH_DIR/custom.sh" ]] && source "$SH_DIR/custom.sh"
 
-bindkey -e
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
-
 # Use starship
-eval "$(starship init zsh)"
+eval "$(starship init bash)"

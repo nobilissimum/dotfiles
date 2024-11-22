@@ -1,3 +1,5 @@
+source ~/.shrc/config/common.sh
+
 # History configuration
 export HISTFILE=~/.zsh_history
 export HISTFILESIZE=$HISTSIZE

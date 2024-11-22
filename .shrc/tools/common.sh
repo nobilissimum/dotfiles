@@ -50,18 +50,12 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
     --color=marker:#2d949f,spinner:#a980c4,header:#8e9196'
 
 
-# Zoxide
-if zoxide --version $COMMAND &> /dev/null; then
-    eval "$(zoxide init --cmd cd zsh)"
-fi
-
-
 # Golang
 [ -d /usr/local/go ] && export PATH=$PATH:/usr/local/go/bin
 
 
 # Lua
-lua_version="${${LUA_VERSION}:-5.4.7}"
+lua_version="${LUA_VERSION:-5.4.7}"
 [ -d /usr/local/lua-5.4.7 ] && export PATH="$PATH:/usr/local/lua-5.4.7/src"
 
 
