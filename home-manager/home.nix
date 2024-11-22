@@ -128,9 +128,6 @@ in
     };
     zsh = {
       enable = true;
-      initExtra = ''
-        source ~/.zshrc_/.sh
-      '';
       sessionVariables = sessionVariables;
     };
   };
