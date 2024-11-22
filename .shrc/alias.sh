@@ -5,5 +5,6 @@ fi
 alias ls=$ls_alias
 alias ll='ls --color -AlhF'
 alias la='ls --color -Ah'
+alias l='ls -CF'
 
 alias c='clear'

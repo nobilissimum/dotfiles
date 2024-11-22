@@ -36,18 +36,18 @@ zinit snippet OMZP::command-not-found
 
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
-  compinit
+    compinit
 done
 compinit -C
 
 zinit cdreplay -q
 
 
-# ZShell configuration
+# Shell configuration
 SH_DIR="$HOME/.shrc"
 
 # Initialize tools
-source "$SH_DIR/config.sh"
+source "$SH_DIR/config/zsh.sh"
 source "$SH_DIR/tools.sh"
 source "$SH_DIR/alias.sh"
 source "$SH_DIR/func.sh"
