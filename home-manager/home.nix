@@ -59,6 +59,10 @@ in
     ];
 
     file = {
+        ".bashrc" = {
+            source = ~/dotfiles/.bashrc;
+            force = true;
+        };
       ".zshrc".source = ~/dotfiles/.zshrc;
       ".shrc" = {
         source = ~/dotfiles/.shrc;
