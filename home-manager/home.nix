@@ -14,7 +14,6 @@ in
     stateVersion = "24.05";
 
     packages = [
-      pkgs.p7zip
       pkgs.cl
       pkgs.eza
       pkgs.fd
@@ -29,6 +28,7 @@ in
       pkgs.lf
       pkgs.lua
       pkgs.luajitPackages.luarocks
+      pkgs.p7zip
       pkgs.nodejs_22
       pkgs.pass
       pkgs.python312
