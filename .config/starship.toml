@@ -2,16 +2,18 @@
 
 add_newline = false
 continuation_prompt = "[▸▹ ](dimmed white)"
+palette = 'hush'
+
 
 format = """
 $hostname\
-$username\
 $directory\
 $git_branch\
 $git_commit\
 $git_state\
 $git_status\
-$character"""
+$character\
+"""
 
 right_format = """
 $localip\
@@ -20,7 +22,6 @@ $shell\
 $env_var\
 $jobs\
 $sudo\
-$username\
 $singularity\
 $kubernetes\
 $vcsh\
@@ -82,7 +83,20 @@ $openstack\
 $azure\
 $crystal\
 $status\
-$cmd_duration"""
+$cmd_duration\
+$username\
+"""
+
+
+[palettes.hush]
+black = '#121C26'
+red = '#F77172'
+green = '#65A884'
+yellow = '#CEC999'
+blue = '#74ADD2'
+magenta = '#A980C4'
+cyan = '#2D949F'
+white = '#FFFFFF'
 
 
 [directory]
@@ -114,9 +128,17 @@ staged = '[󰏫 $count ](bold green)'
 untracked = '[ $count ](bold purple)'
 
 
+[golang]
+format = '[ $symbol ($version) ]($style)'
+style = 'fg:black bg:#00ADD8'
+symbol = ''
+
+
 [username]
-format = '[$user]($style) • '
-show_always = false
+format = '[ $user ]($style)'
+style_root = 'bold fg:black bg:red'
+style_user = 'bold fg:black bg:yellow'
+show_always = true
 
 [username.aliases]
 root = "󰆥"
