@@ -1,6 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-add_newline = false
+add_newline = true
 continuation_prompt = "[▸▹ ](dimmed white)"
 palette = 'hush'
 
@@ -41,7 +41,6 @@ $elixir\
 $elm\
 $erlang\
 $fennel\
-$golang\
 $guix_shell\
 $haskell\
 $haxe\
@@ -84,11 +83,17 @@ $azure\
 $crystal\
 $status\
 $cmd_duration\
+ \
+[](fg:golang)\
+$golang\
+[](fg:green bg:golang)\
 $username\
 """
 
 
 [palettes.hush]
+golang = '#00ADD8'
+
 black = '#121C26'
 red = '#F77172'
 green = '#65A884'
@@ -129,15 +134,15 @@ untracked = '[ $count ](bold purple)'
 
 
 [golang]
-format = '[ $symbol ($version) ]($style)'
-style = 'fg:black bg:#00ADD8'
+format = '[$symbol ($version) ]($style)'
+style = 'fg:black bg:golang'
 symbol = ''
 
 
 [username]
-format = '[ $user ]($style)'
-style_root = 'bold fg:black bg:red'
-style_user = 'bold fg:black bg:yellow'
+format = '[$user]($style)[](fg:green)'
+style_root = 'bold fg:black bg:green'
+style_user = 'bold fg:black bg:green'
 show_always = true
 
 [username.aliases]
