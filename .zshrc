@@ -14,9 +14,6 @@ fi
 # Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Add Powerlevel10k
-zinit ice depth=1; zinit light romkatv/powerlevel10k
-
 # Add plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light catppuccin/zsh-syntax-highlighting
@@ -56,5 +53,5 @@ bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
-# Use powerlevel10k theme
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+# Use starship
+eval "$(starship init zsh)"
