@@ -97,7 +97,12 @@ symbol = ''
 
 
 [git_status]
-format = '[$all_status$ahead_behind]($style)'
+format = '[$ahead_behind$all_status]($style)'
+
+diverged = '⇕ '
+ahead = '[ $count ](bold blue)'
+behind = '[ $count ](bold blue)'
+up_to_date = ''
 
 conflicted = '[ $count ](bold red)'
 stashed = '[󰆓 $count ](bold yellow)'
@@ -107,11 +112,6 @@ modified = '[ $count ](bold cyan)'
 typechanged = ''
 staged = '[󰏫 $count ](bold green)'
 untracked = '[ $count ](bold purple)'
-
-diverged = '⇕ '
-ahead = '[ $count ](bold blue)'
-behind = '[ $count ](bold blue)'
-up_to_date = ''
 
 
 [username]
