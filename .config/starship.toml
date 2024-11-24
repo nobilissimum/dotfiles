@@ -41,6 +41,7 @@ $elixir\
 $elm\
 $erlang\
 $fennel\
+$golang\
 $guix_shell\
 $haskell\
 $haxe\
@@ -83,16 +84,14 @@ $azure\
 $crystal\
 $status\
 $cmd_duration\
- \
-[](fg:golang)\
-$golang\
-[](fg:green bg:golang)\
 $username\
 """
 
 
 [palettes.hush]
+cmd_duration = '#65A884'
 golang = '#00ADD8'
+username = '#393C4D'
 
 black = '#121C26'
 red = '#F77172'
@@ -102,6 +101,11 @@ blue = '#74ADD2'
 magenta = '#A980C4'
 cyan = '#2D949F'
 white = '#FFFFFF'
+
+
+[cmd_duration]
+format = ' [󰥔 $duration]($style) '
+style = 'bold fg:cmd_duration'
 
 
 [directory]
@@ -134,15 +138,15 @@ untracked = '[ $count ](bold purple)'
 
 
 [golang]
-format = '[$symbol ($version) ]($style)'
-style = 'fg:black bg:golang'
+format = ' [$symbol ($version)]($style) '
+style = 'bold fg:golang'
 symbol = ''
 
 
 [username]
-format = '[$user]($style)[](fg:green)'
-style_root = 'bold fg:black bg:green'
-style_user = 'bold fg:black bg:green'
+format = '[](fg:username)[$user]($style)[](fg:username)'
+style_root = 'bold fg:white bg:username'
+style_user = 'bold fg:white bg:username'
 show_always = true
 
 [username.aliases]
