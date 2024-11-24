@@ -28,29 +28,20 @@ $vcsh\
 $fossil_branch\
 $hg_branch\
 $pijul_channel\
-$docker_context\
 $package\
-$c\
 $cmake\
 $cobol\
 $daml\
 $dart\
 $deno\
 $dotnet\
-$elixir\
-$elm\
 $erlang\
 $fennel\
 $guix_shell\
-$haskell\
 $haxe\
 $helm\
-$java\
-$julia\
 $kotlin\
-$gradle\
 $lua\
-$nim\
 $ocaml\
 $opa\
 $perl\
@@ -62,8 +53,6 @@ $raku\
 $rlang\
 $red\
 $ruby\
-$rust\
-$scala\
 $solidity\
 $swift\
 $terraform\
@@ -82,8 +71,17 @@ $azure\
 $crystal\
 $status\
 
+$c\
+$docker_context\
+$elixir\
+$elm\
 $golang\
+$gradle\
+$haskell\
+$julia\
 $nodejs\
+$rust\
+$scala\
 
 $cmd_duration\
 $username\
@@ -91,9 +89,18 @@ $username\
 
 
 [palettes.hush]
+c = '#699DD3'
 cmd_duration = '#65A884'
+docker = '#1D63ED'
+elixir = '#9F8FAF'
+elm = '#E79F00'
 golang = '#00ADD8'
+gradle = '#29DB2E'
+haskell = '#93548F'
+julia = '#5369B1'
 nodejs = '#417E38'
+rust = '#B7410E'
+scala = '#DE3423'
 username = '#393C4D'
 
 black = '#121C26'
@@ -106,6 +113,12 @@ cyan = '#2D949F'
 white = '#FFFFFF'
 
 
+[c]
+format = ' [$symbol ($version)]($style) '
+style = 'bold fg:c'
+symbol = ''
+
+
 [cmd_duration]
 format = ' [󰥔 $duration]($style) '
 style = 'bold fg:cmd_duration'
@@ -115,6 +128,24 @@ style = 'bold fg:cmd_duration'
 format = '[$path]($style)[$read_only]($read_only_style) '
 truncation_length = 0
 truncation_symbol = ''
+
+
+[docker_context]
+format = ' [$symbol ($version)]($style) '
+style = 'bold fg:docker'
+symbol = '󰡨'
+
+
+[elixir]
+format = ' [$symbol ($version)]($style) '
+style = 'bold fg:elixir'
+symbol = ''
+
+
+[elm]
+format = ' [$symbol ($version)]($style) '
+style = 'bold fg:elm'
+symbol = ''
 
 
 [git_branch]
@@ -146,10 +177,40 @@ style = 'bold fg:golang'
 symbol = ''
 
 
+[gradle]
+format = ' [$symbol ($version)]($style) '
+style = 'bold fg:gradle'
+symbol = ''
+
+
+[haskell]
+format = ' [$symbol ($version)]($style) '
+style = 'bold fg:haskell'
+symbol = ''
+
+
+[julia]
+format = ' [$symbol ($version)]($style) '
+style = 'bold fg:julia'
+symbol = ''
+
+
 [nodejs]
 format = ' [$symbol ($version)]($style) '
 style = 'bold fg:nodejs'
 symbol = '󰎙'
+
+
+[rust]
+format = ' [$symbol ($version)]($style) '
+style = 'bold fg:rust'
+symbol = ''
+
+
+[scala]
+format = ' [$symbol ($version)]($style) '
+style = 'bold fg:scala'
+symbol = ''
 
 
 [username]
