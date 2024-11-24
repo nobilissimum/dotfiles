@@ -91,6 +91,7 @@ $username\
 [palettes.hush]
 cmd_duration = '#65A884'
 golang = '#00ADD8'
+nodejs = '#417E38'
 username = '#393C4D'
 
 black = '#121C26'
@@ -141,6 +142,12 @@ untracked = '[ $count ](bold purple)'
 format = ' [$symbol ($version)]($style) '
 style = 'bold fg:golang'
 symbol = ''
+
+
+[nodejs]
+format = ' [$symbol ($version)]($style) '
+style = 'bold fg:nodejs'
+symbol = '󰎙'
 
 
 [username]
