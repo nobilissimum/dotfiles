@@ -41,7 +41,6 @@ $elixir\
 $elm\
 $erlang\
 $fennel\
-$golang\
 $guix_shell\
 $haskell\
 $haxe\
@@ -52,7 +51,6 @@ $kotlin\
 $gradle\
 $lua\
 $nim\
-$nodejs\
 $ocaml\
 $opa\
 $perl\
@@ -83,6 +81,10 @@ $openstack\
 $azure\
 $crystal\
 $status\
+
+$golang\
+$nodejs\
+
 $cmd_duration\
 $username\
 """
