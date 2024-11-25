@@ -192,6 +192,11 @@ style = 'bold fg:haskell'
 symbol = ''
 
 
+[hostname]
+format = ' [$hostname]($style) :: '
+style = 'bold fg:green'
+
+
 [julia]
 format = ' [$symbol ($version)]($style) '
 style = 'bold fg:julia'
