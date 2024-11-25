@@ -35,13 +35,16 @@ dockerstart () {
 # Node Version Manager
 export NVM_DIR="$HOME/.nvm"
 export _is_nvm_exported=false
-nvm () {
-    unset -f nvm
+nvminit () {
     if [ "$_is_nvm_exported" = false ]; then
         [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
         [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
         export _is_nvm_exported=true
     fi
+}
+nvm () {
+    unset -f nvm
+    nvminit
     nvm "$@"
 }
 
