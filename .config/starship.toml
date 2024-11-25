@@ -116,6 +116,12 @@ cyan = '#2D949F'
 white = '#FFFFFF'
 
 
+[aws]
+format = ' [$symbol ( $profile)( $region)( \[$duration\])]($style) '
+style = 'bold fg:yellow'
+symbol = '󰸏'
+
+
 [c]
 format = ' [$symbol ($version)]($style) '
 style = 'bold fg:c'
