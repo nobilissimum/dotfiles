@@ -75,7 +75,7 @@ return {
                 },
                 live_grep = {
                     additional_args = function()
-                        return { "--hidden" }
+                        return { "--hidden", "--no-ignore" }
                     end,
                 },
             },
