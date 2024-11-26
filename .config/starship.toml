@@ -201,7 +201,7 @@ symbol = ''
 
 
 [hostname]
-format = ' [$hostname]($style) :: '
+format = '[$hostname]($style) :: '
 style = 'bold fg:green'
 
 
