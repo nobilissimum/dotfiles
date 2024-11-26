@@ -131,7 +131,6 @@ symbol = ''
 [cmd_duration]
 format = ' [󰥔  $duration]($style) '
 style = 'bold fg:cmd_duration'
-min_time = 0
 
 
 [directory]
