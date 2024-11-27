@@ -42,7 +42,6 @@ $guix_shell\
 $haxe\
 $helm\
 $kotlin\
-$lua\
 $ocaml\
 $opa\
 $perl\
@@ -64,13 +63,13 @@ $conda\
 $meson\
 $spack\
 $memory_usage\
-$aws\
 $gcloud\
 $openstack\
 $azure\
 $crystal\
 $status\
 
+$aws\
 $c\
 $docker_context\
 $elixir\
@@ -79,6 +78,7 @@ $golang\
 $gradle\
 $haskell\
 $julia\
+$lua\
 $nodejs\
 $python\
 $rust\
