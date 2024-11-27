@@ -99,6 +99,7 @@ golang = '#00ADD8'
 gradle = '#29DB2E'
 haskell = '#93548F'
 julia = '#5369B1'
+lua = '#080884'
 nodejs = '#417E38'
 package = '#535B68'
 python = '#F7E170'
@@ -107,6 +108,7 @@ scala = '#DE3423'
 username = '#393C4D'
 
 black = '#121C26'
+bright_black = '#7E848E'
 red = '#F77172'
 green = '#65A884'
 yellow = '#CEC999'
@@ -210,6 +212,12 @@ style = 'bold fg:julia'
 symbol = ''
 
 
+[lua]
+format = ' [](fg:bright_black)[$symbol ( $version)]($style)[](fg:bright_black) '
+style = 'bold fg:lua bg:bright_black'
+symbol = ''
+
+
 [nodejs]
 format = ' [$symbol ( $version)]($style) '
 style = 'bold fg:nodejs'
@@ -241,7 +249,7 @@ symbol = ''
 
 
 [username]
-format = '[](fg:username)[$user]($style)[](fg:username)'
+format = ' [](fg:username)[$user]($style)[](fg:username)'
 style_root = 'bold fg:white bg:username'
 style_user = 'bold fg:white bg:username'
 show_always = true
