@@ -256,4 +256,4 @@ style_user = 'bold fg:white bg:username'
 show_always = true
 
 [username.aliases]
-root = " 󰆥 "
+root = "󰆥 "
