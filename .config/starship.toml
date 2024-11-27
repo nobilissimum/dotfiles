@@ -90,6 +90,7 @@ $username\
 
 
 [palettes.hush]
+aws = '#FF9C08'
 c = '#699DD3'
 cmd_duration = '#65A884'
 docker = '#1D63ED'
@@ -120,7 +121,7 @@ white = '#FFFFFF'
 
 [aws]
 format = ' [$symbol ( $profile)( $region)( \[$duration\])]($style) '
-style = 'bold fg:yellow'
+style = 'bold fg:aws'
 symbol = '󰸏'
 
 
