@@ -75,7 +75,7 @@ return {
                 },
                 live_grep = {
                     additional_args = function()
-                        return { "--hidden", "--no-ignore" }
+                        return { "--hidden" }
                     end,
                 },
             },
@@ -89,7 +89,19 @@ return {
         vim.keymap.set("n", "<C-p>", tl_builtin.find_files, { desc = "[S]earch [F]iles" })
         vim.keymap.set("n", "<leader>ss", tl_builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
         vim.keymap.set("n", "<leader>sw", tl_builtin.grep_string, { desc = "[S]earch current [W]ord" })
-        vim.keymap.set("n", "<C-f>", tl_builtin.live_grep, { desc = "[S]earch by [G]rep" })
+        vim.keymap.set("n", "<C-f>", tl_builtin.live_grep, { desc = "[F]ind live grep" })
+        vim.keymap.set(
+            "n",
+            "<leader>sl",
+            function()
+                tl_builtin.live_grep({
+                    additional_args = function()
+                        return { "--hidden", "--no-ignore" }
+                    end,
+                })
+            end,
+            { desc = "[S]earch files using [L]ive grep" }
+        )
         vim.keymap.set("n", "<leader>sd", tl_builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
         vim.keymap.set("n", "<leader>sr", tl_builtin.resume, { desc = "[S]earch [R]esume" })
         vim.keymap.set("n", "<leader>s.", tl_builtin.oldfiles, { desc = "[S]earch recent files ('.' for repeat)" })
