@@ -18,6 +18,7 @@ end
 
 -- Font
 local fonts = {
+    { name = "SF Mono", half = "Bold", bold = "Bold", native = true },
     { name = "JetBrains Mono", half = "Medium", bold = "Bold" },
     { name = "JetBrainsMono Nerd Font", half = "Medium", bold = "Bold" },
 }
@@ -39,7 +40,15 @@ config.font_rules = {
         font = wezterm.font_with_fallback(map(
             fonts,
             function(item)
-                return { family = item.name .. " " .. item.bold, harfbuzz_features = harfbuzz_features }
+                local font_name = item.name
+                local font = { harfbuzz_features = harfbuzz_features }
+                if item.native then
+                    font.weight = item.bold
+                else
+                    font_name = item.name .. " " .. item.bold
+                end
+                font.family = font_name
+                return font
             end
         )),
     },
@@ -51,7 +60,15 @@ config.font_rules = {
         font = wezterm.font_with_fallback(map(
             fonts,
             function(item)
-                return { family = item.name .. " " .. item.half, harfbuzz_features = harfbuzz_features }
+                local font_name = item.name
+                local font = { harfbuzz_features = harfbuzz_features }
+                if item.native then
+                    font.weight = item.half
+                else
+                    font_name = item.name .. " " .. item.half
+                end
+                font.family = font_name
+                return font
             end
         )),
     },
