@@ -14,23 +14,19 @@ return {
             max_lines,
             layout_config
         )
-            local layout = require("telescope.pickers.layout_strategies").horizontal(
-                picker,
-                max_columns,
-                max_lines,
-                layout_config
-            )
+            local layout =
+                require("telescope.pickers.layout_strategies").horizontal(picker, max_columns, max_lines, layout_config)
 
             layout.prompt.title = ""
             layout.prompt.borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
 
             layout.results.title = ""
-            layout.results.borderchars = { "─", "│", "─", "│", "├", "┤", "╯", "╰"  }
+            layout.results.borderchars = { "─", "│", "─", "│", "├", "┤", "╯", "╰" }
             layout.results.line = layout.results.line - 1
             layout.results.height = layout.results.height + 1
 
             layout.preview.title = ""
-            layout.preview.borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰"  }
+            layout.preview.borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
 
             return layout
         end
@@ -52,6 +48,20 @@ return {
                     n = {
                         ["<C-d>"] = tl_actions.delete_buffer,
                         ["dd"] = tl_actions.delete_buffer,
+                        ["y"] = function()
+                            local selection = require("telescope.actions.state").get_selected_entry()
+                            if selection then
+                                vim.fn.setreg('"', selection.value)
+                                vim.notify("Copied commit hash to default register")
+                            end
+                        end,
+                        ['"+y'] = function()
+                            local selection = require("telescope.actions.state").get_selected_entry()
+                            if selection then
+                                vim.fn.setreg("+", selection.value)
+                                vim.notify("Copied commit hash to OS clipboard")
+                            end
+                        end,
                     },
                 },
             },
@@ -61,7 +71,7 @@ return {
                     override_generic_sorter = true,
                     override_file_sorter = true,
                     case_mode = "smart_case",
-                }
+                },
             },
             pickers = {
                 buffers = {
@@ -72,6 +82,9 @@ return {
                 find_files = {
                     hidden = true,
                     no_ignore = true,
+                },
+                git_commits = {
+                    initial_mode = "normal",
                 },
                 live_grep = {
                     additional_args = function()
@@ -89,37 +102,32 @@ return {
         vim.keymap.set("n", "<C-p>", tl_builtin.find_files, { desc = "[S]earch [F]iles" })
         vim.keymap.set("n", "<leader>ss", tl_builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
         vim.keymap.set("n", "<leader>sw", tl_builtin.grep_string, { desc = "[S]earch current [W]ord" })
+        vim.keymap.set("n", "<leader>sc", tl_builtin.git_commits, { desc = "[S]earch git [C]ommits" })
         vim.keymap.set("n", "<C-f>", tl_builtin.live_grep, { desc = "[F]ind live grep" })
-        vim.keymap.set(
-            "n",
-            "<leader>sl",
-            function()
-                tl_builtin.live_grep({
-                    additional_args = function()
-                        return { "--hidden", "--no-ignore" }
-                    end,
-                })
-            end,
-            { desc = "[S]earch files using [L]ive grep" }
-        )
+        vim.keymap.set("n", "<leader>sl", function()
+            tl_builtin.live_grep({
+                additional_args = function()
+                    return { "--hidden", "--no-ignore" }
+                end,
+            })
+        end, { desc = "[S]earch files using [L]ive grep" })
         vim.keymap.set("n", "<leader>sd", tl_builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
         vim.keymap.set("n", "<leader>sr", tl_builtin.resume, { desc = "[S]earch [R]esume" })
         vim.keymap.set("n", "<leader>s.", tl_builtin.oldfiles, { desc = "[S]earch recent files ('.' for repeat)" })
 
         vim.keymap.set("n", "<leader><leader>", tl_builtin.buffers, { desc = "[ ] Find existing buffers" })
 
-
         -- Colors
         vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = Colors.hush.main })
         vim.api.nvim_set_hl(0, "TelescopePromptBorder", { bg = Colors.hush.main, fg = Colors.bright_black })
 
         vim.api.nvim_set_hl(0, "TelescopeResultsNormal", { bg = Colors.hush.main })
-        vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { bg = Colors.hush.main , fg = Colors.bright_black })
+        vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { bg = Colors.hush.main, fg = Colors.bright_black })
 
         vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { bg = Colors.hush.main })
         vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { bg = Colors.hush.main, fg = Colors.bright_black })
 
         vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = Colors.hush.dark, bold = true })
         vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { bg = Colors.hush.dark, bold = true })
-   end,
+    end,
 }
