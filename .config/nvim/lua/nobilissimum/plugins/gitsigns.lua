@@ -2,7 +2,6 @@ return {
     "lewis6991/gitsigns.nvim",
     config = function()
         local padding = "     "
-
         local gitsigns = require("gitsigns")
         gitsigns.setup({
             signs = {
@@ -78,6 +77,27 @@ return {
                 map("n", "<leader>tD", gitsigns.toggle_deleted, { desc = "[T]oggle git show [D]eleted" })
             end,
         })
+
+        local copy_line_commit_hash = function()
+            local line = vim.api.nvim_win_get_cursor(0)[1]
+
+
+            local blame_cmd = string.format("git blame -l %s -L %d,%d | awk '{print $1}'", vim.fn.expand('%:p'), line, line)
+            local result = vim.fn.systemlist(blame_cmd)
+
+            if #result > 0 then
+                local commit_hash = result[1]
+                if commit_hash then
+                    vim.fn.setreg('+', commit_hash)
+                    vim.notify('Copied commit hash: ' .. commit_hash)
+                else
+                    vim.notify('Could not extract commit hash', vim.log.levels.WARN)
+                end
+            else
+                vim.notify('Git blame failed', vim.log.levels.WARN)
+            end
+        end
+        vim.keymap.set('n', '<leader>hy', copy_line_commit_hash, { desc = "Git commit hash [Y]ank" })
 
         -- Git signs
         local add_color = Colors.green
