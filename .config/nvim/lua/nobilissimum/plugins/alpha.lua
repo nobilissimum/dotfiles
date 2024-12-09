@@ -2,8 +2,8 @@ return {
     "goolord/alpha-nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-         local alpha = require("alpha")
-         local dashboard = require("alpha.themes.dashboard")
+        local alpha = require("alpha")
+        local dashboard = require("alpha.themes.dashboard")
 
         vim.api.nvim_set_hl(0, "DashboardHeader", { bg = nil, fg = Colors.white })
         vim.api.nvim_set_hl(0, "DashboardFooter", { bg = nil, fg = Colors.yellow })
@@ -30,6 +30,8 @@ return {
         vim.api.nvim_set_hl(0, "DashboardFooterPlatform", { bg = nil, fg = Colors.blue })
         vim.api.nvim_set_hl(0, "DashboardFooterVersion", { bg = nil, fg = Colors.green })
         vim.api.nvim_set_hl(0, "DashboardFooterSeparator", { bg = nil, fg = Colors.bright_black2 })
+
+        vim.api.nvim_set_hl(0, "DashboardButton", { bg = Colors.green, fg = Colors.black, bold = true })
 
         dashboard.section.header = {
             type = "group",
@@ -105,12 +107,71 @@ return {
             },
         }
 
-        dashboard.section.buttons.val = {}
+        dashboard.section.buttons.val = {
+            {
+                type = "button",
+                val = "󰝒  New file",
+                on_press = function()
+                    vim.cmd(":enew")
+                end,
+                opts = {
+                    shortcut = " e ",
+                    position = "center",
+                    keymap = {"n", "e", ":enew<CR>", {}},
+                    align_shortcut = "right",
+                    hl_shortcut = "DashboardButton",
+                    cursor = 3,
+                    width = 50,
+                    shrink_margin = false,
+                },
+            },
+            {
+                type = "button",
+                val = "  Find files",
+                on_press = function()
+                    vim.cmd(":Telescope find_files")
+                end,
+                opts = {
+                    shortcut = " <C-p> ",
+                    position = "center",
+                    keymap = {"n", "<C-p>", ":Telescope find_files<CR>", {}},
+                    align_shortcut = "right",
+                    hl_shortcut = "DashboardButton",
+                    cursor = 3,
+                    width = 50,
+                    shrink_margin = false,
+                },
+            },
+            {
+                type = "button",
+                val = "  Recently opened files",
+                on_press = function()
+                    vim.cmd(":Telescope buffers")
+                end,
+                opts = {
+                    shortcut = " <leader><leader> ",
+                    position = "center",
+                    keymap = {"n", "<leader><leader>", ":Telescope buffers<CR>", {}},
+                    align_shortcut = "right",
+                    hl_shortcut = "DashboardButton",
+                    cursor = 3,
+                    width = 50,
+                    shrink_margin = false,
+                },
+            },
+        }
 
         local plugins = #vim.tbl_keys(require("lazy").plugins())
         local version = vim.version()
         local platform = vim.fn.has("win32") == 1 and "" or ""
-        local footer = string.format("󰂖 %d • %s • v%d.%d.%d", plugins, platform, version.major, version.minor, version.patch)
+        local footer = string.format(
+            "󰂖 %d • %s • v%d.%d.%d",
+            plugins,
+            platform,
+            version.major,
+            version.minor,
+            version.patch
+        )
 
         local plugins_length = string.len(plugins) + 5
         local platform_length = 3
@@ -120,12 +181,20 @@ return {
             type = "text",
             val = footer,
             opts = {
-                hl =  {
+                hl = {
                     { "DashboardFooterPlugins", 0, plugins_length },
                     { "DashboardFooterSeparator", plugins_length + 1, plugins_length + 2 },
                     { "DashboardFooterPlatform", plugins_length + 2, plugins_length + 4 + platform_length },
-                    { "DashboardFooterSeparator", plugins_length + 6 + platform_length, plugins_length + 7 + platform_length },
-                    { "DashboardFooterVersion", plugins_length + 8 + platform_length, plugins_length + 10 + platform_length + version_length },
+                    {
+                        "DashboardFooterSeparator",
+                        plugins_length + 6 + platform_length,
+                        plugins_length + 7 + platform_length,
+                    },
+                    {
+                        "DashboardFooterVersion",
+                        plugins_length + 8 + platform_length,
+                        plugins_length + 10 + platform_length + version_length,
+                    },
                 },
                 position = "center",
             },
@@ -133,11 +202,13 @@ return {
 
         -- local win_height = vim.api.nvim_win_get_height(0) - (vim.o.showtabline > 0 and 1 or 0)
         local win_height = vim.api.nvim_get_option("lines") - vim.api.nvim_get_option("cmdheight")
-        local padding_lines = math.floor((win_height - (#dashboard.section.header.val + (#dashboard.section.buttons.val * 2))) / 2) + 1
+        local padding_lines = math.floor(
+            (win_height - (#dashboard.section.header.val + (#dashboard.section.buttons.val * 2))) / 2
+        ) + 1
         dashboard.config.layout = {
             { type = "padding", val = padding_lines },
             dashboard.section.header,
-            { type = "padding", val = 1 },
+            { type = "padding", val = 2 },
             dashboard.section.buttons,
             dashboard.section.footer,
         }
