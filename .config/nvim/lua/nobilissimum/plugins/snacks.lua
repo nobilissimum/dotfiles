@@ -8,6 +8,6 @@ return {
     },
     config = function()
         local snacks = require("snacks")
-        vim.keymap.set('n', '<leader>hb', snacks.git.blame_line, { desc = "Git [b]lame line" })
+        vim.keymap.set("n", "<leader>hb", snacks.git.blame_line, { desc = "Git [b]lame line" })
     end,
 }

@@ -50,6 +50,24 @@ vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open diagn
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 
+-- Copy keymaps
+vim.keymap.set(
+    "n",
+    "<leader>yb",
+    function()
+        local relative_path = vim.fn.expand("%")
+        if relative_path == "" then
+            vim.notify("Buffer is empty", vim.log.levels.WARN)
+            return
+        end
+
+        vim.fn.setreg("+", relative_path)
+        vim.notify("Copied relative path of current buffer", vim.log.levels.INFO)
+    end,
+    { desc = "[Y]ank [B]uffer filename" }
+)
+
+
 -- Clipboard
 vim.g.clipboard = {
     name = "xclip",
