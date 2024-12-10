@@ -85,7 +85,8 @@ return {
             })
 
             -- LSP configurations
-            require("nobilissimum.lsp.python")
+            local python = require("nobilissimum.lsp.python")
+            python.setup()
 
             -- Mason
             require("mason").setup({
@@ -135,6 +136,10 @@ return {
                     },
                 },
                 ruff = {
+                    cmd = python.get_ruff_cmd(),
+                    on_attach = function(client)
+                        print("Attached Ruff LSP executable: " .. vim.inspect(client.config.cmd))
+                    end,
                     init_options = {
                         settings = {
                             enable = true,
