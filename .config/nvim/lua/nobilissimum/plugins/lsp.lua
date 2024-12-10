@@ -138,7 +138,7 @@ return {
                 ruff = {
                     cmd = python.get_ruff_cmd(),
                     on_attach = function(client)
-                        print("Attached Ruff LSP executable: " .. vim.inspect(client.config.cmd))
+                        vim.notify("Attached ruff: " .. vim.inspect(client.config.cmd), vim.log.levels.DEBUG)
                     end,
                     init_options = {
                         settings = {
