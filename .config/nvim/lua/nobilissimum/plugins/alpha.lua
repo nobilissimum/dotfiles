@@ -142,23 +142,6 @@ return {
                     shrink_margin = false,
                 },
             },
-            {
-                type = "button",
-                val = "  Recently opened files",
-                on_press = function()
-                    vim.cmd(":Telescope buffers")
-                end,
-                opts = {
-                    shortcut = " <leader><leader> ",
-                    position = "center",
-                    keymap = {"n", "<leader><leader>", ":Telescope buffers<CR>", {}},
-                    align_shortcut = "right",
-                    hl_shortcut = "DashboardButton",
-                    cursor = 3,
-                    width = 50,
-                    shrink_margin = false,
-                },
-            },
         }
 
         local plugins = #vim.tbl_keys(require("lazy").plugins())
