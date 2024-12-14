@@ -93,6 +93,10 @@ in
                     chmod -R u+w $HOME/.config/nvim
                 '';
             };
+            ".config/starship.toml" = {
+                source = ~/dotfiles/starship.toml;
+                force = true;
+            };
         };
 
         sessionVariables = sessionVariables;
