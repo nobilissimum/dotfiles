@@ -15,6 +15,7 @@ in
 
         packages = [
             pkgs.ascii-image-converter
+            pkgs.btop
             pkgs.cl
             pkgs.eza
             pkgs.fd
@@ -68,6 +69,11 @@ in
                 force = true;
             };
             ".p10k.zsh".source = ~/dotfiles/.p10k.zsh;
+            ".config/btop" = {
+                source = ~/dotfiles/.config/btop;
+                recursive = true;
+                force = true;
+            };
             ".config/lazygit" = {
                 source = ~/dotfiles/.config/lazygit;
                 recursive = true;
@@ -85,7 +91,7 @@ in
                 force = true;
                 onChange = ''
                     chmod -R u+w $HOME/.config/nvim
-                    '';
+                '';
             };
         };
 
