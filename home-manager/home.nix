@@ -94,7 +94,7 @@ in
                 '';
             };
             ".config/starship.toml" = {
-                source = ~/dotfiles/starship.toml;
+                source = ~/dotfiles/.config/starship.toml;
                 force = true;
             };
         };
