@@ -14,6 +14,7 @@ in
         stateVersion = "24.05";
 
         packages = [
+            pkgs.ascii-image-converter
             pkgs.cl
             pkgs.eza
             pkgs.fd
