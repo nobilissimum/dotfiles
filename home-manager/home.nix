@@ -97,6 +97,11 @@ in
                 source = ~/dotfiles/.config/starship.toml;
                 force = true;
             };
+            ".config/wezterm" = {
+                source = ~/dotfiles/config/wezterm;
+                recursive = true;
+                force = true;
+            };
         };
 
         sessionVariables = sessionVariables;
