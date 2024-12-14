@@ -40,6 +40,80 @@ command -v zsh | sudo tee -a /etc/shells
 chsh nobi -s $(which zsh)
 ```
 
+#### Secure Shell
+
+Create SSH key. This would be used for **GitHub** and **SSH** connections.
+
+```sh
+# Templates
+ssh-keygen -t ed25519 -C "<email>"
+ssh-keygen -t rsa -b 4096 -C "<email>"
+
+# Samples
+ssh-keygen -t ed25519 -C "ronn.angelo.lee@gmail.com"
+ssh-keygen -t rsa -b 4096 -C "ronn.angelo.lee@gmail.com"
+```
+
+Register the **SSH key** to online tools using SSH connections such as **GitHub**. The value of keys are usually stored in files with `.pub` extension in directory `~/.ssh`.
+
+```sh
+cat ~/.ssh/id_ed25519.pub
+```
+
+#### GNU Privacy Guard
+
+Greate **GPG key**.
+
+```sh
+gpg [--expert] --full-generate-key
+```
+
+Get key ID by listing the secret keys.
+
+```sh
+gpg --list-secret-keys --keyid-format=long
+```
+
+In this sample output, `BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB` is key.
+
+```
+sec   ed25519/AAAAAAAAAAAAAAAA 2024-12-14 [SC]
+      BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+uid                 [ultimate] Ronn Angelo Lee <ronn.angelo.lee@gmail.com>
+ssb   cv25519/CCCCCCCCCCCCCCCC 2024-12-14 [E]
+```
+
+Initialize **GNU Pass** with the new created GPG key.
+
+```sh
+pass init BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+```
+
+Register the **GPG key** to online tools that use GPG key for authentication such as **GitHub** and **Docker Hub**.
+
+```sh
+gpg --armor --export <email>
+```
+
+#### Git
+
+Configure git to use **GPG key** when creating commits for signing.
+
+```sh
+git config --global user.signingkey <key>
+git config --global commit.gpgsign true
+```
+
+#### Docker
+
+Use **GNU Pass** for credentials by adding this to `~/.docker/config.json`. This will make Docker use the GPG key for authentication (ex: when running command `docker login`).
+
+```json
+{
+    "credStore": "pass"
+}
+```
+
 ### Environment
 
 #### WSL
