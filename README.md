@@ -10,24 +10,6 @@ Ensure you have the following packages are install on your system
 
 ### Setup
 
-#### Stow
-
-> [!WARNING]
-> This is deprecated and is no longer being maintained. Please use [nix home manager](#nix).
-
-Clone the dotfiles repository to your `$HOME` directory
-
-```sh
-git clone git@github.com:nobilissimum/dotfiles.git
-cd dotfiles
-```
-
-Use `stow` command to create the symbolic links. Use the `--no-folding` flag to prevent symbolic links for directories - this would make sure to create symlinks for individual files. The `--adopt` flag allows conflicts in the stow directory and home directory.
-
-```sh
-stow --no-folding --adopt .
-```
-
 #### Nix
 
 Clone the dotfiles repository to your `$HOME` directory
