@@ -16,10 +16,72 @@ return {
         vim.api.nvim_set_hl(0, "SnacksDashboardKey", { bg = Colors.yellow, fg = Colors.black, bold = true })
 
         local keys_width = 60
-        local terminal = {
-            width = 60,
-            height = 25,
+        local keys_gap = 1
+        local keys = {
+            {
+                text = {
+                    { "  ", hl = "SnacksDashboardIcon" },
+                    { "New file", hl = "SnacksDashboardDesc", width = keys_width },
+                    { " n ", hl = "SnacksDashboardKey" },
+                },
+                action = ":enew",
+                key = "n",
+            },
+            {
+                text = {
+                    { "  ", hl = "SnacksDashboardIcon" },
+                    { "Find file", hl = "SnacksDashboardDesc", width = keys_width },
+                    { " f ", hl = "SnacksDashboardKey" },
+                },
+                action = ":Telescope find_files",
+                key = "f",
+            },
+            {
+                text = {
+                    { "󰒲  ", hl = "SnacksDashboardIcon" },
+                    { "Lazy.nvim", hl = "SnacksDashboardDesc", width = keys_width },
+                    { " l ", hl = "SnacksDashboardKey" },
+                },
+                action = ":Lazy",
+                key = "l",
+            },
+            {
+                text = {
+                    { "󰽛  ", hl = "SnacksDashboardIcon" },
+                    { "Mason", hl = "SnacksDashboardDesc", width = keys_width },
+                    { " m ", hl = "SnacksDashboardKey" },
+                },
+                action = ":Mason",
+                key = "m",
+            },
+            {
+                text = {
+                    { "  ", hl = "SnacksDashboardIcon" },
+                    { "Exit neovim", hl = "SnacksDashboardDesc", width = keys_width },
+                    { " q ", hl = "SnacksDashboardKey" },
+                },
+                action = function()
+                    vim.notify("Wrong!", vim.log.levels.ERROR)
+                end,
+                key = "q",
+            },
         }
+
+        local sections_padding = 2
+        local margin = 6
+        local base_window_height = 25
+        local terminal_height = math.min(
+            (
+                (vim.api.nvim_win_get_height(0) - (vim.o.showtabline > 0 and 1 or 0)) - -- window height
+                (#keys * (keys_gap + 1)) -
+                (sections_padding * 2) - -- #sections - 1 = 2
+                (margin * 2) + -- top and bottom
+                2 -- statusline and commandline
+            ),
+            base_window_height
+        )
+
+        local terminal_width = math.floor(terminal_height * 2.4)
 
         Snacks.setup({
             animate = {
@@ -31,67 +93,17 @@ return {
             },
             dashboard = {
                 enabled = true,
-                preset = {
-                    keys = {
-                        {
-                            text = {
-                                { "  ", hl = "SnacksDashboardIcon" },
-                                { "New file", hl = "SnacksDashboardDesc", width = keys_width },
-                                { " n ", hl = "SnacksDashboardKey" },
-                            },
-                            action = ":enew",
-                            key = "n",
-                        },
-                        {
-                            text = {
-                                { "  ", hl = "SnacksDashboardIcon" },
-                                { "Find file", hl = "SnacksDashboardDesc", width = keys_width },
-                                { " f ", hl = "SnacksDashboardKey" },
-                            },
-                            action = ":Telescope find_files",
-                            key = "f",
-                        },
-                        {
-                            text = {
-                                { "󰒲  ", hl = "SnacksDashboardIcon" },
-                                { "Lazy.nvim", hl = "SnacksDashboardDesc", width = keys_width },
-                                { " l ", hl = "SnacksDashboardKey" },
-                            },
-                            action = ":Lazy",
-                            key = "l",
-                        },
-                        {
-                            text = {
-                                { "󰽛  ", hl = "SnacksDashboardIcon" },
-                                { "Mason", hl = "SnacksDashboardDesc", width = keys_width },
-                                { " m ", hl = "SnacksDashboardKey" },
-                            },
-                            action = ":Mason",
-                            key = "m",
-                        },
-                        {
-                            text = {
-                                { "  ", hl = "SnacksDashboardIcon" },
-                                { "Exit neovim", hl = "SnacksDashboardDesc", width = keys_width },
-                                { " q ", hl = "SnacksDashboardKey" },
-                            },
-                            action = function()
-                                vim.notify("Wrong!", vim.log.levels.ERROR)
-                            end,
-                            key = "q",
-                        },
-                    },
-                },
+                preset = { keys = keys },
                 sections = {
                     {
                         section = "terminal",
-                        cmd = "ascii-image-converter -C -c ~/dotfiles/neovim.png -d " .. terminal.width .. "," .. terminal.height * 2,
-                        height = terminal.height,
-                        indent = keys_width - terminal.width,
-                        padding = 2,
+                        cmd = "output=$(ascii-image-converter -C -c ~/dotfiles/neovim.png -d " .. terminal_width .. "," .. terminal_height .. ') && echo -e "$output\n$output"',
+                        height = terminal_height,
+                        indent = math.floor((keys_width - terminal_width) / 2),
+                        padding = sections_padding,
                     },
-                    { section = "startup", padding = 2 },
-                    { section = "keys", gap = 1 },
+                    { section = "startup", padding = sections_padding },
+                    { section = "keys", gap = keys_gap },
                 },
             },
             notifier = {
