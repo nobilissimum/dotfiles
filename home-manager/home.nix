@@ -31,6 +31,7 @@ in
             pkgs.lua
             pkgs.luajitPackages.luarocks
             pkgs.p7zip
+            pkgs.pinentry-all
             pkgs.nodejs_22
             pkgs.pass
             pkgs.python312
