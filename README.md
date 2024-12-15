@@ -32,13 +32,6 @@ Install specified packages in `home.nix` by running. You may not use the flag `-
 nix run home-manager -- switch --flake ./home-manager/#linux --impure -b backup
 ```
 
-Append `zsh` executable filepath to `/etc/shells` then set it as the default shell.
-
-```sh
-command -v zsh | sudo tee -a /etc/shells
-chsh nobi -s $(which zsh)
-```
-
 #### Secure Shell
 
 Create SSH key. This would be used for **GitHub** and **SSH** connections.
@@ -133,6 +126,13 @@ wsl --update
 ### Tools
 
 #### Shell
+
+Append `zsh` executable filepath to `/etc/shells` then set it as the default shell.
+
+```sh
+command -v zsh | sudo tee -a /etc/shells
+chsh nobi -s $(which zsh)
+```
 
 Custom commands you want to run on shell startup should be put in `~/.shrc/custom.sh`.
 
