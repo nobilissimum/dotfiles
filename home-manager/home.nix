@@ -31,7 +31,7 @@ in
             pkgs.lua
             pkgs.luajitPackages.luarocks
             pkgs.p7zip
-            pkgs.pinentry-all
+            pkgs.pinentry-curses
             pkgs.nodejs_22
             pkgs.pass
             pkgs.python312
@@ -63,13 +63,22 @@ in
         ];
 
         file = {
-            ".zshrc".source = ~/dotfiles/.zshrc;
+            ".gnupg/gpg-agent.conf" = {
+                source = ~/dotfiles/.gnupg/gpg-agent.conf;
+                force = true;
+            };
+            ".p10k.zsh".source = ~/dotfiles/.p10k.zsh;
             ".shrc" = {
                 source = ~/dotfiles/.shrc;
                 recursive = true;
                 force = true;
             };
-            ".p10k.zsh".source = ~/dotfiles/.p10k.zsh;
+            ".ssh/config" = {
+                source = ~/dotfiles/.ssh/config;
+                force = true;
+            };
+            ".zshrc".source = ~/dotfiles/.zshrc;
+
             ".config/btop" = {
                 source = ~/dotfiles/.config/btop;
                 recursive = true;
