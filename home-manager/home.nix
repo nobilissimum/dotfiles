@@ -99,7 +99,7 @@ in
                 force = true;
             };
             ".config/wezterm" = {
-                source = ~/dotfiles/config/wezterm;
+                source = ~/dotfiles/.config/wezterm;
                 recursive = true;
                 force = true;
             };
