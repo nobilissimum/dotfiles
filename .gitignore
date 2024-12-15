@@ -4,4 +4,4 @@
 alacritty.toml
 
 # Wezterm
-wezterm.lua
+wezterm-custom.lua

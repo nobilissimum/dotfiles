@@ -70,7 +70,6 @@ in
             ".p10k.zsh".source = ~/dotfiles/.p10k.zsh;
             ".shrc" = {
                 source = ~/dotfiles/.shrc;
-                recursive = true;
                 force = true;
             };
             ".ssh/config" = {
