@@ -133,6 +133,10 @@ wsl --update
 
 ### Tools
 
+#### Shell
+
+Custom commands you want to run on shell startup should be put in `~/.shrc/custom.sh`.
+
 #### Alacritty
 
 Create `alacritty.toml` inside `.config/alacritty` directory to import `nobilissimum.toml` configuration and your preferred [hush theme](https://github.com/nobilissimum/hush-alacritty) configuration.
@@ -144,4 +148,17 @@ import = [
   "$HOME/.config/alacritty/tenshiro.toml",
   "$HOME/.config/alacritty/hush.toml",
 ]
+```
+
+#### Wezterm
+
+The Wezterm configuration is enabled by default. If there's a need to reconfigure Wezterm (in cases such as WSL wherein you have to specify the Linux distro), you can do so by returning a function in a new file `~/.config/wezterm/wezterm-custom.lua`.
+
+```lua
+local custom_config = function(config)
+    config.default_prog = { "C:\\Windows\\System32\\wsl.exe", "-d", "openSUSE-Tumbleweed", "--cd", "~" }
+    return config
+end
+
+return custom_config
 ```
