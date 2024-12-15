@@ -2,11 +2,10 @@ This directory contains the dotfiles necessary for my workflow
 
 ### Requirements
 
-Ensure you have the following packages are install on your system
+Ensure you have the following packages are install on your system (everything else will be installed by Nix home manager):
 
-- curl - for [determinate nix](#nix) _(recommended)_
+- curl
 - git
-- stow _(deprecated)_
 
 ### Setup
 
