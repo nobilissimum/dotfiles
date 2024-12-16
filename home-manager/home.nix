@@ -135,14 +135,14 @@ in
                 set -g escape-time 0
                 '';
             plugins = with pkgs; [
-            {
-                plugin = tmuxPlugins.catppuccin;
-                extraConfig = ''
-                    set -ga terminal-overrides ",xterm*:Tc"
-                    set -ga terminal-overrides ",tmux-256color:RGB"
-                    '';
-            }
-            tmuxPlugins.sensible
+                {
+                    plugin = tmuxPlugins.catppuccin;
+                    extraConfig = ''
+                        set -ga terminal-overrides ",xterm*:Tc"
+                        set -ga terminal-overrides ",tmux-256color:RGB"
+                        '';
+                }
+                tmuxPlugins.sensible
                 tmuxPlugins.vim-tmux-navigator
             ];
         };
