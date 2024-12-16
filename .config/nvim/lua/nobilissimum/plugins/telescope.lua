@@ -8,25 +8,24 @@ return {
         },
     },
     config = function()
-        require("telescope.pickers.layout_strategies").horizontal_merged = function(
-            picker,
+        require("telescope.pickers.layout_strategies").nobilissimum = function(
+            setup,
             max_columns,
             max_lines,
-            layout_config
+            extra
         )
             local layout =
-                require("telescope.pickers.layout_strategies").horizontal(picker, max_columns, max_lines, layout_config)
+                require("telescope.pickers.layout_strategies").bottom_pane(setup, max_columns, max_lines, extra)
 
-            layout.prompt.title = ""
-            layout.prompt.borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
+            layout.prompt.title = false
+            layout.prompt.borderchars = { " ", " ", " ", " ", " ", " ", " ", " " }
+            layout.prompt.line = layout.prompt.line - 1
 
-            layout.results.title = ""
-            layout.results.borderchars = { "─", "│", "─", "│", "├", "┤", "╯", "╰" }
-            layout.results.line = layout.results.line - 1
-            layout.results.height = layout.results.height + 1
+            layout.results.title = false
+            layout.results.borderchars = { " ", " ", " ", " ", " ", " ", " ", " " }
 
-            layout.preview.title = ""
-            layout.preview.borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
+            layout.preview.title = false
+            layout.preview.borderchars = { " ", " ", " ", " ", " ", " ", " ", " " }
 
             return layout
         end
@@ -36,11 +35,15 @@ return {
 
         require("telescope").setup({
             defaults = {
-                sorting_strategy = "ascending",
                 layout_config = {
                     prompt_position = "top",
+                    width = 0.99,
+                    height = 0.99,
                 },
-                layout_strategy = "horizontal_merged",
+                layout_strategy = "nobilissimum",
+                sorting_strategy = "ascending",
+                prompt_prefix = " ",
+
                 mappings = {
                     i = {
                         ["<C-d>"] = tl_actions.delete_buffer,
