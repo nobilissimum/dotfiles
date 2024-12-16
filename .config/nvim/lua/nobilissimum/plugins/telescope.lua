@@ -79,10 +79,7 @@ return {
                     initial_mode = "normal",
                     sort_mru = true,
                 },
-                find_files = {
-                    hidden = true,
-                    no_ignore = true,
-                },
+                find_files = { hidden = true },
                 git_commits = {
                     initial_mode = "normal",
                 },
@@ -99,18 +96,24 @@ return {
         -- Keymaps
         vim.keymap.set("n", "<leader>sh", tl_builtin.help_tags, { desc = "[S]earch [H]elp" })
         vim.keymap.set("n", "<leader>sk", tl_builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-        vim.keymap.set("n", "<C-p>", tl_builtin.find_files, { desc = "[S]earch [F]iles" })
+        vim.keymap.set("n", "<C-p>", tl_builtin.find_files, { desc = "Search files" })
+        vim.keymap.set("n", "<leader>sp", function()
+            tl_builtin.find_files({
+                hidden = true,
+                no_ignore = true,
+            })
+        end, { desc = "[S]earch files [P]alette", noremap = true, silent = true })
         vim.keymap.set("n", "<leader>ss", tl_builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
         vim.keymap.set("n", "<leader>sw", tl_builtin.grep_string, { desc = "[S]earch current [W]ord" })
         vim.keymap.set("n", "<leader>sc", tl_builtin.git_commits, { desc = "[S]earch git [C]ommits" })
         vim.keymap.set("n", "<C-f>", tl_builtin.live_grep, { desc = "[F]ind live grep" })
-        vim.keymap.set("n", "<leader>sl", function()
+        vim.keymap.set("n", "<leader>sf", function()
             tl_builtin.live_grep({
                 additional_args = function()
                     return { "--hidden", "--no-ignore" }
                 end,
             })
-        end, { desc = "[S]earch files using [L]ive grep" })
+        end, { desc = "[S]earch [F]iles using live grep", noremap = true })
         vim.keymap.set("n", "<leader>sd", tl_builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
         vim.keymap.set("n", "<leader>sr", tl_builtin.resume, { desc = "[S]earch [R]esume" })
         vim.keymap.set("n", "<leader>s.", tl_builtin.oldfiles, { desc = "[S]earch recent files ('.' for repeat)" })
