@@ -28,7 +28,7 @@ in
             pkgs.libgcc
             pkgs.libclang
             pkgs.lf
-            pkgs.lua
+            pkgs.luajit
             pkgs.luajitPackages.luarocks
             pkgs.p7zip
             pkgs.pinentry-curses
