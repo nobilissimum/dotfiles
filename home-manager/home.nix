@@ -140,7 +140,9 @@ in
                     extraConfig = ''
                         set -ga terminal-overrides ",xterm*:Tc"
                         set -ga terminal-overrides ",tmux-256color:RGB"
-                        '';
+
+                        setw -g mode-keys vi
+                    '';
                 }
                 tmuxPlugins.sensible
                 tmuxPlugins.vim-tmux-navigator
