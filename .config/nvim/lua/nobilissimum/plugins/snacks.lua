@@ -124,23 +124,13 @@ return {
                     Snacks.debug.backtrace()
                 end
 
-                _G.error = function(message)
-                    vim.api.nvim_err_writeln(message)
-                end
-
                 vim.print = _G.dd
 
                 vim.api.nvim_err_writeln = function(msg)
                     vim.notify(msg, vim.log.levels.ERROR, {
                         title = "Neovim Error",
                         timeout = 60000,
-                    })
-                end
-
-                vim.api.nvim_err_write = function(msg)
-                    vim.notify(msg, vim.log.levels.ERROR, {
-                        title = "Neovim Error",
-                        timeout = 60000,
+                        background_color = "NONE",
                     })
                 end
             end,
