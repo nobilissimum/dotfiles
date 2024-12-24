@@ -90,6 +90,7 @@ in
             pkgs.ascii-image-converter
             pkgs.btop
             pkgs.cl
+            pkgs.deno
             pkgs.eza
             pkgs.fd
             pkgs.fzf
@@ -107,6 +108,7 @@ in
             pkgs.pinentry-curses
             pkgs.nodejs_22
             pkgs.pass
+            pkgs.pnpm
             pkgs.python312
             pkgs.ripgrep
             pkgs.starship
