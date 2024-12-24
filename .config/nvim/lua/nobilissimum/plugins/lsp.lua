@@ -187,15 +187,60 @@ return {
             local conform = require("conform")
             local mason_registry = require("mason-registry")
 
+            local lsp_alias = {
+                protobuf = { "proto" },
+            }
+            local formatters_prioritization = {
+                go = { "goimports-reviser" },
+                python = { "ruff" },
+            }
+            local formatter_keys = {}
+            for _, tbl in pairs(formatters_prioritization) do
+                for _, key in pairs(tbl) do
+                    table.insert(formatter_keys, key)
+                end
+            end
+
             local formatters_by_ft = {}
             for _, package in ipairs(mason_registry.get_installed_packages()) do
                 if not StringInTable("Formatter", package.spec.categories) then
-                    goto continue
+                    goto outer_continue
                 end
 
                 for _, language in ipairs(package.spec.languages) do
-                    Upsert(string.lower(language), package.name, formatters_by_ft)
+                    local fmt_language = string.lower(language)
+                    local priorities = formatters_prioritization[fmt_language]
+                    if priorities and StringInTable(package.name, priorities) then
+                        break
+                    end
+
+                    Upsert(fmt_language, package.name, formatters_by_ft)
+
+                    local aliases = lsp_alias[fmt_language]
+                    if not aliases then
+                        goto inner_continue
+                    end
+
+                    for _, alias in ipairs(aliases) do
+                        Upsert(alias, package.name, formatters_by_ft)
+                    end
+
+                    ::inner_continue::
                 end
+
+                ::outer_continue::
+            end
+            for formatter, packages in pairs(formatters_by_ft) do
+                local priorities = formatters_prioritization[formatter]
+                if not priorities then
+                    goto continue
+                end
+
+                local formatters = formatters_by_ft[formatter]
+                for _, priority in ipairs(priorities) do
+                    table.insert(packages, priority)
+                end
+                formatters_by_ft[formatter] = formatters
 
                 ::continue::
             end
