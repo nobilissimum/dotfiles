@@ -1,17 +1,91 @@
 { config, pkgs, ... }:
 
 let
-sessionVariables = {
-    EDITOR = "vim";
-    FZF_HOME = "${pkgs.fzf}";
-    ZSH_HOME = "${pkgs.zsh}";
-};
+    sessionVariables = {
+        EDITOR = "vim";
+        FZF_HOME = "${pkgs.fzf}";
+        ZSH_HOME = "${pkgs.zsh}";
+    };
 in
 {
     home = {
         username = builtins.getEnv("USER");
         homeDirectory = builtins.getEnv("HOME");
         stateVersion = "24.05";
+
+        activation = {
+            dotfiles = config.lib.dag.entryAfter ["writeBoundary"] ''
+                target="$HOME/.gnupg/gpg-agent.conf"
+                if [ -d "$target" ]; then
+                    rm -rf "$target"
+                fi
+                ln -sfn "$HOME/dotfiles/.gnupg/gpg-agent.conf" "$target"
+
+
+                target="$HOME/.shrc"
+                if [ -d "$target" ]; then
+                    rm -rf "$target"
+                fi
+                ln -sfn "$HOME/dotfiles/.shrc" "$target"
+
+
+                target="$HOME/.ssh/config"
+                if [ -d "$target" ]; then
+                    rm -rf "$target"
+                fi
+                ln -sfn "$HOME/dotfiles/.ssh/config" "$target"
+
+
+                target="$HOME/.zshrc"
+                if [ -d "$target" ]; then
+                    rm -rf "$target"
+                fi
+                ln -sfn "$HOME/dotfiles/.zshrc" "$target"
+
+
+
+                target="$HOME/.config/btop"
+                if [ -d "$target" ]; then
+                    rm -rf "$target"
+                fi
+                ln -sfn "$HOME/dotfiles/.config/btop" "$target"
+
+
+                target="$HOME/.config/lazygit"
+                if [ -d "$target" ]; then
+                    rm -rf "$target"
+                fi
+                ln -sfn "$HOME/dotfiles/.config/lazygit" "$target"
+
+
+                target="$HOME/.config/lf"
+                if [ -d "$target" ]; then
+                    rm -rf "$target"
+                fi
+                ln -sfn "$HOME/dotfiles/.config/lf" "$target"
+
+
+                target="$HOME/.config/nvim"
+                if [ -d "$target" ]; then
+                    rm -rf "$target"
+                fi
+                ln -sfn "$HOME/dotfiles/.config/nvim" "$target"
+
+
+                target="$HOME/.config/starship.toml"
+                if [ -d "$target" ]; then
+                    rm -rf "$target"
+                fi
+                ln -sfn "$HOME/dotfiles/.config/starship.toml" "$target"
+
+
+                target="$HOME/.config/wezterm"
+                if [ -d "$target" ]; then
+                    rm -rf "$target"
+                fi
+                ln -sfn "$HOME/dotfiles/.config/wezterm" "$target"
+            '';
+        };
 
         packages = [
             pkgs.ascii-image-converter
@@ -61,57 +135,6 @@ in
                      fi
                  '')
         ];
-
-        file = {
-            ".gnupg/gpg-agent.conf" = {
-                source = ~/dotfiles/.gnupg/gpg-agent.conf;
-                force = true;
-            };
-            ".p10k.zsh".source = ~/dotfiles/.p10k.zsh;
-            ".shrc" = {
-                source = ~/dotfiles/.shrc;
-                force = true;
-            };
-            ".ssh/config" = {
-                source = ~/dotfiles/.ssh/config;
-                force = true;
-            };
-            ".zshrc".source = ~/dotfiles/.zshrc;
-
-            ".config/btop" = {
-                source = ~/dotfiles/.config/btop;
-                recursive = true;
-                force = true;
-            };
-            ".config/lazygit" = {
-                source = ~/dotfiles/.config/lazygit;
-                recursive = true;
-                force = true;
-            };
-            ".config/lf" = {
-                source = ~/dotfiles/.config/lf;
-                recursive = true;
-                force = true;
-            };
-            ".config/nvim" = {
-                source = ~/dotfiles/.config/nvim;
-                recursive = true;
-                executable = true;
-                force = true;
-                onChange = ''
-                    chmod -R u+w $HOME/.config/nvim
-                '';
-            };
-            ".config/starship.toml" = {
-                source = ~/dotfiles/.config/starship.toml;
-                force = true;
-            };
-            ".config/wezterm" = {
-                source = ~/dotfiles/.config/wezterm;
-                recursive = true;
-                force = true;
-            };
-        };
 
         sessionVariables = sessionVariables;
     };
