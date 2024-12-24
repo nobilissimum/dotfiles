@@ -16,32 +16,31 @@ in
         activation = {
             dotfiles = config.lib.dag.entryAfter ["writeBoundary"] ''
                 target="$HOME/.gnupg/gpg-agent.conf"
-                if [ -d "$target" ]; then
+                if [ -e "$target" ]; then
                     rm -rf "$target"
                 fi
                 ln -sfn "$HOME/dotfiles/.gnupg/gpg-agent.conf" "$target"
 
 
                 target="$HOME/.shrc"
-                if [ -d "$target" ]; then
+                if [ -e "$target" ]; then
                     rm -rf "$target"
                 fi
                 ln -sfn "$HOME/dotfiles/.shrc" "$target"
 
 
                 target="$HOME/.ssh/config"
-                if [ -d "$target" ]; then
+                if [ -e "$target" ]; then
                     rm -rf "$target"
                 fi
                 ln -sfn "$HOME/dotfiles/.ssh/config" "$target"
 
 
                 target="$HOME/.zshrc"
-                if [ -d "$target" ]; then
+                if [ -e "$target" ]; then
                     rm -rf "$target"
                 fi
                 ln -sfn "$HOME/dotfiles/.zshrc" "$target"
-
 
 
                 target="$HOME/.config/btop"
@@ -73,7 +72,7 @@ in
 
 
                 target="$HOME/.config/starship.toml"
-                if [ -d "$target" ]; then
+                if [ -e "$target" ]; then
                     rm -rf "$target"
                 fi
                 ln -sfn "$HOME/dotfiles/.config/starship.toml" "$target"
@@ -180,6 +179,7 @@ in
         };
         zsh = {
             enable = true;
+            initExtra = "source $HOME/dotfiles/.zshrc";
             sessionVariables = sessionVariables;
         };
     };
