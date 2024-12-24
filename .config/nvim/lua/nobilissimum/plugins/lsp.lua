@@ -201,12 +201,14 @@ return {
                 end
             end
 
+            local installed_packages = {}
             local formatters_by_ft = {}
             for _, package in ipairs(mason_registry.get_installed_packages()) do
                 if not StringInTable("Formatter", package.spec.categories) then
                     goto outer_continue
                 end
 
+                table.insert(installed_packages, package.name)
                 for _, language in ipairs(package.spec.languages) do
                     local fmt_language = string.lower(language)
                     local priorities = formatters_prioritization[fmt_language]
@@ -238,7 +240,9 @@ return {
 
                 local formatters = formatters_by_ft[formatter]
                 for _, priority in ipairs(priorities) do
-                    table.insert(packages, priority)
+                    if StringInTable(priority, installed_packages) then
+                        table.insert(packages, priority)
+                    end
                 end
                 formatters_by_ft[formatter] = formatters
 
