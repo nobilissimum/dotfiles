@@ -13,79 +13,6 @@ in
         homeDirectory = builtins.getEnv("HOME");
         stateVersion = "24.05";
 
-        activation = {
-            dotfiles = config.lib.dag.entryAfter ["writeBoundary"] ''
-                target="$HOME/.gnupg/gpg-agent.conf"
-                if [ -e "$target" ]; then
-                    rm -rf "$target"
-                fi
-                ln -sfn "$HOME/dotfiles/.gnupg/gpg-agent.conf" "$target"
-
-
-                target="$HOME/.shrc"
-                if [ -e "$target" ]; then
-                    rm -rf "$target"
-                fi
-                ln -sfn "$HOME/dotfiles/.shrc" "$target"
-
-
-                target="$HOME/.ssh/config"
-                if [ -e "$target" ]; then
-                    rm -rf "$target"
-                fi
-                ln -sfn "$HOME/dotfiles/.ssh/config" "$target"
-
-
-                target="$HOME/.zshrc"
-                if [ -e "$target" ]; then
-                    rm -rf "$target"
-                fi
-                ln -sfn "$HOME/dotfiles/.zshrc" "$target"
-
-
-                target="$HOME/.config/btop"
-                if [ -d "$target" ]; then
-                    rm -rf "$target"
-                fi
-                ln -sfn "$HOME/dotfiles/.config/btop" "$target"
-
-
-                target="$HOME/.config/lazygit"
-                if [ -d "$target" ]; then
-                    rm -rf "$target"
-                fi
-                ln -sfn "$HOME/dotfiles/.config/lazygit" "$target"
-
-
-                target="$HOME/.config/lf"
-                if [ -d "$target" ]; then
-                    rm -rf "$target"
-                fi
-                ln -sfn "$HOME/dotfiles/.config/lf" "$target"
-
-
-                target="$HOME/.config/nvim"
-                if [ -d "$target" ]; then
-                    rm -rf "$target"
-                fi
-                ln -sfn "$HOME/dotfiles/.config/nvim" "$target"
-
-
-                target="$HOME/.config/starship.toml"
-                if [ -e "$target" ]; then
-                    rm -rf "$target"
-                fi
-                ln -sfn "$HOME/dotfiles/.config/starship.toml" "$target"
-
-
-                target="$HOME/.config/wezterm"
-                if [ -d "$target" ]; then
-                    rm -rf "$target"
-                fi
-                ln -sfn "$HOME/dotfiles/.config/wezterm" "$target"
-            '';
-        };
-
         packages = [
             pkgs.ascii-image-converter
             pkgs.btop
@@ -137,6 +64,50 @@ in
                  '')
         ];
 
+        file = {
+            ".config/btop" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/btop";
+                force = true;
+            };
+            ".config/lazygit" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/lazygit";
+                force = true;
+            };
+            ".config/lf" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/lf";
+                force = true;
+            };
+            ".config/nvim" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nvim";
+                force = true;
+            };
+            ".config/starship.toml" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/starship.toml";
+                force = true;
+            };
+            ".config/wezterm" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/wezterm";
+                force = true;
+            };
+
+            ".gnupg/gpg-agent.conf" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.gnupg/gpg-agent.conf";
+                force = true;
+            };
+            ".shrc" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.shrc";
+                force = true;
+            };
+            ".ssh/config" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.ssh/config";
+                force = true;
+            };
+            ".zshrc" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.zshrc";
+                force = true;
+            };
+        };
+
         sessionVariables = sessionVariables;
     };
 
@@ -181,7 +152,6 @@ in
         };
         zsh = {
             enable = true;
-            initExtra = "source $HOME/dotfiles/.zshrc";
             sessionVariables = sessionVariables;
         };
     };
