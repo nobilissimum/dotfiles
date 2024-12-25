@@ -137,6 +137,7 @@ in
                         set -ga terminal-overrides ",tmux-256color:RGB"
 
                         setw -g mode-keys vi
+                        bind-key -T copy-mode-vi 'y' send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
                     '';
                 }
                 tmuxPlugins.sensible
