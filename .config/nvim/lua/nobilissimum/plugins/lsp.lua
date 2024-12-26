@@ -21,7 +21,13 @@ return {
         config = function()
             -- Vim diagnostic
             vim.diagnostic.config({
-                virtual_text = true,
+                virtual_text = {
+                    source = true,
+                    prefix = "•",
+                },
+                float = {
+                    source = true,
+                },
                 signs = false,
                 underline = true,
                 update_in_insert = true,
