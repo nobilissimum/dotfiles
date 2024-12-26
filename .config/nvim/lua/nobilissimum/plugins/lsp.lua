@@ -194,6 +194,11 @@ return {
             local mason_registry = require("mason-registry")
 
             local lsp_alias = {
+                -- Javascript and Typescript
+                javascript = { "javascriptreact" },
+                typescript = { "typescriptreact" },
+
+                -- Protobuf
                 protobuf = { "proto" },
             }
             local formatters_prioritization = {
