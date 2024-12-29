@@ -28,7 +28,7 @@ local font_with_fallback = wezterm.font_with_fallback(map(
         return { family = item.name, harfbuzz_features = harfbuzz_features }
     end
 ))
-local font_size = 11
+local font_size = 10.5
 
 config.font = font_with_fallback
 config.font_rules = {
