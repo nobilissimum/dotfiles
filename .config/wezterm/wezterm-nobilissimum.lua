@@ -18,9 +18,8 @@ end
 
 -- Font
 local fonts = {
-    { name = "SF Mono", half = "Bold", bold = "Bold", native = true },
-    { name = "JetBrains Mono", half = "Medium", bold = "Bold" },
-    { name = "JetBrainsMono Nerd Font", half = "Medium", bold = "Bold" },
+    { name = "Geist Mono", half = "Medium", bold = "Bold" },
+    { name = "GeistMono Nerd Font", half = "Medium", bold = "Bold" },
 }
 local harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 local font_with_fallback = wezterm.font_with_fallback(map(
@@ -29,7 +28,7 @@ local font_with_fallback = wezterm.font_with_fallback(map(
         return { family = item.name, harfbuzz_features = harfbuzz_features }
     end
 ))
-local font_size = 10.25
+local font_size = 11
 
 config.font = font_with_fallback
 config.font_rules = {
