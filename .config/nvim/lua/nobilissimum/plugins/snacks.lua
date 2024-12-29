@@ -69,7 +69,7 @@ return {
 
         local sections_padding = 2
         local margin = 6
-        local base_window_height = 25
+        local base_window_height = 50
         local terminal_height = math.min(
             (
                 (vim.api.nvim_win_get_height(0) - (vim.o.showtabline > 0 and 1 or 0)) - -- window height
@@ -99,6 +99,7 @@ return {
                         section = "terminal",
                         cmd = "output=$(ascii-image-converter -C -c ~/dotfiles/neovim.png -d " .. terminal_width .. "," .. terminal_height .. ') && echo -e "$output\n$output"',
                         height = terminal_height,
+                        width = terminal_width,
                         indent = math.floor((keys_width - terminal_width) / 2),
                         padding = sections_padding,
                     },
