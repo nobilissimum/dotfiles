@@ -7,8 +7,8 @@ return {
             "Indent2",
         }
 
-        vim.api.nvim_set_hl(0, highlight[1], { bg = Colors.bright_black2, nocombine = false, bold = true })
-        vim.api.nvim_set_hl(0, highlight[2], { bg = Colors.bright_black3, nocombine = false, bold = true })
+        vim.api.nvim_set_hl(0, highlight[1], { fg = Colors.bright_black2, nocombine = false, bold = true })
+        vim.api.nvim_set_hl(0, highlight[2], { fg = Colors.bright_black3, nocombine = false, bold = true })
 
         require("ibl").setup({
             indent = { highlight = highlight, char = "" },
