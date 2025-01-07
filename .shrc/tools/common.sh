@@ -1,5 +1,10 @@
 # Tmux
 tmx () {
+    if [ ! -z "${TMUX}" ]; then
+        echo "Already in a tmux session"
+        return
+    fi
+
     session_name="$(basename $(dirname $(pwd)) | sed 's/\./-/g')-$(basename $(pwd) | sed 's/\./-/g')"
     if ! tmux a -t $session_name $COMMAND &> /dev/null; then
         tmux new-session -d -s "$session_name"
