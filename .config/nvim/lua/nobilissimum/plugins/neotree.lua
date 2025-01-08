@@ -52,6 +52,7 @@ return {
         })
 
         vim.keymap.set("n", "<C-\\>", ":Neotree toggle<CR>", { noremap = true, silent = true })
+        vim.keymap.set("n", "<leader>\\", ":Neotree reveal<CR>", { noremap = true, silent = true })
 
         -- Colors
         vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { bg = Colors.hush.main, fg = Colors.blue, bold = true })
