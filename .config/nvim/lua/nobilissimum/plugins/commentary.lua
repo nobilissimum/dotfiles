@@ -1,4 +1,11 @@
 return {
-    "tpope/vim-commentary",
-    event = "VeryLazy",
+    "echasnovski/mini.comment",
+    dependencies = {
+        {
+            "folke/ts-comments.nvim",
+            event = "VeryLazy",
+            opts = {},
+        },
+    },
+    opts = {},
 }
