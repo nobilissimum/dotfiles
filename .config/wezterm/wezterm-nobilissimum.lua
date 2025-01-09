@@ -112,6 +112,11 @@ config.colors = {
 }
 
 
+-- Cursor
+config.default_cursor_style = "SteadyUnderline"
+config.force_reverse_video_cursor = false
+
+
 -- Spacing
 config.line_height = 1.15
 config.window_padding = {
