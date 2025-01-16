@@ -129,10 +129,6 @@ config.window_padding = {
 
 -- Scrolling
 config.scrollback_lines = 9999
-config.keys = {
-    { key = "PageUp", mods = "SHIFT", action = wezterm.action.ScrollByPage(-2) },
-    { key = "PageDown", mods = "SHIFT", action = wezterm.action.ScrollByPage(2) },
-}
 
 
 -- Window and tabs
@@ -156,6 +152,31 @@ config.disable_default_key_bindings = true
 config.keys = {
     { key = "c", mods = "CTRL|SHIFT", action = wezterm.action.CopyTo("Clipboard") },
     { key = "v", mods = "CTRL|SHIFT", action = wezterm.action.PasteFrom("Clipboard") },
+
+    { key = "PageUp", mods = "SHIFT", action = wezterm.action.ScrollByPage(-2) },
+    { key = "PageDown", mods = "SHIFT", action = wezterm.action.ScrollByPage(2) },
+
+    { key = ")", mods = "CTRL", action = wezterm.action.ResetFontSize },
+    { key = ")", mods = "SHIFT|CTRL", action = wezterm.action.ResetFontSize },
+    { key = "0", mods = "CTRL", action = wezterm.action.ResetFontSize },
+    { key = "0", mods = "SHIFT|CTRL", action = wezterm.action.ResetFontSize },
+    { key = "0", mods = "SUPER", action = wezterm.action.ResetFontSize },
+
+    { key = "_", mods = "CTRL", action = wezterm.action.DecreaseFontSize },
+    { key = "_", mods = "SHIFT|CTRL", action = wezterm.action.DecreaseFontSize },
+    { key = "-", mods = "CTRL", action = wezterm.action.DecreaseFontSize },
+    { key = "-", mods = "SHIFT|CTRL", action = wezterm.action.DecreaseFontSize },
+    { key = "-", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
+
+    { key = "+", mods = "CTRL", action = wezterm.action.IncreaseFontSize },
+    { key = "+", mods = "SHIFT|CTRL", action = wezterm.action.IncreaseFontSize },
+    { key = "=", mods = "CTRL", action = wezterm.action.IncreaseFontSize },
+    { key = "=", mods = "SHIFT|CTRL", action = wezterm.action.IncreaseFontSize },
+    { key = "=", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
+
+    { key = "L", mods = "CTRL", action = wezterm.action.ShowDebugOverlay },
+    { key = "L", mods = "SHIFT|CTRL", action = wezterm.action.ShowDebugOverlay },
+    { key = "l", mods = "SHIFT|CTRL", action = wezterm.action.ShowDebugOverlay },
 }
 
 
