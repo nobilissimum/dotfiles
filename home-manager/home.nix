@@ -137,7 +137,7 @@ in
                         set -ga terminal-overrides ",tmux-256color:RGB"
 
                         set -g @catppuccin_window_left_separator "█"
-                        set -g @catppuccin_window_middle_separator "█"
+                        set -g @catppuccin_window_middle_separator " •"
                         set -g @catppuccin_window_right_separator "█"
                         set -g @catppuccin_window_default_text " #{pane_current_command}"
                         set -g @catppuccin_window_current_text " #[bold]#{pane_current_command}"
@@ -172,9 +172,11 @@ in
                         set -g @thm_lavender "#a980c4"
 
                         set -g @catppuccin_window_current_color "#65a884"
-                        set -g @catppuccin_window_current_background "#393c4d"
-                        set -g @catppuccin_window_default_color "#74add2"
-                        set -g @catppuccin_window_default_background "#1f2a35"
+                        set -g @catppuccin_window_current_background "#1f2a35"
+                        set -g @catppuccin_window_current_fill "all"
+                        set -g @catppuccin_window_default_color "#393c4d"
+                        set -g @catppuccin_window_default_background "#cdd6f4"
+                        set -g @catppuccin_window_default_fill "all"
 
                         set -g @catppuccin_session_color "#{?client_prefix,#cec999,#74add2}"
 
