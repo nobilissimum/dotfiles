@@ -102,6 +102,14 @@ in
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.ssh/config";
                 force = true;
             };
+            ".tmux/plugins/tpm" = {
+                source = pkgs.fetchFromGitHub {
+                    owner = "tmux-plugins";
+                    repo = "tpm";
+                    rev = "v3.1.0";
+                    sha256 = "sha256-CeI9Wq6tHqV68woE11lIY4cLoNY8XWyXyMHTDmFKJKI=";
+                };
+            };
             ".zshrc" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.zshrc";
                 force = true;
@@ -126,19 +134,26 @@ in
             enable = true;
             terminal = "tmux-256color";
             extraConfig = ''
+                set -ga terminal-overrides ",xterm*:Tc"
+                set -ga terminal-overrides ",tmux-256color:RGB"
+
                 set -g focus-events on
                 set -g escape-time 0
-                '';
+
+                setw -g mode-keys vi
+                bind-key -T copy-mode-vi 'y' send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
+
+                set -g @plugin 'tmux-plugins/tpm'
+                run '~/.tmux/plugins/tpm/tpm'
+            '';
             plugins = with pkgs; [
                 {
                     plugin = tmuxPlugins.catppuccin;
                     extraConfig = ''
-                        set -ga terminal-overrides ",xterm*:Tc"
-                        set -ga terminal-overrides ",tmux-256color:RGB"
-
                         set -g @catppuccin_window_left_separator "█"
                         set -g @catppuccin_window_middle_separator " •"
                         set -g @catppuccin_window_right_separator "█"
+                        set -g @catppuccin_window_number "#[bold]#I"
                         set -g @catppuccin_window_default_text " #{pane_current_command}"
                         set -g @catppuccin_window_current_text " #[bold]#{pane_current_command}"
 
@@ -186,9 +201,6 @@ in
 
                         set -g @thm_surface_0 "#393c4d"
                         set -g @thm_bg "#1f2a35"
-
-                        setw -g mode-keys vi
-                        bind-key -T copy-mode-vi 'y' send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
                     '';
                 }
                 tmuxPlugins.sensible
