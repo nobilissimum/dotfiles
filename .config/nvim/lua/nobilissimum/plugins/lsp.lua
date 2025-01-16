@@ -202,6 +202,11 @@ return {
                 protobuf = { "proto" },
             }
             local formatters_prioritization = {
+                typescriptreact = { "biome" },
+                javascriptreact = { "biome" },
+                typescript = { "biome" },
+                javascript = { "biome" },
+                json = { "biome" },
                 go = { "goimports-reviser" },
                 python = { "ruff" },
             }
