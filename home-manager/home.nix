@@ -182,6 +182,8 @@ in
 
                         set -g @catppuccin_status_background "#1f2a35"
 
+                        set -g @catppuccin_session_icon " "
+
                         set -g @thm_surface_0 "#393c4d"
                         set -g @thm_bg "#1f2a35"
 
