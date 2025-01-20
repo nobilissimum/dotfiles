@@ -8,3 +8,15 @@ sshinit () {
     eval $(ssh-agent);
     ssh-add;
 }
+
+
+gitinit () {
+    sshinit
+    gpginit
+}
+
+
+lazygitinit () {
+    gitinit
+    lazygit
+}
