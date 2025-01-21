@@ -40,6 +40,7 @@ in
             pkgs.python312
             pkgs.ripgrep
             pkgs.starship
+            pkgs.superfile
             pkgs.tree-sitter
             pkgs.unzip
             pkgs.wget
