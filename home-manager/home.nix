@@ -31,6 +31,7 @@ in
             pkgs.lf
             pkgs.luajit
             pkgs.luajitPackages.luarocks
+            pkgs.oha
             pkgs.p7zip
             pkgs.pinentry-curses
             pkgs.nodejs_22
