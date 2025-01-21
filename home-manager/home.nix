@@ -22,6 +22,8 @@ in
             pkgs.fd
             pkgs.fzf
             pkgs.gcc
+            pkgs.gh
+            pkgs.gh-dash
             pkgs.gnumake
             pkgs.gnupg
             pkgs.htop
