@@ -1,8 +1,16 @@
 return {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {},
     cmd = "Trouble",
+    config = function()
+        local trouble = require("trouble")
+        trouble.setup({})
+
+        vim.api.nvim_set_hl(0, "TroubleNormal", { bg = Colors.hush.main })
+        vim.api.nvim_set_hl(0, "TroubleNormalNC", { bg = Colors.hush.main })
+
+        vim.api.nvim_set_hl(0, "TroubleCount", { bg = nil })
+    end,
     keys = {
         {
             "<leader>Dt",
