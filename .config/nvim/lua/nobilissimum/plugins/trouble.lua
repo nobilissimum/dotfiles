@@ -5,14 +5,24 @@ return {
     cmd = "Trouble",
     keys = {
         {
-            "<leader>xt",
+            "<leader>Dt",
             "<cmd>Trouble diagnostics toggle focus=true<cr>",
-            desc = "Buffer diagnostics [T]oggle (Trouble)",
+            desc = "[D]iagnostics [T]oggle",
         },
         {
-            "<leader>xf",
+            "<leader>Df",
             "<cmd>Trouble diagnostics focus=true<cr>",
-            desc = "[F]ocus diagnostics (Trouble)",
+            desc = "[D]iagnostics [F]ocus",
+        },
+        {
+            "<leader>dt",
+            "<cmd>Trouble diagnostics toggle filter.buf=0 focus=true<cr>",
+            desc = "[D]iagnostics [T]oggle buffer",
+        },
+        {
+            "<leader>df",
+            "<cmd>Trouble diagnostics filter.buf=0 focus=true<cr>",
+            desc = "[D]iagnostics [F]ocus buffer",
         },
         {
             "<leader>cst",
