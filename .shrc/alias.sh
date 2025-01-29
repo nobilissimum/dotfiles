@@ -8,3 +8,6 @@ alias la='ls --color -Ah'
 alias l='ls -CF'
 
 alias c='clear'
+
+alias lazg='lazygit'
+alias lazgi='lazygitinit'
