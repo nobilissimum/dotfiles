@@ -25,28 +25,6 @@ in
         stateVersion = "24.05";
 
         activation = {
-            tmux = config.lib.dag.entryAfter ["writeBoundary"] ''
-                export CC=${pkgs.gcc}/bin/gcc
-                export CXX=${pkgs.gcc}/bin/g++
-                # export YACC="${pkgs.bison}/bin/yacc"
-
-                export PATH="${pkgs.bison}/bin:${pkgs.gawk}/bin:${pkgs.gnumake}/bin:$PATH"
-
-                ${pkgs.wget}/bin/wget https://github.com/tmux/tmux/releases/download/3.5a/tmux-3.5a.tar.gz
-                ${pkgs.gzip}/bin/gunzip -c tmux-3.5a.tar.gz | ${pkgs.gnutar}/bin/tar xf -
-
-                cd tmux-3.5a
-                ./configure \
-                    --prefix="$HOME/.local" \
-                    LDFLAGS="-L${pkgs.libevent}/lib -L${pkgs.ncurses}/lib" \
-                    CFLAGS="-I${pkgs.libevent.dev}/include -I${pkgs.ncurses.dev}/include"
-                make
-                make install
-
-                cd ..
-                rm -rf tmux-3.5a
-                rm tmux-3.5a.tar.gz
-            '';
             tpm = config.lib.dag.entryAfter ["writeBoundary"] ''
                 rm -rf ~/.tmux/plugins/tpm
                 ${pkgs.git}/bin/git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -101,6 +79,14 @@ in
 
             pkgs.lazygit
             pkgs.vim
+
+            (pkgs.tmux.overrideAttrs (old: {
+                version = "3.5a";
+                src =   pkgs.fetchurl {
+                    url = "https://github.com/tmux/tmux/releases/download/3.5a/tmux-3.5a.tar.gz";
+                    hash = "sha256-FiFr0IdxcN/MZBVwhbqQE2ELErCCVIx8lULMAQMZiVE=";
+                };
+            }))
 
             (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
