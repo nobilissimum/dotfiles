@@ -135,6 +135,7 @@ config.scrollback_lines = 9999
 config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = false
 config.window_close_confirmation = "NeverPrompt"
+config.window_decorations = "RESIZE"
 config.window_frame = {
     inactive_titlebar_bg = "#1D232E",
     inactive_titlebar_fg = "#1D232E",
