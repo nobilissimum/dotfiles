@@ -3,8 +3,19 @@
 let
     sessionVariables = {
         EDITOR = "vim";
+
         FZF_HOME = "${pkgs.fzf}";
+        LIBEVENT_HOME = "${pkgs.libevent}";
+        LIBEVENT_DEV = "${pkgs.libevent.dev}";
+        NCURSES_HOME = "${pkgs.ncurses}";
+        NCURSES_DEV = "${pkgs.ncurses.dev}";
         ZSH_HOME = "${pkgs.zsh}";
+
+        CC = "${pkgs.gcc}/bin/gcc";
+        CXX = "${pkgs.gcc}/bin/g++";
+        YACC = "${pkgs.bison}/bin/yacc";
+
+        PKG_CONFIG_PATH = "${pkgs.libevent.dev}/lib/pkgconfig:${pkgs.ncurses.dev}/lib/pkgconfig:$PKG_CONFIG_PATH";
     };
 in
 {
@@ -13,29 +24,66 @@ in
         homeDirectory = builtins.getEnv("HOME");
         stateVersion = "24.05";
 
+        activation = {
+            tmux = config.lib.dag.entryAfter ["writeBoundary"] ''
+                export CC=${pkgs.gcc}/bin/gcc
+                export CXX=${pkgs.gcc}/bin/g++
+                # export YACC="${pkgs.bison}/bin/yacc"
+
+                export PATH="${pkgs.bison}/bin:${pkgs.gawk}/bin:${pkgs.gnumake}/bin:$PATH"
+
+                ${pkgs.wget}/bin/wget https://github.com/tmux/tmux/releases/download/3.5a/tmux-3.5a.tar.gz
+                ${pkgs.gzip}/bin/gunzip -c tmux-3.5a.tar.gz | ${pkgs.gnutar}/bin/tar xf -
+
+                cd tmux-3.5a
+                ./configure \
+                    --prefix="$HOME/.local" \
+                    LDFLAGS="-L${pkgs.libevent}/lib -L${pkgs.ncurses}/lib" \
+                    CFLAGS="-I${pkgs.libevent.dev}/include -I${pkgs.ncurses.dev}/include"
+                make
+                make install
+
+                cd ..
+                rm -rf tmux-3.5a
+                rm tmux-3.5a.tar.gz
+            '';
+            tpm = config.lib.dag.entryAfter ["writeBoundary"] ''
+                rm -rf ~/.tmux/plugins/tpm
+                ${pkgs.git}/bin/git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+            '';
+        };
+
         packages = [
             pkgs.ascii-image-converter
+            pkgs.bison
             pkgs.btop
             pkgs.cl
             pkgs.deno
             pkgs.eza
             pkgs.fd
             pkgs.fzf
+            pkgs.gawk
             pkgs.gcc
             pkgs.gh
             pkgs.gh-dash
             pkgs.gnumake
             pkgs.gnupg
+            pkgs.gnutar
+            pkgs.gzip
             pkgs.htop
             pkgs.jq
-            pkgs.libgcc
             pkgs.libclang
+            pkgs.libevent
+            pkgs.libevent.dev
+            pkgs.libgcc
             pkgs.lf
             pkgs.luajit
             pkgs.luajitPackages.luarocks
             pkgs.oha
             pkgs.p7zip
             pkgs.pinentry-curses
+            pkgs.ncurses
+            pkgs.ncurses.dev
             pkgs.nodejs_22
             pkgs.pass
             pkgs.pnpm
@@ -106,13 +154,9 @@ in
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.ssh/config";
                 force = true;
             };
-            ".tmux/plugins/tpm" = {
-                source = pkgs.fetchFromGitHub {
-                    owner = "tmux-plugins";
-                    repo = "tpm";
-                    rev = "v3.1.0";
-                    sha256 = "sha256-CeI9Wq6tHqV68woE11lIY4cLoNY8XWyXyMHTDmFKJKI=";
-                };
+            ".tmux.conf" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.tmux.conf";
+                force = true;
             };
             ".zshrc" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.zshrc";
@@ -132,84 +176,6 @@ in
             enable = true;
             viAlias = true;
             vimAlias = true;
-        };
-
-        tmux = {
-            enable = true;
-            terminal = "tmux-256color";
-            extraConfig = ''
-                set -ga terminal-overrides ",xterm*:Tc"
-                set -ga terminal-overrides ",tmux-256color:RGB"
-
-                set -g focus-events on
-                set -g escape-time 0
-
-                setw -g mode-keys vi
-                bind-key -T copy-mode-vi 'y' send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
-
-                set -g @plugin 'tmux-plugins/tpm'
-                run '~/.tmux/plugins/tpm/tpm'
-            '';
-            plugins = with pkgs; [
-                {
-                    plugin = tmuxPlugins.catppuccin;
-                    extraConfig = ''
-                        set -g @catppuccin_window_left_separator "█"
-                        set -g @catppuccin_window_middle_separator " •"
-                        set -g @catppuccin_window_right_separator "█"
-                        set -g @catppuccin_window_number "#[bold]#I"
-                        set -g @catppuccin_window_default_text " #{pane_current_command}"
-                        set -g @catppuccin_window_current_text " #[bold]#{pane_current_command}"
-
-                        set -g @catppuccin_pane_left_separator "█"
-                        set -g @catppuccin_pane_middle_separator "█"
-                        set -g @catppuccin_pane_right_separator "█"
-
-                        set -g @catppuccin_status_left_separator "█"
-                        set -g @catppuccin_status_middle_separator "█"
-                        set -g @catppuccin_status_right_separator "█"
-
-                        set -g @catppuccin_status_connect_separator "no"
-
-                        set -g @catppuccin_status_modules_left "session  "
-                        set -g @catppuccin_status_modules_right " "
-
-                        set -g @thm_rosewater "#f77172"
-                        set -g @thm_flamingo "#f77172"
-                        set -g @thm_rosewater "#f77172"
-                        set -g @thm_pink "#f77172"
-                        set -g @thm_mauve "#f77172"
-                        set -g @thm_red "#f77172"
-                        set -g @thm_maroon "#f77172"
-                        set -g @thm_peach "#cec999"
-                        set -g @thm_yellow "#cec999"
-                        set -g @thm_green "#65a884"
-                        set -g @thm_teal "#2d949f"
-                        set -g @thm_sky "#74add2"
-                        set -g @thm_sapphire "#2d949f"
-                        set -g @thm_blue "#74add2"
-                        set -g @thm_lavender "#a980c4"
-
-                        set -g @catppuccin_window_current_color "#65a884"
-                        set -g @catppuccin_window_current_background "#1f2a35"
-                        set -g @catppuccin_window_current_fill "all"
-                        set -g @catppuccin_window_default_color "#393c4d"
-                        set -g @catppuccin_window_default_background "#cdd6f4"
-                        set -g @catppuccin_window_default_fill "all"
-
-                        set -g @catppuccin_session_color "#{?client_prefix,#cec999,#74add2}"
-
-                        set -g @catppuccin_status_background "#1f2a35"
-
-                        set -g @catppuccin_session_icon " "
-
-                        set -g @thm_surface_0 "#393c4d"
-                        set -g @thm_bg "#1f2a35"
-                    '';
-                }
-                tmuxPlugins.sensible
-                tmuxPlugins.vim-tmux-navigator
-            ];
         };
 
         # Shells
