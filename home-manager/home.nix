@@ -80,7 +80,7 @@ in
             pkgs.lazygit
             pkgs.vim
 
-            (pkgs.tmux.overrideAttrs (old: {
+            (pkgs.tmux.overrideAttrs (_: {
                 version = "3.5a";
                 src =   pkgs.fetchurl {
                     url = "https://github.com/tmux/tmux/releases/download/3.5a/tmux-3.5a.tar.gz";
