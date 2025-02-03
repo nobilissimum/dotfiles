@@ -80,6 +80,8 @@ fi
 # Shell configuration
 SH_DIR="$HOME/.shrc"
 
+[[ -f ~/.profile ]] && source ~/.profile
+
 # Initialize tools
 source "$SH_DIR/config/bash.sh"
 source "$SH_DIR/tools/bash.sh"

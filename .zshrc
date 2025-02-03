@@ -38,6 +38,8 @@ zinit cdreplay -q
 # Shell configuration
 SH_DIR="$HOME/.shrc"
 
+[[ -f ~/.zprofile ]] && source ~/.zprofile
+
 # Initialize tools
 source "$SH_DIR/config/zsh.sh"
 source "$SH_DIR/tools/zsh.sh"
