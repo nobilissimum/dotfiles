@@ -37,12 +37,17 @@ return {
             defaults = {
                 layout_config = {
                     prompt_position = "top",
-                    width = 0.99,
+                    width = 1,
                     height = 0.99,
                 },
                 layout_strategy = "nobilissimum",
                 sorting_strategy = "ascending",
-                prompt_prefix = " ",
+
+                border = true,
+
+                entry_prefix = "    ",
+                prompt_prefix = " ",
+                selection_caret = "  • ",
 
                 mappings = {
                     i = {
