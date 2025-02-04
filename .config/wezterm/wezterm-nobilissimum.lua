@@ -19,7 +19,7 @@ end
 -- Font
 local fonts = {
     { name = "Geist Mono", half = "Medium", bold = "Bold" },
-    { name = "GeistMono Nerd Font", half = "Medium", bold = "Bold" },
+    { name = "GeistMono Nerd Font", half = "Regular", bold = "Regular", static = true },
 }
 local harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 local font_with_fallback = wezterm.font_with_fallback(map(
@@ -30,46 +30,38 @@ local font_with_fallback = wezterm.font_with_fallback(map(
 ))
 local font_size = 10.5
 
+local function get_weighted_font(weighted_fonts, weight, harfbuzz)
+    return wezterm.font_with_fallback(map(
+        weighted_fonts,
+        function(item)
+            local font_name = item.name
+            local font = { harfbuzz_features = harfbuzz }
+            if item.native then
+                font.weight = item[weight]
+            elseif item.static then
+            else
+                font_name = item.name .. " " .. item[weight]
+            end
+            font.family = font_name
+            return font
+        end
+    ))
+end
+
 config.font = font_with_fallback
 config.font_rules = {
     -- Bold
     {
         intensity = "Bold",
         italic = false,
-        font = wezterm.font_with_fallback(map(
-            fonts,
-            function(item)
-                local font_name = item.name
-                local font = { harfbuzz_features = harfbuzz_features }
-                if item.native then
-                    font.weight = item.bold
-                else
-                    font_name = item.name .. " " .. item.bold
-                end
-                font.family = font_name
-                return font
-            end
-        )),
+        font = get_weighted_font(fonts, "bold", harfbuzz_features),
     },
 
     -- Half
     {
         intensity = "Half",
         italic = false,
-        font = wezterm.font_with_fallback(map(
-            fonts,
-            function(item)
-                local font_name = item.name
-                local font = { harfbuzz_features = harfbuzz_features }
-                if item.native then
-                    font.weight = item.half
-                else
-                    font_name = item.name .. " " .. item.half
-                end
-                font.family = font_name
-                return font
-            end
-        )),
+        font = get_weighted_font(fonts, "half", harfbuzz_features),
     },
 }
 config.font_size = font_size
