@@ -49,6 +49,7 @@ in
             pkgs.gnutar
             pkgs.gzip
             pkgs.htop
+            pkgs.hurl
             pkgs.jq
             pkgs.lf
             pkgs.libclang
