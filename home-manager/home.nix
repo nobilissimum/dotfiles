@@ -50,20 +50,20 @@ in
             pkgs.gzip
             pkgs.htop
             pkgs.jq
+            pkgs.lf
             pkgs.libclang
             pkgs.libevent
             pkgs.libevent.dev
             pkgs.libgcc
-            pkgs.lf
             pkgs.luajit
             pkgs.luajitPackages.luarocks
-            pkgs.oha
-            pkgs.p7zip
-            pkgs.pinentry-curses
             pkgs.ncurses
             pkgs.ncurses.dev
             pkgs.nodejs_22
+            pkgs.oha
+            pkgs.p7zip
             pkgs.pass
+            pkgs.pinentry-curses
             pkgs.pnpm
             pkgs.python312
             pkgs.ripgrep
