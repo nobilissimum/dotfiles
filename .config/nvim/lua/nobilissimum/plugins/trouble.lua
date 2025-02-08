@@ -10,6 +10,15 @@ return {
         vim.api.nvim_set_hl(0, "TroubleNormalNC", { bg = Colors.hush.main })
 
         vim.api.nvim_set_hl(0, "TroubleCount", { bg = nil })
+
+        vim.api.nvim_create_autocmd("DiagnosticChanged", {
+            callback = function()
+                local diagnostics = vim.diagnostic.get(vim.api.nvim_get_current_buf())
+                if #diagnostics == 0 then
+                    vim.cmd("Trouble close")
+                end
+            end,
+        })
     end,
     keys = {
         {
