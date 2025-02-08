@@ -34,6 +34,8 @@ return {
             })
 
             -- LSP keymaps
+            vim.keymap.set("n", "<leader>lr", ":LspRestart<CR>", { desc = "[L]SP [R]estart" })
+
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("nobilissimum-lsp-attach", { clear = true }),
                 callback = function(event)
