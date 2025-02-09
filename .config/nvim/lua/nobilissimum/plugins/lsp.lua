@@ -270,8 +270,9 @@ return {
             conform.setup({
                 cmd = "ConformInfo",
                 default_format_opts = {
+                    async = true,
                     lsp_format = "fallback",
-                    timeout_ms = 10000,
+                    timeout_ms = 20000,
                 },
                 formatters_by_ft = formatters_by_ft,
             })
