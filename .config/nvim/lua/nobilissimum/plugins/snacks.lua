@@ -16,64 +16,20 @@ return {
         vim.api.nvim_set_hl(0, "SnacksDashboardKey", { bg = Colors.yellow, fg = Colors.black, bold = true })
 
         local keys_width = 60
-        local keys_gap = 1
-        local keys = {
-            {
-                text = {
-                    { "  ", hl = "SnacksDashboardIcon" },
-                    { "New file", hl = "SnacksDashboardDesc", width = keys_width },
-                    { " n ", hl = "SnacksDashboardKey" },
-                },
-                action = ":enew",
-                key = "n",
-            },
-            {
-                text = {
-                    { "  ", hl = "SnacksDashboardIcon" },
-                    { "Find file", hl = "SnacksDashboardDesc", width = keys_width },
-                    { " f ", hl = "SnacksDashboardKey" },
-                },
-                action = ":Telescope find_files",
-                key = "f",
-            },
-            {
-                text = {
-                    { "󰒲  ", hl = "SnacksDashboardIcon" },
-                    { "Lazy.nvim", hl = "SnacksDashboardDesc", width = keys_width },
-                    { " l ", hl = "SnacksDashboardKey" },
-                },
-                action = ":Lazy",
-                key = "l",
-            },
-            {
-                text = {
-                    { "󰽛  ", hl = "SnacksDashboardIcon" },
-                    { "Mason", hl = "SnacksDashboardDesc", width = keys_width },
-                    { " m ", hl = "SnacksDashboardKey" },
-                },
-                action = ":Mason",
-                key = "m",
-            },
-            {
-                text = {
-                    { "  ", hl = "SnacksDashboardIcon" },
-                    { "Exit neovim", hl = "SnacksDashboardDesc", width = keys_width },
-                    { " q ", hl = "SnacksDashboardKey" },
-                },
-                action = function()
-                    vim.notify("Wrong!", vim.log.levels.ERROR)
-                end,
-                key = "q",
-            },
-        }
+        local keys = {}
 
         local sections_padding = 2
+        local sections_padding_multiplier = 1
+        if #keys >= 1 then
+            sections_padding_multiplier = sections_padding_multiplier + 1
+        end
+
         local margin = 6
         local base_window_height = 50
         local terminal_height = math.min(
             (
                 (vim.api.nvim_win_get_height(0) - (vim.o.showtabline > 0 and 1 or 0)) - -- window height
-                (#keys * (keys_gap + 1)) -
+                #keys -
                 (sections_padding * 2) - -- #sections - 1 = 2
                 (margin * 2) + -- top and bottom
                 2 -- statusline and commandline
@@ -81,7 +37,7 @@ return {
             base_window_height
         )
 
-        local terminal_width = math.floor(terminal_height * 2.4)
+        local terminal_width = math.floor(terminal_height * 2.5)
 
         Snacks.setup({
             animate = {
@@ -103,8 +59,7 @@ return {
                         indent = math.floor((keys_width - terminal_width) / 2),
                         padding = sections_padding,
                     },
-                    { section = "startup", padding = sections_padding },
-                    { section = "keys", gap = keys_gap },
+                    { section = "startup" },
                 },
             },
             notifier = {
