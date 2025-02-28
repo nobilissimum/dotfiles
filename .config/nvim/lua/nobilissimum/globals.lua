@@ -24,10 +24,10 @@ Colors = {
 
 
 LspAlias = {
--- Javascript and Typescript
-javascript = { "javascriptreact" },
-typescript = { "typescriptreact" },
+    -- Javascript and Typescript
+    javascript = { "javascriptreact" },
+    typescript = { "typescriptreact" },
 
--- Protobuf
-protobuf = { "proto" },
+    -- Protobuf
+    protobuf = { "proto" },
 }
