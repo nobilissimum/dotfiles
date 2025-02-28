@@ -21,3 +21,13 @@ Colors = {
 
     white = "#ffffff",
 }
+
+
+LspAlias = {
+-- Javascript and Typescript
+javascript = { "javascriptreact" },
+typescript = { "typescriptreact" },
+
+-- Protobuf
+protobuf = { "proto" },
+}

@@ -16,7 +16,7 @@ return {
             "nvim-telescope/telescope.nvim",
 
             -- Formatting
-            "stevearc/conform.nvim"
+            "stevearc/conform.nvim",
         },
         config = function()
             -- Vim diagnostic
@@ -195,14 +195,6 @@ return {
             local conform = require("conform")
             local mason_registry = require("mason-registry")
 
-            local lsp_alias = {
-                -- Javascript and Typescript
-                javascript = { "javascriptreact" },
-                typescript = { "typescriptreact" },
-
-                -- Protobuf
-                protobuf = { "proto" },
-            }
             local formatters_prioritization = {
                 typescriptreact = { "biome" },
                 javascriptreact = { "biome" },
@@ -236,7 +228,7 @@ return {
 
                     Upsert(fmt_language, package.name, formatters_by_ft)
 
-                    local aliases = lsp_alias[fmt_language]
+                    local aliases = LspAlias[fmt_language]
                     if not aliases then
                         goto inner_continue
                     end
@@ -292,6 +284,67 @@ return {
             })
 
             vim.keymap.set("n", "<leader>f", conform.format, { desc = "[F]ormat" })
+        end,
+    },
+    {
+        "mfussenegger/nvim-lint",
+        opts = {
+            events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+        },
+        config = function(_, opts)
+            N = {}
+
+            local mason_registry = require("mason-registry")
+
+            local linters_by_ft = {}
+            for _, package in ipairs(mason_registry.get_installed_packages()) do
+                if not StringInTable("Linter", package.spec.categories) then
+                    goto continue_package
+                end
+
+                for _, language in ipairs(package.spec.languages) do
+                    local lint_language = string.lower(language)
+                    Upsert(lint_language, package.name, linters_by_ft)
+
+                    local aliases = LspAlias[lint_language]
+                    if not aliases then
+                        goto continue_language
+                    end
+
+                    for _, alias in ipairs(aliases) do
+                        Upsert(alias, package.name, linters_by_ft)
+                    end
+
+                    ::continue_language::
+                end
+
+                ::continue_package::
+            end
+
+            local lint = require("lint")
+            lint.linters_by_ft = linters_by_ft
+
+            print(vim.inspect(vim.uv.new_timer()))
+
+            function N.debounce(ms, fn)
+                local timer = vim.uv.new_timer()
+                return function(...)
+                    local argv = { ... }
+                    timer:start(ms, 0, function()
+                        timer:stop()
+                        vim.schedule_wrap(fn)(table.unpack(argv))
+                    end)
+                end
+            end
+
+            function N.lint()
+                lint.try_lint()
+            end
+
+            vim.api.nvim_create_autocmd(opts.events, {
+                group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
+                callback = N.debounce(100, N.lint),
+            })
         end,
     },
 }
