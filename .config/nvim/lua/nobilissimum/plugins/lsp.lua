@@ -324,15 +324,13 @@ return {
             local lint = require("lint")
             lint.linters_by_ft = linters_by_ft
 
-            print(vim.inspect(vim.uv.new_timer()))
-
             function N.debounce(ms, fn)
                 local timer = vim.uv.new_timer()
                 return function(...)
                     local argv = { ... }
                     timer:start(ms, 0, function()
                         timer:stop()
-                        vim.schedule_wrap(fn)(table.unpack(argv))
+                        vim.schedule_wrap(fn)(F.unpack(argv))
                     end)
                 end
             end

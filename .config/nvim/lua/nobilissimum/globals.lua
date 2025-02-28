@@ -31,3 +31,9 @@ LspAlias = {
     -- Protobuf
     protobuf = { "proto" },
 }
+
+F = {}
+F.unpack = table.unpack
+if not F.unpack then
+    F.unpack = unpack
+end
