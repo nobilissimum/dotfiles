@@ -18,8 +18,8 @@ end
 
 -- Font
 local fonts = {
-    { name = "Geist Mono", half = "Medium", bold = "Bold" },
-    { name = "GeistMono Nerd Font", half = "Regular", bold = "Regular", static = true },
+    { name = "Geist Mono", regular = "Regular", half = "Bold", bold = "Bold" },
+    { name = "GeistMono Nerd Font", regular = "Regular", half = "Regular", bold = "Regular", static = true },
 }
 local harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 local font_with_fallback = wezterm.font_with_fallback(map(
@@ -48,7 +48,7 @@ local function get_weighted_font(weighted_fonts, weight, harfbuzz)
     ))
 end
 
-config.font = font_with_fallback
+config.font = get_weighted_font(fonts, "regular", harfbuzz_features)
 config.font_rules = {
     -- Bold
     {
@@ -176,7 +176,34 @@ config.keys = {
 -- Rendering
 config.enable_wayland = true
 config.use_ime = true
-config.front_end = "OpenGL"
+config.max_fps = 120
+config.front_end = "WebGpu"
+config.bold_brightens_ansi_colors = false
+config.webgpu_power_preference = "HighPerformance"
+config.freetype_load_target = "Light"
+
+local webgpu_preferred_adapter = {}
+local gpu_deprio = {}
+for _, gpu in pairs(wezterm.gui.enumerate_gpus()) do
+    if gpu.backend == "Dx12" and gpu.device_type == "DiscreteGpu" then
+        webgpu_preferred_adapter = gpu
+        break
+    end
+
+    if gpu.device_type == "DiscreteGpu" and ((next(gpu_deprio) ~= nil and gpu_deprio.backend ~= "Vulkan") or (next(gpu_deprio) == nil)) then
+        gpu_deprio = gpu
+    end
+end
+
+if next(webgpu_preferred_adapter) == nil and next(gpu_deprio) ~= nil then
+    webgpu_preferred_adapter = gpu_deprio
+end
+
+if next(webgpu_preferred_adapter) == nil then
+    config.front_end = "OpenGL"
+else
+    config.webgpu_preferred_adapter = webgpu_preferred_adapter
+end
 
 
 -- Audio
