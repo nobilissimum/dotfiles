@@ -5,6 +5,7 @@ return {
             -- LSP
             { "williamboman/mason.nvim", config = true },
             "williamboman/mason-lspconfig.nvim",
+            "neovim/nvim-lspconfig",
             "WhoIsSethDaniel/mason-tool-installer.nvim",
 
             -- Code suggestion
@@ -211,7 +212,7 @@ return {
             local installed_packages = {}
             local formatters_by_ft = {}
             for _, package in ipairs(mason_registry.get_installed_packages()) do
-                if not StringInTable("Formatter", package.spec.categories) then
+                if not F.is_string_in_table("Formatter", package.spec.categories) then
                     goto outer_continue
                 end
 
@@ -219,11 +220,11 @@ return {
                 for _, language in ipairs(package.spec.languages) do
                     local fmt_language = string.lower(language)
                     local priorities = formatters_prioritization[fmt_language]
-                    if priorities and StringInTable(package.name, priorities) then
+                    if priorities and F.is_string_in_table(package.name, priorities) then
                         break
                     end
 
-                    Upsert(fmt_language, package.name, formatters_by_ft)
+                    F.upsert(fmt_language, package.name, formatters_by_ft)
 
                     local aliases = LspAlias[fmt_language]
                     if not aliases then
@@ -231,7 +232,7 @@ return {
                     end
 
                     for _, alias in ipairs(aliases) do
-                        Upsert(alias, package.name, formatters_by_ft)
+                        F.upsert(alias, package.name, formatters_by_ft)
                     end
 
                     ::inner_continue::
@@ -247,7 +248,7 @@ return {
 
                 local formatters = formatters_by_ft[formatter]
                 for _, priority in ipairs(priorities) do
-                    if StringInTable(priority, installed_packages) then
+                    if F.is_string_in_table(priority, installed_packages) then
                         table.insert(packages, priority)
                     end
                 end
@@ -295,13 +296,13 @@ return {
 
             local linters_by_ft = {}
             for _, package in ipairs(mason_registry.get_installed_packages()) do
-                if not StringInTable("Linter", package.spec.categories) then
+                if not F.is_string_in_table("Linter", package.spec.categories) then
                     goto continue_package
                 end
 
                 for _, language in ipairs(package.spec.languages) do
                     local lint_language = string.lower(language)
-                    Upsert(lint_language, package.name, linters_by_ft)
+                    F.upsert(lint_language, package.name, linters_by_ft)
 
                     local aliases = LspAlias[lint_language]
                     if not aliases then
@@ -309,7 +310,7 @@ return {
                     end
 
                     for _, alias in ipairs(aliases) do
-                        Upsert(alias, package.name, linters_by_ft)
+                        F.upsert(alias, package.name, linters_by_ft)
                     end
 
                     ::continue_language::
@@ -333,7 +334,30 @@ return {
             end
 
             function N.lint()
-                lint.try_lint()
+                local linters = lint._resolve_linter_by_ft(vim.bo.filetype)
+                linters = vim.list_extend({}, linters)
+
+                if #linters == 0 then
+                  vim.list_extend(linters, lint.linters_by_ft["_"] or {})
+                end
+
+                vim.list_extend(linters, lint.linters_by_ft["*"] or {})
+
+                local ctx = { filename = vim.api.nvim_buf_get_name(0) }
+                ctx.dirname = vim.fn.fnamemodify(ctx.filename, ":h")
+                linters = vim.tbl_filter(function(name)
+                    local linter = lint.linters[name]
+                    -- if not linter then
+                    --     vim.notify("Linter " .. name .. " not found", vim.log.levels.WARN, { title = "nvim-lint" })
+                    -- end
+
+                     return linter and not (type(linter) == "table" and linter.condition and not linter.condition(ctx))
+                end, linters)
+
+                if #linters > 0 then
+                    -- vim.notify("Linting using " .. vim.inspect(linters), vim.log.levels.INFO, { title = "nvim-lint" })
+                    lint.try_lint(linters)
+                end
             end
 
             vim.api.nvim_create_autocmd(opts.events, {
