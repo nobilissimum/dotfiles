@@ -14,18 +14,16 @@ return {
             max_lines,
             extra
         )
-            local layout =
-                require("telescope.pickers.layout_strategies").bottom_pane(setup, max_columns, max_lines, extra)
+            local layout = require("telescope.pickers.layout_strategies").horizontal(
+                setup,
+                max_columns,
+                max_lines,
+                extra
+            )
 
             layout.prompt.title = false
-            layout.prompt.borderchars = { " ", " ", " ", " ", " ", " ", " ", " " }
-            layout.prompt.line = layout.prompt.line - 1
-
             layout.results.title = false
-            layout.results.borderchars = { " ", " ", " ", " ", " ", " ", " ", " " }
-
             layout.preview.title = false
-            layout.preview.borderchars = { " ", " ", " ", " ", " ", " ", " ", " " }
 
             return layout
         end
@@ -37,8 +35,8 @@ return {
             defaults = {
                 layout_config = {
                     prompt_position = "top",
-                    width = 1,
-                    height = 0.99,
+                    width = 0.9999,
+                    height = 0.9999,
                 },
                 layout_strategy = "nobilissimum",
                 sorting_strategy = "ascending",
