@@ -39,7 +39,7 @@ local function get_weighted_font(weighted_fonts, weight, harfbuzz)
             if item.native then
                 font.weight = item[weight]
             elseif item.static then
-            else
+            elseif item[weight] then
                 font_name = item.name .. " " .. item[weight]
             end
             font.family = font_name
@@ -180,7 +180,7 @@ config.max_fps = 120
 config.front_end = "WebGpu"
 config.bold_brightens_ansi_colors = false
 config.webgpu_power_preference = "HighPerformance"
-config.freetype_load_target = "Light"
+config.freetype_load_target = "Normal"
 
 local webgpu_preferred_adapter = {}
 local gpu_deprio = {}
