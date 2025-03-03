@@ -28,6 +28,7 @@ gissb () {
     git branch -m "$b-snapshot$d"
 }
 
+
 # Environment
 srcenv () {
     local filename=${1-.env};
@@ -47,4 +48,17 @@ srcvenv () {
 
 srcgo () {
     export PATH="$PATH:$(go env GOPATH)/bin"
+}
+
+
+# Tmux
+deltmxplugs () {
+    local except="tpm"
+    for dir in ~/.tmux/plugins/*; do
+        local parsed_dir=$(basename $dir)
+        if [ $parsed_dir != $except ]; then
+            echo "Deleting $dir"
+            rm -rf $dir
+        fi
+    done
 }
