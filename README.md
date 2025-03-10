@@ -18,7 +18,11 @@ git clone git@github.com:nobilissimum/dotfiles.git
 cd dotfiles
 ```
 
-Nix is installed using the **[Determinate Nix installer](https://github.com/DeterminateSystems/nix-installer?tab=readme-ov-file#install-determinate)**.
+Nix is installed using the **[Determinate Nix installer](https://github.com/DeterminateSystems/nix-installer?tab=readme-ov-file#install-determinate)**. The command is as follows as of `2025-03-10`:
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
+```
 
 To get started, open a new shell or run
 
