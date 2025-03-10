@@ -29,6 +29,34 @@
                 {
                     "name": "I",
                     "layout": "Columns"
+                },
+                {
+                    "name": "II",
+                    "layout": "Columns"
+                },
+                {
+                    "name": "III",
+                    "layout": "Columns"
+                },
+                {
+                    "name": "IV",
+                    "layout": "Columns"
+                },
+                {
+                    "name": "V",
+                    "layout": "Columns"
+                },
+                {
+                    "name": "VI",
+                    "layout": "Columns"
+                },
+                {
+                    "name": "VII",
+                    "layout": "Columns"
+                },
+                {
+                    "name": "VIII",
+                    "layout": "Columns"
                 }
             ]
         }
