@@ -5,3 +5,6 @@ alacritty.toml
 
 # Wezterm
 wezterm-custom.lua
+
+# Tmux
+tmux-terminal
