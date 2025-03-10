@@ -44,6 +44,7 @@ in
             pkgs.gcc
             pkgs.gh
             pkgs.gh-dash
+            pkgs.glibc
             pkgs.gnumake
             pkgs.gnupg
             pkgs.gnutar
