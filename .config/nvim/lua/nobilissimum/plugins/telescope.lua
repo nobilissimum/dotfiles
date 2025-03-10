@@ -35,8 +35,12 @@ return {
             defaults = {
                 layout_config = {
                     prompt_position = "top",
-                    width = 0.9999,
-                    height = 0.9999,
+                    width = function(_, max_columns)
+                        return max_columns
+                    end,
+                    height = function(_, max_lines)
+                        return max_lines
+                    end,
                 },
                 layout_strategy = "nobilissimum",
                 sorting_strategy = "ascending",
