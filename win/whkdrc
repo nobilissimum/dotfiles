@@ -1,40 +1,42 @@
 .shell powershell
 
 # Reload whkd configuration
-alt + o                 : taskkill /f /im whkd.exe && start /b whkd # if shell is cmd
-alt + o                 : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden # if shell is pwsh
-alt + shift + o         : komorebic reload-configuration
+alt + o                     : taskkill /f /im whkd.exe && start /b whkd # if shell is cmd
+alt + o                     : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden # if shell is pwsh
+alt + shift + o             : komorebic reload-configuration
 
 # App shortcuts - these require shell to be pwsh / powershell
 # The apps will be focused if open, or launched if not open
 # alt + f                 : if ($wshell.AppActivate('Firefox') -eq $False) { start firefox }
 # alt + b                 : if ($wshell.AppActivate('Chrome') -eq $False) { start chrome }
 
-alt + shift + m         : komorebic minimize
+alt + shift + m             : komorebic minimize
 
 # Focus windows
-alt + shift + h         : komorebic focus left
-alt + shift + j         : komorebic focus down
-alt + shift + k         : komorebic focus up
-alt + shift + l         : komorebic focus right
+alt + shift + h             : komorebic focus left
+alt + shift + j             : komorebic focus down
+alt + shift + k             : komorebic focus up
+alt + shift + l             : komorebic focus right
 
 # Move windows
-ctrl + alt + shift + h  : komorebic move left
-ctrl + alt + shift + j  : komorebic move down
-ctrl + alt + shift + k  : komorebic move up
-ctrl + alt + shift + l  : komorebic move right
-# alt + shift + return    : komorebic promote
+ctrl + alt + shift + h      : komorebic move left
+ctrl + alt + shift + j      : komorebic move down
+ctrl + alt + shift + k      : komorebic move up
+ctrl + alt + shift + l      : komorebic move right
+
+alt + shift + return        : komorebic toggle-monocle
+ctrl + alt + shift + return : komorebic manage
 
 # Resize
-alt + oem_plus          : komorebic resize-axis horizontal increase
-alt + oem_minus         : komorebic resize-axis horizontal decrease
-alt + shift + oem_plus  : komorebic resize-axis vertical increase
-alt + shift + oem_minus : komorebic resize-axis vertical decrease
+alt + oem_plus              : komorebic resize-axis horizontal increase
+alt + oem_minus             : komorebic resize-axis horizontal decrease
+alt + shift + oem_plus      : komorebic resize-axis vertical increase
+alt + shift + oem_minus     : komorebic resize-axis vertical decrease
 
 # Manipulate windows
-alt + t                 : komorebic toggle-float
-alt + shift + f         : komorebic toggle-monocle
+alt + t                     : komorebic toggle-float
+alt + shift + f             : komorebic toggle-monocle
 
 # Window manager options
-alt + shift + r         : komorebic retile
-alt + p                 : komorebic toggle-pause
+alt + shift + r             : komorebic retile
+alt + p                     : komorebic toggle-pause
