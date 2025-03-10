@@ -19,7 +19,7 @@ Colors = {
     magenta = "#a980c4",
     cyan = "#2d949f",
 
-    white = "#ffffff",
+    white = "#cdd6f4",
 }
 
 
