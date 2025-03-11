@@ -6,12 +6,15 @@ tmx () {
     fi
 
     session_name="$(basename $(dirname $(pwd)) | sed 's/\./-/g')-$(basename $(pwd) | sed 's/\./-/g')"
-    if ! tmux a -t $session_name $COMMAND &> /dev/null; then
+    existing_session_name=$(tmux list-session -F '#S' | grep "^${session_name}$")
+    if [ -z "$existing_session_name" ]; then
         tmux new-session -d -s "$session_name"
         tmux new-window -d
         tmux new-window -d
         tmux new-window -d
         tmux attach-session -d -t "$session_name"
+    else
+        tmux a -t $session_name
     fi
 }
 
