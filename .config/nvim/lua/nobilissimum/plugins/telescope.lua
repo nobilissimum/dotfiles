@@ -8,38 +8,8 @@ return {
         },
     },
     config = function()
-        require("telescope.pickers.layout_strategies").nobilissimum_horizontal = function(
-            setup,
-            max_columns,
-            max_lines,
-            extra
-        )
-            local layout = require("telescope.pickers.layout_strategies").horizontal(
-                setup,
-                max_columns,
-                max_lines,
-                extra
-            )
-
-            layout.prompt.title = false
-            layout.results.title = false
-            layout.preview.title = false
-
-            return layout
-        end
-
-        require("telescope.pickers.layout_strategies").nobilissimum_vertical = function(
-            setup,
-            max_columns,
-            max_lines,
-            extra
-        )
-            local layout = require("telescope.pickers.layout_strategies").vertical(
-                setup,
-                max_columns,
-                max_lines,
-                extra
-            )
+        require("telescope.pickers.layout_strategies").clean_flex = function(...)
+            local layout = require("telescope.pickers.layout_strategies").flex(...)
 
             layout.prompt.title = false
             layout.results.title = false
@@ -62,7 +32,7 @@ return {
                         return max_lines
                     end,
                 },
-                layout_strategy = "nobilissimum_horizontal",
+                layout_strategy = "clean_flex",
                 sorting_strategy = "ascending",
 
                 border = true,
@@ -126,15 +96,7 @@ return {
         -- Keymaps
         vim.keymap.set("n", "<leader>sh", tl_builtin.help_tags, { desc = "[S]earch [H]elp" })
         vim.keymap.set("n", "<leader>sk", tl_builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-        vim.keymap.set("n", "<C-p>", function()
-            local width = vim.api.nvim_win_get_width(0)
-            local layout = "nobilissimum_horizontal"
-            if width < 120 then
-                layout = "nobilissimum_vertical"
-            end
-
-            tl_builtin.find_files({ layout_strategy = layout })
-        end, { desc = "Search files" })
+        vim.keymap.set("n", "<C-p>", tl_builtin.find_files, { desc = "Search files" })
         vim.keymap.set("n", "<leader>sp", function()
             tl_builtin.find_files({
                 hidden = true,
