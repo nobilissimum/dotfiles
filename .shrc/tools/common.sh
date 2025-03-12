@@ -1,4 +1,11 @@
 # Tmux
+tmxinit () {
+    tmux new-session -d -s "$session_name"
+    tmux new-window
+    tmux new-window
+    tmux new-window
+    tmux a -t "$session_name"
+}
 tmx () {
     if [ ! -z "${TMUX}" ]; then
         echo "Already in a tmux session"
@@ -6,16 +13,18 @@ tmx () {
     fi
 
     session_name="$(basename $(dirname $(pwd)) | sed 's/\./-/g')-$(basename $(pwd) | sed 's/\./-/g')"
-    existing_session_name=$(tmux list-session -F '#S' | grep "^${session_name}$")
-    if [ -z "$existing_session_name" ]; then
-        tmux new-session -d -s "$session_name"
-        tmux new-window -d
-        tmux new-window -d
-        tmux new-window -d
-        tmux attach-session -d -t "$session_name"
-    else
-        tmux a -t $session_name
+    if [[ -z $(pgrep -u $USER tmux) ]]; then
+        tmxinit
+        return
     fi
+
+    existing_session_name=$(tmux list-session -F '#S' | grep "^${session_name}$")
+    if [ ! -z "$existing_session_name" ]; then
+        tmux a -t $session_name
+        return
+    fi
+
+    tmxinit
 }
 
 
