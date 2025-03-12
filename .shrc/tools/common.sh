@@ -4,7 +4,7 @@ tmxinit () {
     tmux new-window
     tmux new-window
     tmux new-window
-    tmux a -t "$session_name"
+    tmux a -d -t "${session_name}:0"
 }
 tmx () {
     if [ ! -z "${TMUX}" ]; then
