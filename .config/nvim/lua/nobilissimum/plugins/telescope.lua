@@ -25,6 +25,7 @@ return {
             defaults = {
                 layout_config = {
                     prompt_position = "top",
+                    flip_columns = 140,
                     width = function(_, max_columns)
                         return max_columns
                     end,
