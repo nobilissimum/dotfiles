@@ -8,10 +8,8 @@ return {
             "neovim/nvim-lspconfig",
             "WhoIsSethDaniel/mason-tool-installer.nvim",
 
-            -- Code suggestion
-            "hrsh7th/nvim-cmp",
-            "hrsh7th/cmp-nvim-lsp",
-            "nvim-lua/plenary.nvim",
+            -- Completion
+            "saghen/blink.cmp",
 
             -- Navigation
             "nvim-telescope/telescope.nvim",
@@ -108,12 +106,8 @@ return {
                 },
             })
 
-            -- LSP configuration
             local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
-
-            -- CMP configuration
-            local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-
+            local cmp_capabilities = require("blink.cmp").get_lsp_capabilities()
             local capabilities = vim.tbl_deep_extend("force", lsp_capabilities, cmp_capabilities)
 
             local server_configurations = {
@@ -127,6 +121,7 @@ return {
                         },
                     },
                 },
+                vimls = {},
 
                 -- Python
                 pyright = {
