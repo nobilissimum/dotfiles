@@ -73,7 +73,7 @@ config.colors = {
     background = "#1d232e",
 
     cursor_bg = "#cdd6f4",
-    cursor_fg = "black",
+    cursor_fg = "#0f172a",
 
     cursor_border = "#52ad70",
 
@@ -81,7 +81,7 @@ config.colors = {
     selection_bg = "#fffacd",
 
     ansi = {
-        "#000000",
+        "#0f172a",
         "#f77172",
         "#65a884",
         "#65a884",
