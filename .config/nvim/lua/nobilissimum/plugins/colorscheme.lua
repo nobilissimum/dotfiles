@@ -14,6 +14,9 @@ return {
         vim.opt.termguicolors = true
         vim.cmd.colorscheme("catppuccin")
 
+        -- Modes
+        vim.api.nvim_set_hl(0, "Visual", { bg = Colors.bright_black2, bold = true })
+
         -- Ghost characters
         vim.api.nvim_set_hl(0, "Whitespace", { fg = Colors.bright_black2 })
         vim.api.nvim_set_hl(0, "NonText", { fg = Colors.bright_black2 })

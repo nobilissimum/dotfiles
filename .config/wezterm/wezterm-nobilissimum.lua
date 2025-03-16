@@ -77,8 +77,8 @@ config.colors = {
 
     cursor_border = "#52ad70",
 
-    selection_fg = "black",
-    selection_bg = "#fffacd",
+    selection_fg = "none",
+    selection_bg = "#393c4d",
 
     ansi = {
         "#0f172a",
