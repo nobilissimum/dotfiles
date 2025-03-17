@@ -32,5 +32,10 @@ return {
         local dark_bg = { bg = Colors.hush.dark }
         vim.api.nvim_set_hl(0, "NormalFLoat", dark_bg)
         vim.api.nvim_set_hl(0, "FloatBorder", dark_bg)
+
+        vim.api.nvim_set_hl(0, "Pmenu", { bg = Colors.hush.light })
+        vim.api.nvim_set_hl(0, "PmenuSel", { bg = Colors.hush.dark })
+        vim.api.nvim_set_hl(0, "PmenuSbar", { bg = Colors.hush.light })
+        vim.api.nvim_set_hl(0, "PmenuThumb", { bg = Colors.bright_black2 })
     end,
 }
