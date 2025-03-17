@@ -361,4 +361,15 @@ return {
             })
         end,
     },
+    {
+        "j-hui/fidget.nvim",
+        opts = {
+            notification = {
+                window = {
+                    normal_hl = "FidgetComment",
+                    winblend = 0,
+                },
+            },
+        },
+    },
 }

@@ -42,5 +42,7 @@ return {
         vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { bg = Colors.bright_black2_5 })
         vim.api.nvim_set_hl(0, "BlinkCmpDocSeparator", { bg = Colors.bright_black2_5 })
         vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = Colors.hush.dark })
+
+        vim.api.nvim_set_hl(0, "FidgetComment", { bg = Colors.hush.light })
     end,
 }
