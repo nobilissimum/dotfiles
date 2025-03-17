@@ -77,13 +77,9 @@ return {
             pickers = {
                 buffers = {
                     ignore_current_buffer = true,
-                    initial_mode = "normal",
                     sort_mru = true,
                 },
                 find_files = { hidden = true },
-                git_commits = {
-                    initial_mode = "normal",
-                },
                 live_grep = {
                     additional_args = function()
                         return { "--hidden" }
