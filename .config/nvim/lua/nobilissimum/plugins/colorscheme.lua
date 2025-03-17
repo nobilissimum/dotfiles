@@ -37,5 +37,10 @@ return {
         vim.api.nvim_set_hl(0, "PmenuSel", { bg = Colors.hush.dark })
         vim.api.nvim_set_hl(0, "PmenuSbar", { bg = Colors.hush.light })
         vim.api.nvim_set_hl(0, "PmenuThumb", { bg = Colors.bright_black2 })
+
+        vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = Colors.bright_black2_5 })
+        vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { bg = Colors.bright_black2_5 })
+        vim.api.nvim_set_hl(0, "BlinkCmpDocSeparator", { bg = Colors.bright_black2_5 })
+        vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = Colors.hush.dark })
     end,
 }

@@ -20,7 +20,20 @@ return {
                 use_nvim_cmp_as_default = false,
                 nerd_font_variant = "mono",
             },
-
+            completion = {
+                keyword = { range = "prefix" },
+                documentation = {
+                    auto_show = true,
+                    auto_show_delay_ms = 0,
+                },
+                menu = {
+                    draw = {
+                        columns = {
+                            { "kind_icon", "label", gap = 1 },
+                        },
+                    },
+                },
+            },
             sources = {
                 default = {
                     "lazydev",
