@@ -42,8 +42,14 @@ vim.opt.scrolloff = 10
 
 
 -- Other keymaps
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-vim.keymap.set("n", "<Esc>", function() vim.cmd("stopinsert") end)
+vim.keymap.set(
+    "n",
+    "<Esc>",
+    function()
+        vim.cmd("stopinsert")
+        vim.cmd("nohlsearch")
+    end
+)
 
 
 -- Diagnostics keymaps
