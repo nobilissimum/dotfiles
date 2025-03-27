@@ -8,7 +8,7 @@
     "border": true,
     "border_colours": {
         "floating": "#cec999",
-        "monocle": "#cdd6f4",
+        "monocle": "#dde2f3",
         "single": "#65a884",
         "stack": "#65a884",
         "unfocused": "#6f777f",

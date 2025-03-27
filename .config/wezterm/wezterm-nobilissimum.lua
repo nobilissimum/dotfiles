@@ -69,10 +69,10 @@ config.font_size = font_size
 
 -- Colors
 config.colors = {
-    foreground = "#cdd6f4",
+    foreground = "#dde2f3",
     background = "#1d232e",
 
-    cursor_bg = "#cdd6f4",
+    cursor_bg = "#dde2f3",
     cursor_fg = "#0f172a",
 
     cursor_border = "#52ad70",

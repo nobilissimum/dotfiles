@@ -4,6 +4,11 @@ return {
     priority = 1000,
     config = function()
         require("catppuccin").setup({
+            color_overrides = {
+                all = {
+                    text = Colors.white,
+                },
+            },
             transparent_background = true,
             styles = {
                 comments = { "italic" },
@@ -44,5 +49,25 @@ return {
         vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = Colors.hush.dark })
 
         vim.api.nvim_set_hl(0, "FidgetComment", { bg = Colors.hush.light })
+        vim.api.nvim_set_hl(0, "FidgetComment", { fg = Colors.white })
+
+        vim.api.nvim_set_hl(0, "Identifier", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "Todo", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "@lsp.type.interface", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "@symbol", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "@symbol.ruby", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "@text.todo", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "@string.special.symbol", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "@string.special.symbol.ruby", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "@constructor.lua", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "MiniStarterSection", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "BlinkCmpKindSnippet", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "BlinkCmpKindVariable", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "NvimTreeSpecialFile", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "markdownCodeBlock", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "markdownCode", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "mkdCodeEnd", { fg = Colors.cyan })
+        vim.api.nvim_set_hl(0, "mkdCodeStart", { fg = Colors.cyan })
     end,
 }
