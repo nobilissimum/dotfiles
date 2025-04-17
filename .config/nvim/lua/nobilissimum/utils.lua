@@ -24,3 +24,12 @@ function F.upsert(key, value, tbl)
         tbl[key] = { value }
     end
 end
+
+function F.empty_table(length)
+    local table = {}
+    for i = 1, length do
+        table[i] = ""
+    end
+
+    return table
+end

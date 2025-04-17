@@ -48,7 +48,7 @@ return {
                 notify = true,
             },
             dashboard = {
-                enabled = true,
+                enabled = false,
                 preset = { keys = keys },
                 sections = {
                     {
