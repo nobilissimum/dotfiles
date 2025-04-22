@@ -28,12 +28,6 @@ return {
     end,
 
     get_ruff_cmd = function()
-        local _ = vim.fn.system("python -m ruff_lsp --version")
-        local ruff_lsp_exit_code = vim.v.shell_error
-        if ruff_lsp_exit_code == 0 then
-            return { "python", "-m", "ruff_lsp" }
-        end
-
         local output = vim.fn.system("python -m ruff --version")
         local ruff_exit_code = vim.v.shell_error
         if ruff_exit_code == 0 then
@@ -57,6 +51,14 @@ return {
                 and patch >= ruff_min_version_with_server.patch
             then
                 return { "python", "-m", "ruff", "server" }
+            end
+
+
+            -- Ruff version less than v0.4 required ruff_lsp to interact with LSP
+            local _ = vim.fn.system("python -m ruff_lsp --version")
+            local ruff_lsp_exit_code = vim.v.shell_error
+            if ruff_lsp_exit_code == 0 then
+                return { "python", "-m", "ruff_lsp" }
             end
 
             ::continue::
