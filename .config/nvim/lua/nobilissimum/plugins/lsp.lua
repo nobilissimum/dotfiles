@@ -111,6 +111,9 @@ return {
             local capabilities = vim.tbl_deep_extend("force", lsp_capabilities, cmp_capabilities)
 
             local server_configurations = {
+                -- JavaScript
+                biome = {},
+
                 -- Lua
                 lua_ls = {
                     settings = {
