@@ -130,6 +130,10 @@ in
                 force = true;
             };
 
+            ".scripts" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.scripts";
+                force = true;
+            };
             ".shrc" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.shrc";
                 force = true;

@@ -85,7 +85,7 @@ return {
         local header_width = math.floor(header_height * 2.5)
         dashboard.section.header = {
             type = "terminal",
-            command = "ascii-image-converter  -C -c ~/dotfiles/neovim.png -d " .. header_width .. "," .. header_height,
+            command = "$HOME/.scripts/nvim-dash.sh " .. header_width .. " " .. header_height,
             val = F.empty_table(header_height),
             width = header_width,
             height = header_height,
