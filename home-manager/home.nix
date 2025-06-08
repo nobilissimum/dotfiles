@@ -130,12 +130,13 @@ in
                 force = true;
             };
 
-            ".gnupg/gpg-agent.conf" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.gnupg/gpg-agent.conf";
-                force = true;
-            };
             ".shrc" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.shrc";
+                force = true;
+            };
+
+            ".gnupg/gpg-agent.conf" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.gnupg/gpg-agent.conf";
                 force = true;
             };
             ".ssh/config" = {
@@ -148,6 +149,11 @@ in
             };
             ".zshrc" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.zshrc";
+                force = true;
+            };
+
+            "neovim.png" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/neovim.png";
                 force = true;
             };
         };
