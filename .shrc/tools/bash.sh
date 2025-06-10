@@ -1,5 +1,52 @@
 source ~/.shrc/tools/common.sh
 
+
+
+# Git
+gitblame() {
+    local TARGET_DIRS="$@"
+
+    if [[ -z "$TARGET_DIRS" ]]; then
+        TARGET_DIRS="."
+    fi
+
+    declare -A blamed_lines
+
+    echo -e "${BOLD}Calculating blamed lines for directories: ${BOLD_GREEN}$TARGET_DIRS${RESET}"
+    echo -e "${YELLOW}This might take a while for large directories...${RESET}"
+
+    cd "$(git rev-parse --show-toplevel)" || exit 1
+
+    for TARGET_DIR in "$TARGET_DIRS"; do
+        if ! git ls-files --error-unmatch -- "$TARGET_DIR" &>/dev/null; then
+            continue
+        fi
+
+        while IFS= read -r file; do
+            if [[ -f "$file" ]]; then
+                while IFS= read -r author_name; do
+                    if [[ -n "${author_aliases[$author_name]}" ]]; then
+                        author_name="${author_aliases[$author_name]}"
+                    fi
+                    blamed_lines[$author_name]=$((blamed_lines[$author_name] + 1))
+                done < <(git blame --line-porcelain "$file" | grep '^author ' | sed 's/.*\\//' | cut -d' ' -f2- | tr -d ' ')
+            fi
+        done < <(git ls-files "$TARGET_DIR")
+    done
+
+    # Output results
+    echo ""
+    for author in "${!blamed_lines[@]}"; do
+        printf "%s %s\n" "${blamed_lines[$author]}" "$author"
+    done | sort -rn | while read -r count author; do
+        echo -e " • ${GREEN}$author${RESET}: $count"
+    done
+
+    echo ""
+}
+
+
+
 # Zoxide
 if zoxide --version $COMMAND &> /dev/null; then
     eval "$(zoxide init --cmd cd bash)"
