@@ -1,4 +1,5 @@
 source ~/.shrc/config/common.sh
+precmd_functions+=(set_cursor_to_default)
 
 # History configuration
 export HISTFILE=~/.zsh_history
