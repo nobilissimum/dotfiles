@@ -93,5 +93,15 @@ source "$SH_DIR/nvim.sh"
 
 [[ -f "$SH_DIR/custom.sh" ]] && source "$SH_DIR/custom.sh"
 
+set -o emacs
+bind '"\C-p": history-search-backward'
+bind '"\C-n": history-search-forward'
+
+bind '"\eh": backward-char'
+bind '"\el": forward-char'
+
+bind '"\eH": backward-word'
+bind '"\eL": forward-word'
+
 # Use starship
 eval "$(starship init bash)"
