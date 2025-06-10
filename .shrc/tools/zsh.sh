@@ -45,6 +45,36 @@ gitblame() {
     echo ""
 }
 
+gitblameuser () {
+    local user="${1:-root}"
+
+    declare -A files
+
+    cd "$(git rev-parse --show-toplevel)" || exit 1
+
+    echo -e "Files with blamed lines by: ${BOLD_GREEN}$user${RESET}"
+    for TARGET_DIR in "."; do
+        if ! git ls-files --error-unmatch -- "$TARGET_DIR" &>/dev/null; then
+            continue
+        fi
+
+        while IFS= read -r file; do
+            if [[ -f "$file" ]]; then
+                while IFS= read -r author_name; do
+                    files[$file]=$((files[$file] + 1))
+                done < <(git blame --line-porcelain "$file" | grep "^author $user" | sed 's/.*\\//' | cut -d' ' -f2- | tr -d ' ')
+            fi
+        done < <(git ls-files "$TARGET_DIR")
+    done
+
+    for file in "${(@k)files[@]}"; do
+        printf "%s %s\n" "$files[$file]" "$file"
+    done | while read -r count file; do
+        echo -e " • ${GREEN}$file${RESET}: $count"
+    done
+    echo ""
+}
+
 
 
 # Zoxide
