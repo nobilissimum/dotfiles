@@ -3,7 +3,7 @@ source ~/.shrc/tools/common.sh
 
 
 # Git
-gitblame() {
+gitblamepath () {
     local TARGET_DIRS="$@"
 
     if [[ -z "$TARGET_DIRS" ]]; then
