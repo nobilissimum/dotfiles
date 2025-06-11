@@ -24,14 +24,20 @@ gitblamepath () {
         fi
 
         while IFS= read -r file; do
-            if [[ -f "$file" ]]; then
-                while IFS= read -r author_name; do
-                    if [[ ! -z "$ALIASES" && -n "${author_aliases[$author_name]}" ]]; then
-                        author_name="${author_aliases[$author_name]}"
-                    fi
-                    blamed_lines[$author_name]=$((blamed_lines[$author_name] + 1))
-                done < <(git blame --line-porcelain "$file" | grep '^author ' | sed 's/.*\\//' | cut -d' ' -f2- | tr -d ' ')
+            if [[ ! -f "$file" ]]; then
+                continue
             fi
+
+            if [[ -z "$(file -b "$file" | grep "text")" ]]; then
+                continue
+            fi
+
+            while IFS= read -r author_name; do
+                if [[ ! -z "$ALIASES" && -n "${author_aliases[$author_name]}" ]]; then
+                    author_name="${author_aliases[$author_name]}"
+                fi
+                blamed_lines[$author_name]=$((blamed_lines[$author_name] + 1))
+            done < <(git blame --line-porcelain "$file" | grep '^author ' | sed 's/.*\\//' | cut -d' ' -f2- | tr -d ' ')
         done < <(git ls-files "$TARGET_DIR")
     done
 
