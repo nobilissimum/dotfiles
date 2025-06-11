@@ -4,20 +4,21 @@ source ~/.shrc/tools/common.sh
 
 # Git
 gitblamepath () {
-    local TARGET_DIRS="$@"
+    local TARGET_DIRS=("$@")
+    local ALIASES="$(declare | grep "association author_aliases")"
 
     if [[ -z "$TARGET_DIRS" ]]; then
-        TARGET_DIRS="."
+        TARGET_DIRS=(".")
     fi
 
     declare -A blamed_lines
 
-    echo -e "${BOLD}Calculating blamed lines for directories: ${BOLD_GREEN}$TARGET_DIRS${RESET}"
+    echo -e "${BOLD}Calculating blamed lines for directories: ${BOLD_GREEN}${TARGET_DIRS[@]}${RESET}"
     echo -e "${YELLOW}This might take a while for large directories...${RESET}"
 
     cd "$(git rev-parse --show-toplevel)" || exit 1
 
-    for TARGET_DIR in "$TARGET_DIRS"; do
+    for TARGET_DIR in "${TARGET_DIRS[@]}"; do
         if ! git ls-files --error-unmatch -- "$TARGET_DIR" &>/dev/null; then
             continue
         fi
@@ -25,7 +26,7 @@ gitblamepath () {
         while IFS= read -r file; do
             if [[ -f "$file" ]]; then
                 while IFS= read -r author_name; do
-                    if [[ -n "${author_aliases[$author_name]}" ]]; then
+                    if [[ ! -z "$ALIASES" && -n "${author_aliases[$author_name]}" ]]; then
                         author_name="${author_aliases[$author_name]}"
                     fi
                     blamed_lines[$author_name]=$((blamed_lines[$author_name] + 1))
