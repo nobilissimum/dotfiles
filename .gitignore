@@ -3,6 +3,9 @@
 # Alacritty terminal
 alacritty.toml
 
+# Neovim
+lazy-lock.json
+
 # Wezterm
 wezterm-custom.lua
 
