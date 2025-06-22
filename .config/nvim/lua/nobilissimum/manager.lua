@@ -34,6 +34,10 @@ require("lazy").setup(
             enabled = true,
             notify = false,
         },
+        profiling = {
+            loader = false,
+            require = false,
+        },
         change_detection = {
             notify = false,
         }
