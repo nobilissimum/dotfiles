@@ -26,6 +26,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(
     { import = "nobilissimum.plugins" },
     {
+        install = {
+            missing = true,
+            colorscheme = { "catppuccin" },
+        },
         checker = {
             enabled = true,
             notify = false,
