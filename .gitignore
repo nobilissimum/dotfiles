@@ -6,6 +6,9 @@ alacritty.toml
 # Neovim
 lazy-lock.json
 
+# Nix
+flake.lock
+
 # Wezterm
 wezterm-custom.lua
 
