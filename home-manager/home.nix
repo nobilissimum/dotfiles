@@ -90,7 +90,7 @@ in
                 };
             }))
 
-            (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+            # (pkgs.nerdfonts.override { fonts = [ "GeistMono" ]; })
 
             (pkgs.writeShellScriptBin "tmx-nix" ''
                  session_name="$(basename $(dirname $(pwd)) | sed 's/\./-/g')-$(basename $(pwd) | sed 's/\./-/g')"
