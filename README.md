@@ -165,3 +165,9 @@ end
 
 return custom_config
 ```
+
+### Upgrading Nix and Home Manager
+
+The version of nix and home-manager repositories are specified in `home-manager/flake.nix`; they should always match.
+
+You may upgrade to the latest version by getting the latest stable version of home manager from its [repository](https://github.com/nix-community/home-manager) (noted in the `README.md`).
