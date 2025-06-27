@@ -175,12 +175,6 @@ in
             vimAlias = true;
         };
 
-        # Shells
-        bash = {
-            enable = true;
-            initExtra = "source ~/dotfiles/.bashrc";
-            sessionVariables = sessionVariables;
-        };
         zsh = {
             enable = true;
             sessionVariables = sessionVariables;
