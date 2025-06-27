@@ -11,15 +11,16 @@
 
     outputs = { nixpkgs, home-manager, ... }:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+        system = builtins.currentSystem;
+        pkgs = nixpkgs.legacyPackages.${system};
     in {
-        homeConfigurations."linux" = home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            modules = [ ./home.nix ];
 
-            # Optionally use extraSpecialArgs
-            # to pass through arguments to home.nix
+        homeConfigurations."nobi" = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            modules = [ ./home.nix ]
+                ++ (pkgs.lib.optionals (pkgs.stdenv.system == "x86_64-linux") [ ./systems/x86_64-linux.nix ])
+                ++ (pkgs.lib.optionals (pkgs.stdenv.system == "x86_64-darwin") [ ./systems/x86_64-darwin.nix ])
+            ;
         };
     };
 }
