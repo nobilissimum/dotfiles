@@ -35,7 +35,6 @@ in
             pkgs.ascii-image-converter
             pkgs.bison
             pkgs.btop
-            pkgs.cl
             pkgs.deno
             pkgs.eza
             pkgs.fd
@@ -44,7 +43,6 @@ in
             pkgs.gcc
             pkgs.gh
             pkgs.gh-dash
-            pkgs.glibc
             pkgs.gnumake
             pkgs.gnupg
             pkgs.gnutar
@@ -56,7 +54,6 @@ in
             pkgs.libclang
             pkgs.libevent
             pkgs.libevent.dev
-            pkgs.libgcc
             pkgs.luajit
             pkgs.luajitPackages.luarocks
             pkgs.ncurses
@@ -70,7 +67,6 @@ in
             pkgs.python312
             pkgs.ripgrep
             pkgs.starship
-            pkgs.superfile
             pkgs.tree-sitter
             pkgs.unzip
             pkgs.wget
