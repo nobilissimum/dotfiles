@@ -32,13 +32,9 @@ in
         };
 
         packages = [
-            pkgs.ascii-image-converter
             pkgs.bison
-            pkgs.btop
             pkgs.deno
-            pkgs.eza
             pkgs.fd
-            pkgs.fzf
             pkgs.gawk
             pkgs.gcc
             pkgs.gh
@@ -59,22 +55,29 @@ in
             pkgs.ncurses
             pkgs.ncurses.dev
             pkgs.nodejs_22
-            pkgs.oha
             pkgs.p7zip
             pkgs.pass
             pkgs.pinentry-curses
             pkgs.pnpm
             pkgs.python312
             pkgs.ripgrep
-            pkgs.starship
             pkgs.tree-sitter
             pkgs.unzip
             pkgs.wget
             pkgs.xclip
             pkgs.zig
             pkgs.zip
+
+            # CLI helpers
+            pkgs.ascii-image-converter
+            pkgs.btop
+            pkgs.eza
+            pkgs.fzf
+            pkgs.oha
+            pkgs.starship
             pkgs.zoxide
 
+            # Coding
             pkgs.lazygit
             pkgs.vim
 
