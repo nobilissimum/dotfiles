@@ -145,12 +145,3 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-
-
-
-# Rust
-CARGO_HOME="$HOME/.cargo"
-if [ -d "$CARGO_HOME" ]; then
-    source "$CARGO_HOME/env"       # For sh/bash/zsh/ash/dash/pdksh
-    source "$CARGO_HOME/env.fish"  # For fish
-fi

@@ -89,3 +89,11 @@ gitblameuser () {
 if zoxide --version $COMMAND &> /dev/null; then
     eval "$(zoxide init --cmd cd bash)"
 fi
+
+
+
+# Rust
+CARGO_HOME="$HOME/.cargo"
+if [ -d "$CARGO_HOME" ]; then
+    source "$CARGO_HOME/env"       # For sh/bash/zsh/ash/dash/pdksh
+fi
