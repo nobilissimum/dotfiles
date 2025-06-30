@@ -14,3 +14,6 @@ rebuild-cmp () {
     cargo clean
     cargo build --release
 }
+
+alias vi="nvim"
+alias vim="nvim"
