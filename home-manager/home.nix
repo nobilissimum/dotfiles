@@ -142,10 +142,6 @@ in
                 force = true;
             };
 
-            ".gnupg/gpg-agent.conf" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.gnupg/gpg-agent.conf";
-                force = true;
-            };
             ".ssh/config" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.ssh/config";
                 force = true;
