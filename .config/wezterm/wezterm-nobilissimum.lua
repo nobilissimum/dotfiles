@@ -170,6 +170,9 @@ config.keys = {
     { key = "L", mods = "CTRL", action = wezterm.action.ShowDebugOverlay },
     { key = "L", mods = "SHIFT|CTRL", action = wezterm.action.ShowDebugOverlay },
     { key = "l", mods = "SHIFT|CTRL", action = wezterm.action.ShowDebugOverlay },
+
+    { key = "w", mods = "SUPER", action = wezterm.action.CloseCurrentPane { confirm = false } },
+    { key = "n", mods = "SUPER", action = wezterm.action.ToggleFullScreen },
 }
 
 

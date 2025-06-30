@@ -33,3 +33,19 @@ function F.empty_table(length)
 
     return table
 end
+
+function F.is_executable(cmd)
+    return vim.fn.executable(cmd) == 1
+end
+
+function F.get_uname()
+    local f = io.popen("uname")
+    if f == nil then
+        return nil
+    end
+
+    local uname = f:read("*l")
+    f:close()
+
+    return uname
+end

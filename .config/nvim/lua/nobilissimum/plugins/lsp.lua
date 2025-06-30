@@ -380,6 +380,24 @@ return {
         "Exafunction/windsurf.vim",
         event = "BufEnter",
         config = function()
+            vim.g.codeium_disable_bindings = 1
+
+            local keymaps = {
+                prev_comp =  "<M-]>",
+                next_comp = "<M-[>",
+                trigger = "<M-Bslash>",
+                accept_word = "<M-l>",
+                accept_line = "<M-j>",
+            }
+            local uname = F.get_uname()
+            if uname == "Darwin" then
+                keymaps["prev_comp"] = "‘"
+                keymaps["next_comp"] = "“"
+                keymaps["trigger"] = "«"
+                keymaps["accept_word"] = "¬"
+                keymaps["accept_line"] = "∆"
+            end
+
             vim.keymap.set(
                 "i",
                 "<C-]>",
@@ -388,13 +406,13 @@ return {
             )
             vim.keymap.set(
                 "i",
-                "<M-]>",
+                keymaps.prev_comp,
                 function () return vim.fn['codeium#CycleCompletions'](1) end,
                 { expr = true, silent = true }
             )
             vim.keymap.set(
                 "i",
-                "<M-[>",
+                keymaps.next_comp,
                 function () return vim.fn['codeium#CycleCompletions'](-1) end,
                 { expr = true, silent = true }
             )
@@ -407,20 +425,20 @@ return {
             )
             vim.keymap.set(
                 "i",
-                "<M-Bslash>",
+                keymaps.trigger,
                 function () return vim.fn['codeium#Complete']() end,
                 { expr = true, silent = true }
             )
 
             vim.keymap.set(
                 "i",
-                "<M-l>",
+                keymaps.accept_word,
                 function () return vim.fn['codeium#AcceptNextWord']() end,
                 { expr = true, silent = true }
             )
             vim.keymap.set(
                 "i",
-                "<M-j>",
+                keymaps.accept_line,
                 function () return vim.fn['codeium#AcceptNextLine']() end,
                 { expr = true, silent = true }
             )

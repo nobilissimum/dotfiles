@@ -76,15 +76,32 @@ vim.keymap.set(
 
 
 -- Clipboard
-vim.g.clipboard = {
-    name = "xclip",
-    copy = {
-        ["+"] = "xclip -selection clipboard",
-        ["*"] = "xclip -selection clipboard",
-    },
-    paste = {
-        ["+"] = "xclip -selection clipboard -o",
-        ["*"] = "xclip -selection clipboard -o",
-    },
-    cache_enabled = 0,
-}
+if F.is_executable("pbcopy") and F.is_executable("pbpaste") then
+    vim.g.clipboard = {
+        name = "macOS-clipboard",
+        copy = {
+            ["+"] = "pbcopy",
+            ["*"] = "pbcopy",
+        },
+        paste = {
+            ["+"] = "pbpaste",
+            ["*"] = "pbpaste",
+        },
+        cache_enabled = 0,
+    }
+elseif F.is_executable("xclip") then
+    vim.g.clipboard = {
+        name = "xclip",
+        copy = {
+            ["+"] = "xclip -selection clipboard",
+            ["*"] = "xclip -selection clipboard",
+        },
+        paste = {
+            ["+"] = "xclip -selection clipboard -o",
+            ["*"] = "xclip -selection clipboard -o",
+        },
+        cache_enabled = 0,
+    }
+else
+    vim.notify("No suitable clipboard tool found", vim.log.levels.WARN)
+end

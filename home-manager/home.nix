@@ -77,6 +77,10 @@ in
             pkgs.starship
             pkgs.zoxide
 
+            # Rust
+            pkgs.rustup
+            pkgs.cargo
+
             # Coding
             pkgs.lazygit
             pkgs.vim

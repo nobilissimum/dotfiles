@@ -5,6 +5,12 @@ is_command () {
 
 
 
+# Essentials
+[ -f /usr/bin/gcc ] && export CC=/usr/bin/gcc
+[ -f /usr/bin/g++ ] && export CCX=/usr/bin/g++
+
+
+
 # Tmux
 tmxinit () {
     tmux new-session -d -s "$session_name"
