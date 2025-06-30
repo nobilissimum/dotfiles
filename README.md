@@ -58,6 +58,13 @@ cat ~/.ssh/id_ed25519.pub
 
 #### GNU Privacy Guard
 
+
+Make sure a pinentry is registered. Add the result of `echo "pinentry-program $(which pinentry-curses)"` to `~/.gnupg/gpg-agent.conf`
+
+```conf
+pinentry-program /usr/bin/pinentry-curses
+```
+
 Greate **GPG key**.
 
 ```sh
