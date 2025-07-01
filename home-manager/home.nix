@@ -141,6 +141,19 @@ in
                 force = true;
             };
 
+            "${xdgConfigHome}/superfile/config.toml" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/superfile/config.toml";
+                force = true;
+            };
+            "${xdgConfigHome}/superfile/hotkeys.toml" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/superfile/hotkeys.toml";
+                force = true;
+            };
+            "${xdgConfigHome}/superfile/themes/hush.toml" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/superfile/themes/hush.toml";
+                force = true;
+            };
+
             ".scripts" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.scripts";
                 force = true;
