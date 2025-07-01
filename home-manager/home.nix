@@ -78,7 +78,7 @@ in
             pkgs.zoxide
 
             # Rust
-            pkgs.rustup
+            pkgs.rustc
             pkgs.cargo
 
             # Coding
