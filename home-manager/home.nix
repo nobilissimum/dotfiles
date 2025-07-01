@@ -17,6 +17,10 @@ let
 
         PKG_CONFIG_PATH = "${pkgs.libevent.dev}/lib/pkgconfig:${pkgs.ncurses.dev}/lib/pkgconfig:$PKG_CONFIG_PATH";
     };
+
+    xdgConfigHome =
+        let env = builtins.getEnv("XDG_CONFIG_HOME");
+        in if env != "" then env else "${config.home.homeDirectory}/.config";
 in
 {
     home = {
@@ -108,27 +112,27 @@ in
         ];
 
         file = {
-            ".config/btop" = {
+            "${xdgConfigHome}/btop" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/btop";
                 force = true;
             };
-            ".config/lazygit" = {
+            "${xdgConfigHome}/lazygit" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/lazygit";
                 force = true;
             };
-            ".config/lf" = {
+            "${xdgConfigHome}/lf" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/lf";
                 force = true;
             };
-            ".config/nvim" = {
+            "${xdgConfigHome}/nvim" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nvim";
                 force = true;
             };
-            ".config/starship.toml" = {
+            "${xdgConfigHome}/starship.toml" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/starship.toml";
                 force = true;
             };
-            ".config/wezterm" = {
+            "${xdgConfigHome}/wezterm" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/wezterm";
                 force = true;
             };
