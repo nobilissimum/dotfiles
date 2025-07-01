@@ -21,6 +21,10 @@ let
     xdgConfigHome =
         let env = builtins.getEnv("XDG_CONFIG_HOME");
         in if env != "" then env else "${config.home.homeDirectory}/.config";
+
+    dotfilesHome =
+        let env = builtins.getEnv("DOTFILES_HOME");
+        in if env != "" then env else "${config.home.homeDirectory}/dotfiles";
 in
 {
     home = {
@@ -113,54 +117,54 @@ in
 
         file = {
             "${xdgConfigHome}/btop" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/btop";
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/btop";
                 force = true;
             };
             "${xdgConfigHome}/lazygit" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/lazygit";
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/lazygit";
                 force = true;
             };
             "${xdgConfigHome}/lf" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/lf";
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/lf";
                 force = true;
             };
             "${xdgConfigHome}/nvim" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nvim";
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/nvim";
                 force = true;
             };
             "${xdgConfigHome}/starship.toml" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/starship.toml";
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/starship.toml";
                 force = true;
             };
             "${xdgConfigHome}/wezterm" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/wezterm";
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/wezterm";
                 force = true;
             };
 
             ".scripts" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.scripts";
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.scripts";
                 force = true;
             };
             ".shrc" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.shrc";
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.shrc";
                 force = true;
             };
 
             ".ssh/config" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.ssh/config";
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.ssh/config";
                 force = true;
             };
             ".tmux.conf" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.tmux.conf";
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.tmux.conf";
                 force = true;
             };
             ".zshrc" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.zshrc";
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.zshrc";
                 force = true;
             };
 
             "neovim.png" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/neovim.png";
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/neovim.png";
                 force = true;
             };
         };
