@@ -18,10 +18,7 @@
         homeConfigurations."nobi" = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             modules = [ ./home.nix ]
-                ++ [ ./systems/${pkgs.stdenv.system}.nix ]
-
-                # ++ (pkgs.lib.optionals (pkgs.stdenv.system == "x86_64-linux") [ ./systems/x86_64-linux.nix ])
-                # ++ (pkgs.lib.optionals (pkgs.stdenv.system == "x86_64-darwin") [ ./systems/x86_64-darwin.nix ])
+                ++ (pkgs.lib.optionals (pkgs.stdenv.system == "x86_64-linux") [ ./systems/x86_64-linux.nix ])
             ;
         };
     };
