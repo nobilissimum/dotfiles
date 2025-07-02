@@ -9,6 +9,10 @@ return {
                 require("telescope").load_extension("fzf")
             end,
         },
+        {
+            "nvim-telescope/telescope-live-grep-args.nvim" ,
+            version = "^1.1.0",
+        },
     },
     config = function()
         require("telescope.pickers.layout_strategies").clean_flex = function(...)
@@ -23,6 +27,10 @@ return {
 
         local tl_builtin = require("telescope.builtin")
         local tl_actions = require("telescope.actions")
+
+        local tl_lga = require("telescope").extensions.live_grep_args
+        local tl_lga_actions = require("telescope-live-grep-args.actions")
+
 
         require("telescope").setup({
             defaults = {
@@ -76,6 +84,18 @@ return {
                     override_file_sorter = true,
                     case_mode = "smart_case",
                 },
+                live_grep_args = {
+                    auto_quoting = true,
+                    mappings = {
+                        i = {
+                            ["<C-k>"] = tl_lga_actions.quote_prompt(),
+                            ["<C-i>"] = tl_lga_actions.quote_prompt({ postfix = " --iglob " }),
+                        },
+                    },
+                    additional_args = function()
+                        return { "--hidden", "--no-ignore" }
+                    end,
+                },
             },
             pickers = {
                 buffers = {
@@ -92,6 +112,7 @@ return {
         })
 
         require("telescope").load_extension("fzf")
+        require("telescope").load_extension("live_grep_args")
 
         -- Keymaps
         vim.keymap.set("n", "<leader>sh", tl_builtin.help_tags, { desc = "[S]earch [H]elp" })
@@ -114,6 +135,7 @@ return {
                 end,
             })
         end, { desc = "[S]earch [F]iles using live grep", noremap = true })
+        vim.keymap.set("n", "<leader>sF", tl_lga.live_grep_args, { desc = "[F]ind live grep with args" })
         vim.keymap.set("n", "<leader>sd", tl_builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
         vim.keymap.set("n", "<leader>sr", tl_builtin.resume, { desc = "[S]earch [R]esume" })
         vim.keymap.set("n", "<leader>s.", tl_builtin.oldfiles, { desc = "[S]earch recent files ('.' for repeat)" })
