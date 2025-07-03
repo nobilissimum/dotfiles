@@ -168,23 +168,25 @@ return {
             })
 
             -- Mason LSP config
-            require("mason-lspconfig").setup({
+            local mason_lspconfig = require("mason-lspconfig")
+            mason_lspconfig.setup({
                 automatic_installation = true,
                 ensure_installed = ensure_installed,
                 automatic_enable = ensure_installed,
-                handlers = {
-                    function(language_server_name)
-                        local server_configuration = server_configurations[language_server_name] or {}
-                        server_configuration.capabilities = vim.tbl_deep_extend(
-                            "force",
-                            {},
-                            capabilities,
-                            server_configuration.capabilities or {}
-                        )
-                        require("lspconfig")[language_server_name].setup(server_configuration)
-                    end,
-                },
             })
+
+            local lspconfig = require("lspconfig")
+            local installed_servers = mason_lspconfig.get_installed_servers()
+            for _, language_server_name in pairs(installed_servers) do
+                local server_configuration = server_configurations[language_server_name] or {}
+                server_configuration.capabilities = vim.tbl_deep_extend(
+                    "force",
+                    {},
+                    capabilities,
+                    server_configuration.capabilities or {}
+                )
+                lspconfig[language_server_name].setup(server_configuration)
+            end
 
             -- Formatting
             local conform = require("conform")
