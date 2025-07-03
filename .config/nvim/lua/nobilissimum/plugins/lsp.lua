@@ -20,8 +20,21 @@ return {
             -- Vim diagnostic
             vim.diagnostic.config({
                 virtual_text = {
-                    source = true,
-                    prefix = "•",
+                    source = false,
+                    prefix = "● ",
+                    format = function(diagnostic)
+                        local source = diagnostic.source
+                        if source then
+                            source = "(" .. source .. ") "
+                        end
+
+                        local code = diagnostic.code
+                        if code then
+                            code = code .. " • "
+                        end
+
+                        return string.format("%s%s%s", source, code, diagnostic.message)
+                    end,
                 },
                 float = {
                     source = true,
