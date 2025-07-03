@@ -163,9 +163,7 @@ return {
                 ensured_installed = vim.tbl_deep_extend(
                     "force",
                     ensure_installed,
-                    {
-                        "stylua",
-                    }
+                    { "stylua" }
                 ),
             })
 
