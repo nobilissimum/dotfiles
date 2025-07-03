@@ -64,7 +64,6 @@ return {
                     map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
                     map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
                     map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-                    map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
 
                     map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
@@ -458,4 +457,38 @@ return {
             )
         end,
     },
+    {
+        "rachartier/tiny-code-action.nvim",
+        dependencies = {
+            { "nvim-lua/plenary.nvim" },
+            { "nvim-telescope/telescope.nvim" },
+        },
+        event = "LspAttach",
+        config = function()
+            local tiny_code_action = require("tiny-code-action")
+            require("telescope.pickers.layout_strategies").clean_vertical = function(...)
+                local layout = require("telescope.pickers.layout_strategies").vertical(...)
+
+                layout.prompt.title = false
+                layout.results.title = false
+                layout.preview.title = false
+
+                return layout
+            end
+
+
+            tiny_code_action.setup({
+                picker = {
+                    "telescope",
+                    opts = {
+                        layout_strategy = "clean_vertical",
+                        layout_config = {},
+                    },
+                },
+
+            })
+
+            vim.keymap.set({ "n", "x" }, "<leader>ca", tiny_code_action.code_action, { desc = "[C]ode [A]ction" })
+        end,
+    }
 }
