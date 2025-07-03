@@ -3,9 +3,8 @@ return {
         "neovim/nvim-lspconfig",
         dependencies = {
             -- LSP
-            { "williamboman/mason.nvim", config = true },
-            "williamboman/mason-lspconfig.nvim",
-            "neovim/nvim-lspconfig",
+            { "mason-org/mason.nvim", config = true },
+            "mason-org/mason-lspconfig.nvim",
             "WhoIsSethDaniel/mason-tool-installer.nvim",
 
             -- Completion
