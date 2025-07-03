@@ -38,6 +38,7 @@ return {
                 },
                 float = {
                     source = true,
+                    border = "rounded",
                 },
                 signs = false,
                 underline = true,
