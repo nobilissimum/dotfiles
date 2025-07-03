@@ -49,3 +49,17 @@ function F.get_uname()
 
     return uname
 end
+
+function F.log_to_cache(msg)
+    local log_path = vim.fn.stdpath("cache") .. "/nvim.log"
+    local file = io.open(log_path, "a")
+    if not file then
+        vim.notify("Failed to open log file", vim.log.levels.ERROR)
+        return
+    end
+
+    file:write(msg)
+    file:close()
+
+    vim.notify("Logged to " .. log_path, vim.log.levels.INFO)
+end
