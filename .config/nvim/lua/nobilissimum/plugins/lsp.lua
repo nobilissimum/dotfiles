@@ -173,6 +173,7 @@ return {
             require("mason-lspconfig").setup({
                 automatic_installation = true,
                 ensure_installed = ensure_installed,
+                automatic_enable = ensure_installed,
                 handlers = {
                     function(language_server_name)
                         local server_configuration = server_configurations[language_server_name] or {}
