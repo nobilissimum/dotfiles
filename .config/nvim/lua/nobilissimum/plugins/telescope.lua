@@ -136,6 +136,7 @@ return {
             })
         end, { desc = "[S]earch [F]iles using live grep", noremap = true })
         vim.keymap.set("n", "<leader>sF", tl_lga.live_grep_args, { desc = "[F]ind live grep with args" })
+        vim.keymap.set("n", "<leader>/", tl_builtin.current_buffer_fuzzy_find, { desc = "Search in current buffer" })
         vim.keymap.set("n", "<leader>sd", tl_builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
         vim.keymap.set("n", "<leader>sr", tl_builtin.resume, { desc = "[S]earch [R]esume" })
         vim.keymap.set("n", "<leader>s.", tl_builtin.oldfiles, { desc = "[S]earch recent files ('.' for repeat)" })
