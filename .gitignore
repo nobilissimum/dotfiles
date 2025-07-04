@@ -4,6 +4,7 @@
 alacritty.toml
 
 # Neovim
+custom.lua
 lazy-lock.json
 
 # Nix

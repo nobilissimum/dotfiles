@@ -63,3 +63,19 @@ function F.log_to_cache(msg)
 
     vim.notify("Logged to " .. log_path, vim.log.levels.INFO)
 end
+
+function F.is_module_available(path)
+    if package.loaded[path] then
+        return true
+    end
+
+    for _, searcher in ipairs(package.loaders) do
+        local loader = searcher(path)
+        if type(loader) == "function" then
+            package.preload[path] = loader
+            return true
+        end
+    end
+
+    return false
+end

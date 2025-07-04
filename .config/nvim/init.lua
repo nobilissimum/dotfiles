@@ -15,3 +15,8 @@ require("nobilissimum.utils")
 require("nobilissimum.globals")
 require("nobilissimum.options")
 require("nobilissimum.manager")
+
+local custom_path = "nobilissimum.custom"
+if F.is_module_available(custom_path) then
+    require(custom_path)()
+end
