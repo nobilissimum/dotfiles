@@ -78,7 +78,6 @@ return {
                     gitsigns.reset_hunk { vim.fn.line ".", vim.fn.line "v" }
                 end, { desc = "reset git hunk" })
 
-                map("n", "<leader>hu", gitsigns.undo_stage_hunk, { desc = "Git [u]ndo stage hunk" })
                 map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "Git [p]review hunk" })
 
                 map("n", "<leader>hS", gitsigns.stage_buffer, { desc = "Git [S]tage buffer" })
@@ -97,7 +96,7 @@ return {
                 )
 
                 map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "[T]oggle git show [b]lame line" })
-                map("n", "<leader>tD", gitsigns.toggle_deleted, { desc = "[T]oggle git show [D]eleted" })
+                map("n", "<leader>tD", gitsigns.preview_hunk_inline, { desc = "[T]oggle git show [D]eleted" })
             end,
         })
 
