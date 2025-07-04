@@ -92,8 +92,18 @@ return {
                             ["<C-i>"] = tl_lga_actions.quote_prompt({ postfix = " --iglob " }),
                         },
                     },
+                    vimgrep_arguments = {
+                        "rg",
+                        "-uu",
+                        -- "--color=never",
+                        "--no-heading",
+                        "--with-filename",
+                        "--line-number",
+                        "--column",
+                        "--smart-case",
+                    },
                     additional_args = function()
-                        return { "--hidden", "--no-ignore" }
+                        return { "--hidden" }
                     end,
                 },
             },
