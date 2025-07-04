@@ -19,6 +19,8 @@ Colors = {
     magenta = "#a980c4",
     cyan = "#2d949f",
 
+    cyan_dark = "#223442",
+
     white = "#dde2f3",
 }
 
