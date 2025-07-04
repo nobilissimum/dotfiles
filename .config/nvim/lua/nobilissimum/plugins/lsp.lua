@@ -23,14 +23,14 @@ return {
                     source = false,
                     prefix = "● ",
                     format = function(diagnostic)
-                        local source = diagnostic.source
-                        if source then
-                            source = "(" .. source .. ") "
+                        local source = diagnostic.source or ""
+                        if (source ~= "") and (source ~= vim.NIL) then
+                            source = "(" .. tostring(source) .. ") "
                         end
 
-                        local code = diagnostic.code
-                        if code then
-                            code = code .. " • "
+                        local code = diagnostic.code or ""
+                        if (code ~= "") and (code ~= vim.NIL) then
+                            code = tostring(code) .. " • "
                         end
 
                         return string.format("%s%s%s", source, code, diagnostic.message)
