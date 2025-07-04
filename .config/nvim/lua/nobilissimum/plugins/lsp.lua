@@ -21,7 +21,7 @@ return {
             vim.diagnostic.config({
                 virtual_text = {
                     source = false,
-                    prefix = "● ",
+                    prefix = "●",
                     format = function(diagnostic)
                         local source = diagnostic.source or ""
                         if (source ~= "") and (source ~= vim.NIL) then
