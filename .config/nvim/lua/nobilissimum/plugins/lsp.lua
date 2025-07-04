@@ -491,5 +491,5 @@ return {
 
             vim.keymap.set({ "n", "x" }, "<leader>ca", tiny_code_action.code_action, { desc = "[C]ode [A]ction" })
         end,
-    }
+    },
 }
