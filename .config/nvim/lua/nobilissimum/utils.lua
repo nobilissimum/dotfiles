@@ -58,7 +58,7 @@ function F.log_to_cache(msg)
         return
     end
 
-    file:write(msg)
+    file:write(tostring(msg) .. "\n")
     file:close()
 
     vim.notify("Logged to " .. log_path, vim.log.levels.INFO)
