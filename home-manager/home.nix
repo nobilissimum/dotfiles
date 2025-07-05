@@ -89,6 +89,10 @@ in
             pkgs.rustc
             pkgs.cargo
 
+            # Neovim dependencies
+            pkgs.nixpkgs-fmt
+            pkgs.sql-formatter
+
             # Coding
             pkgs.lazygit
             pkgs.vim
