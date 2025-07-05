@@ -335,17 +335,6 @@ return {
             local lint = require("lint")
             lint.linters_by_ft = linters_by_ft
 
-            function N.debounce(ms, fn)
-                local timer = vim.uv.new_timer()
-                return function(...)
-                    local argv = { ... }
-                    timer:start(ms, 0, function()
-                        timer:stop()
-                        vim.schedule_wrap(fn)(F.unpack(argv))
-                    end)
-                end
-            end
-
             function N.lint()
                 local linters = lint._resolve_linter_by_ft(vim.bo.filetype)
                 linters = vim.list_extend({}, linters)
@@ -375,7 +364,7 @@ return {
 
             vim.api.nvim_create_autocmd(opts.events, {
                 group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
-                callback = N.debounce(100, N.lint),
+                callback = F.debounce(100, N.lint),
             })
         end,
     },

@@ -79,3 +79,24 @@ function F.is_module_available(path)
 
     return false
 end
+
+local uv = vim.uv
+if (uv == nil) or (uv == vim.NIL) then
+    uv = vim.loop
+end
+function F.debounce(ms, fn)
+    local timer = uv.new_timer()
+    if timer == nil then
+        return function (...)
+            fn(...)
+        end
+    end
+
+    return function(...)
+        local argv = { ... }
+        timer:start(ms, 0, function()
+            timer:stop()
+            vim.schedule_wrap(fn)(F.unpack(argv))
+        end)
+    end
+end
