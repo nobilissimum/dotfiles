@@ -24,25 +24,26 @@ return {
             current_line_blame_formatter_nc = function()
                 return {
                     { padding },
-                    { "", "GitSignsCurrentLineBlameAlt" },
+                    { "", "GitSignsCurrentLineBlameBg" },
                     { " ● ", "GitSignsCurrentLineBlame" },
                     { "Uncommited change", "GitSignsCurrentLineBlame" },
                     { " ", "GitSignsCurrentLineBlame" },
-                    { "", "GitSignsCurrentLineBlameAlt" },
+                    { "", "GitSignsCurrentLineBlameBg" },
                 }
             end,
             current_line_blame_formatter = function(_, blame_info)
                 local time = os.date("%Y%m%d:%H%M%S", blame_info.author_time)
                 return {
                     { padding },
-                    { "", "GitSignsCurrentLineBlameAlt" },
+                    { "", "GitSignsCurrentLineBlameBg" },
                     { " ● ", "GitSignsCurrentLineBlame" },
+                    { blame_info.abbrev_sha, "GitSignsCurrentLineBlameEmp" },
                     {
-                        blame_info.abbrev_sha .. " • " .. blame_info.committer .. " • " .. time .. " • " .. blame_info.summary,
+                        " • " .. blame_info.committer .. " • " .. time .. " • " .. blame_info.summary,
                         "GitSignsCurrentLineBlame",
                     },
                     { " ", "GitSignsCurrentLineBlame" },
-                    { "", "GitSignsCurrentLineBlameAlt" },
+                    { "", "GitSignsCurrentLineBlameBg" },
                 }
             end,
 
@@ -135,6 +136,7 @@ return {
         vim.api.nvim_set_hl(0, "GitSignsDeleteCul", { fg = delete_color, bg = Colors.hush.dark, bold = true })
 
         vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = Colors.blue, bg = Colors.cyan_dark })
-        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlameAlt", { fg = Colors.cyan_dark, bg = nil })
+        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlameEmp", { fg = Colors.blue, bg = Colors.cyan_dark, bold = true })
+        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlameBg", { fg = Colors.cyan_dark, bg = nil })
     end,
 }
