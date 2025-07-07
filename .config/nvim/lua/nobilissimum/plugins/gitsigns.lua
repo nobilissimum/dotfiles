@@ -31,14 +31,14 @@ return {
                     { "", "GitSignsCurrentLineBlameAlt" },
                 }
             end,
-            current_line_blame_formatter = function(name, blame_info)
+            current_line_blame_formatter = function(_, blame_info)
                 local time = os.date("%Y%m%d:%H%M%S", blame_info.author_time)
                 return {
                     { padding },
                     { "", "GitSignsCurrentLineBlameAlt" },
                     { " ● ", "GitSignsCurrentLineBlame" },
                     {
-                        blame_info.abbrev_sha .. " • " .. name .. " • " .. time .. " • " .. blame_info.summary,
+                        blame_info.abbrev_sha .. " • " .. blame_info.committer .. " • " .. time .. " • " .. blame_info.summary,
                         "GitSignsCurrentLineBlame",
                     },
                     { " ", "GitSignsCurrentLineBlame" },
