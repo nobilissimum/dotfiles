@@ -140,6 +140,11 @@ in
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/starship.toml";
                 force = true;
             };
+
+            "${xdgConfigHome}/ghostty" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/ghostty";
+                force = true;
+            };
             "${xdgConfigHome}/wezterm" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/wezterm";
                 force = true;
