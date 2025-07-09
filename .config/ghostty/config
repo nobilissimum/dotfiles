@@ -9,6 +9,7 @@ cursor-style-blink = false
 font-family = "Geist Mono"
 font-family = "GeistMono Nerd Font"
 font-size = 14
+font-feature = -calt, -liga, -dlig
 
 title = ""
 
