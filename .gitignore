@@ -1,3 +1,4 @@
+.gnupg/gpg-agent.conf
 .shrc/custom.sh
 
 # Alacritty terminal
