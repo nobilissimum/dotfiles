@@ -17,6 +17,8 @@ window-decoration = none
 window-padding-x = 0,0
 window-padding-y = 1,0
 
+confirm-close-surface = false
+
 adjust-cell-height = 5
 adjust-font-baseline = 2
 
