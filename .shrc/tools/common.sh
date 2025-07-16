@@ -9,10 +9,28 @@ is_command () {
 [ -f /usr/bin/gcc ] && export CC=/usr/bin/gcc
 [ -f /usr/bin/g++ ] && export CCX=/usr/bin/g++
 
+get_path () {
+    local target_path="$1"
+    if [[ -z "$target_path" ]]; then
+        target_path="$(pwd)"
+    elif [[ "$target_path" != /* ]]; then
+        target_path="$(pwd)/${target_path}"
+    fi
+    echo "$target_path"
+}
+
 
 
 # Tmux
+get_session_name () {
+    local target_path="$(get_path "$1")"
+    local session_name="$(basename $(dirname "$target_path") | sed 's/\./-/g')-$(basename "$target_path" | sed 's/\./-/g')"
+    echo "$session_name"
+}
+
 tmxinit () {
+    local session_name="$1"
+
     tmux new-session -d -s "$session_name"
     tmux new-window
     tmux new-window
@@ -25,20 +43,58 @@ tmx () {
         return
     fi
 
-    session_name="$(basename $(dirname $(pwd)) | sed 's/\./-/g')-$(basename $(pwd) | sed 's/\./-/g')"
+    local session_name="$(get_session_name $1)"
     if [[ -z $(pgrep -u $USER tmux) ]]; then
-        tmxinit
+        tmxinit "$session_name"
         return
     fi
 
     existing_session_name=$(tmux list-session -F '#S' | grep "^${session_name}$")
     if [ ! -z "$existing_session_name" ]; then
-        tmux a -t $session_name
+        tmux a -t "$session_name"
         return
     fi
 
-    tmxinit
+    tmxinit "$session_name"
 }
+
+
+
+tmxinit_d () {
+    local session_name="$1"
+
+    tmux new-session -d -s "$session_name"
+    tmux new-window
+    tmux new-window
+    tmux new-window
+    tmux select-window -t "${session_name}:0"
+}
+tmx_d () {
+    if [ ! -z "${TMUX}" ]; then
+        echo "Already in a tmux session"
+        return
+    fi
+
+    local session_name="$(get_session_name $1)"
+    if [[ -z $(pgrep -u $USER tmux) ]]; then
+        tmxinit_d "$session_name"
+        return
+    fi
+
+    local existing_session_name=$(tmux list-session -F '#S' | grep "^${session_name}$")
+    if [ ! -z "$existing_session_name" ]; then
+        return
+    fi
+
+    tmxinit_d "$session_name"
+}
+
+
+
+declare -a tmx_dirs=(
+    "$HOME/dotfiles"
+    "$HOME/workspace"
+)
 
 
 

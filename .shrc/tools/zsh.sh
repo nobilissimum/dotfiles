@@ -84,6 +84,25 @@ gitblameuser () {
 
 
 
+# Tmux
+tmxdirs () {
+    local target_session=""
+    for key in "${(@k)tmx_dirs[@]}"; do
+        if [[ ! -d "$key" ]]; then
+            echo -e "${RED}Directory ${BOLD_RED}${key}${RESET}${RED} does not exist. Skipping...${RESET}"
+            continue
+        fi
+
+        local session_name="$(get_session_name $key)"
+        [[ -z "$target_session" ]] && target_session="$session_name"
+        tmx_d "$key"
+    done
+
+    tmux a -t "$target_session"
+}
+
+
+
 # Zoxide
 if zoxide --version $COMMAND &> /dev/null; then
     eval "$(zoxide init --cmd cd zsh)"
