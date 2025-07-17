@@ -96,7 +96,7 @@ tmxdirs () {
 
         local session_name="$(get_session_name $key)"
         [[ -z "$target_session" ]] && target_session="$session_name"
-        tmx_d "$key"
+        tmx "$key" "false"
     done
 
     tmux a -t "$target_session"

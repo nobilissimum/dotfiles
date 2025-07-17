@@ -22,20 +22,21 @@ get_path () {
 
 
 # Tmux
-get_session_name () {
+ get_session_name () {
     local target_path="$(get_path "$1")"
     local session_name="$(basename $(dirname "$target_path") | sed 's/\./-/g')-$(basename "$target_path" | sed 's/\./-/g')"
     echo "$session_name"
 }
 
 tmxinit () {
-    local session_name="$1"
+    local session_name="$(get_session_name $1)"
+    local target_path="$(get_path $1)"
 
-    tmux new-session -d -s "$session_name"
-    tmux new-window
-    tmux new-window
-    tmux new-window
-    tmux a -d -t "${session_name}:0"
+    tmux new-session -d -s "$session_name" -c "$target_path"
+    tmux new-window -c "$target_path"
+    tmux new-window -c "$target_path"
+    tmux new-window -c "$target_path"
+    tmux select-window -t "${session_name}:0"
 }
 tmx () {
     if [ ! -z "${TMUX}" ]; then
@@ -45,48 +46,26 @@ tmx () {
 
     local session_name="$(get_session_name $1)"
     if [[ -z $(pgrep -u $USER tmux) ]]; then
-        tmxinit "$session_name"
+        tmxinit "$1"
+
+        if [[ "$2" != "false" ]]; then
+            tmux attach -t "$session_name"
+        fi
+
         return
     fi
 
     existing_session_name=$(tmux list-session -F '#S' | grep "^${session_name}$")
     if [ ! -z "$existing_session_name" ]; then
-        tmux a -t "$session_name"
+        tmux attach -t "$session_name"
         return
     fi
 
-    tmxinit "$session_name"
-}
+    tmxinit "$1"
 
-
-
-tmxinit_d () {
-    local session_name="$1"
-
-    tmux new-session -d -s "$session_name"
-    tmux new-window
-    tmux new-window
-    tmux new-window
-    tmux select-window -t "${session_name}:0"
-}
-tmx_d () {
-    if [ ! -z "${TMUX}" ]; then
-        echo "Already in a tmux session"
-        return
+    if [[ "$2" != "false" ]]; then
+        tmux attach -t "$session_name"
     fi
-
-    local session_name="$(get_session_name $1)"
-    if [[ -z $(pgrep -u $USER tmux) ]]; then
-        tmxinit_d "$session_name"
-        return
-    fi
-
-    local existing_session_name=$(tmux list-session -F '#S' | grep "^${session_name}$")
-    if [ ! -z "$existing_session_name" ]; then
-        return
-    fi
-
-    tmxinit_d "$session_name"
 }
 
 
