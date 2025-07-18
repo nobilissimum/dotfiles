@@ -8,6 +8,8 @@ alias la='ls --color -Ah'
 alias l='ls -CF'
 
 alias c='clear'
+alias clearall="clear && printf '\e[3J'"
+alias c='clearall'
 
 alias lazg='lazygit'
 alias lazgi='lazygitinit'
