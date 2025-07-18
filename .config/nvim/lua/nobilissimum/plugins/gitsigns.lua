@@ -135,8 +135,8 @@ return {
         vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = delete_color, bold = true })
         vim.api.nvim_set_hl(0, "GitSignsDeleteCul", { fg = delete_color, bg = Colors.hush.dark, bold = true })
 
-        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = Colors.blue, bg = Colors.cyan_dark })
-        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlameEmp", { fg = Colors.blue, bg = Colors.cyan_dark, bold = true })
-        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlameBg", { fg = Colors.cyan_dark, bg = nil })
+        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = Colors.bright_black0_5, bg = Colors.bright_black4 })
+        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlameEmp", { fg = Colors.bright_black0_5, bg = Colors.bright_black4, bold = true })
+        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlameBg", { fg = Colors.bright_black4, bg = nil })
     end,
 }

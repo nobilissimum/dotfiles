@@ -8,9 +8,11 @@ Colors = {
     },
 
     bright_black = "#535b68",
+    bright_black0_5 = "#45475a",
     bright_black2 = "#393c4d",
     bright_black2_5 = "#2c3341",
     bright_black3 = "#1f2a35",
+    bright_black4 = "#0f1820",
 
     red = "#f77172",
     green = "#65a884",
