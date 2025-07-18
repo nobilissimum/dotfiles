@@ -99,9 +99,13 @@ bind '"\C-n": history-search-forward'
 
 bind '"\eh": backward-char'
 bind '"\el": forward-char'
+bind '"˙": backward-char'
+bind '"˘": forward-char'
 
 bind '"\eH": backward-word'
 bind '"\eL": forward-word'
+bind '"Ó": backward-word'
+bind '"Ò": forward-word'
 
 # Use starship
 eval "$(starship init bash)"

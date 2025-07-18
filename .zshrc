@@ -57,11 +57,16 @@ bindkey '^n' history-search-forward
 
 bindkey '\eh' backward-char
 bindkey '\el' forward-char
+bindkey '˙' backward-char
+bindkey '˘' forward-char
 
 bindkey '\eH' backward-word
 bindkey '\eL' forward-word
+bindkey 'Ó' backward-word
+bindkey 'Ò' forward-word
 
 bindkey '\ey' autosuggest-accept
+bindkey '¥' autosuggest-accept
 
 # Use starship
 eval "$(starship init zsh)"
