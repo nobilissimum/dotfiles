@@ -107,15 +107,13 @@ git config --global user.signingkey <key>
 git config --global commit.gpgsign true
 ```
 
-#### Docker
+#### Containers (docker.io • ghcr.io)
 
-Use **GNU Pass** for credentials by adding this to `~/.docker/config.json`. This will make Docker use the GPG key for authentication (ex: when running command `docker login`).
+Generate access token for the corresponding container image registry then use it as a password when logging in:
+- `podman login docker.io`
+- `podman login ghcr.io`
 
-```json
-{
-    "credStore": "pass"
-}
-```
+Because of the configuration in `~/.docker/config.json`, **GPG** will save the password to the keyring and will be used for the next `podman login`s.
 
 ### Environment
 

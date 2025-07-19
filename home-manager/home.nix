@@ -76,6 +76,9 @@ in
             pkgs.zig
             pkgs.zip
 
+            # Credentials
+            pkgs.docker-credential-helpers
+
             # CLI helpers
             pkgs.ascii-image-converter
             pkgs.btop
@@ -160,6 +163,15 @@ in
             };
             "${xdgConfigHome}/superfile/themes/hush.toml" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/superfile/themes/hush.toml";
+                force = true;
+            };
+
+            ".docker/config.json" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.docker/config.json";
+                force = true;
+            };
+            "containers/auth.json" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.docker/config.json";
                 force = true;
             };
 
