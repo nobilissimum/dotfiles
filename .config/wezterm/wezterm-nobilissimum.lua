@@ -1,5 +1,21 @@
 local wezterm = require("wezterm")
 
+local function is_module_available(path)
+    if package.loaded[path] then
+        return true
+    else
+        for _, searcher in ipairs(package.searchers) do
+            local loader = searcher(path)
+            if type(loader) == "function" then
+                package.preload[path] = loader
+                return true
+            end
+        end
+
+        return false
+    end
+end
+
 local config = {}
 if wezterm.config_builder then
     config = wezterm.config_builder()
@@ -17,17 +33,20 @@ end
 
 
 -- Font
-local fonts = {
+local font_specs = {
     { name = "Geist Mono", regular = "Regular", half = "Bold", bold = "Bold" },
     { name = "GeistMono Nerd Font", regular = "Regular", half = "Regular", bold = "Regular", static = true },
 }
-local harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
-local font_with_fallback = wezterm.font_with_fallback(map(
-    fonts,
-    function(item)
-        return { family = item.name, harfbuzz_features = harfbuzz_features }
+
+local custom_path = "wezterm-custom"
+if is_module_available(custom_path) then
+    local custom_font_specs = require(custom_path).font_specs
+    if (custom_font_specs ~= nil) and (#custom_font_specs > 0) then
+        font_specs = custom_font_specs
     end
-))
+end
+
+local harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 local font_size = 10.5
 
 local function get_weighted_font(weighted_fonts, weight, harfbuzz)
@@ -48,20 +67,24 @@ local function get_weighted_font(weighted_fonts, weight, harfbuzz)
     ))
 end
 
-config.font = get_weighted_font(fonts, "regular", harfbuzz_features)
+local font_regular = get_weighted_font(font_specs, "regular", harfbuzz_features)
+local font_half = get_weighted_font(font_specs, "half", harfbuzz_features)
+local font_bold = get_weighted_font(font_specs, "bold", harfbuzz_features)
+
+config.font = font_regular
 config.font_rules = {
     -- Bold
     {
         intensity = "Bold",
         italic = false,
-        font = get_weighted_font(fonts, "bold", harfbuzz_features),
+        font = font_bold,
     },
 
     -- Half
     {
         intensity = "Half",
         italic = false,
-        font = get_weighted_font(fonts, "half", harfbuzz_features),
+        font = font_half,
     },
 }
 config.font_size = font_size
@@ -135,7 +158,7 @@ config.window_frame = {
     active_titlebar_bg = "#1F2A35",
     active_titlebar_fg = "#ffffff",
 
-    font = font_with_fallback,
+    font = font_regular,
     font_size = font_size - 2,
 }
 
@@ -212,4 +235,7 @@ end
 -- Audio
 config.audible_bell = "Disabled"
 
-return config
+return {
+    config = config,
+    is_module_available = is_module_available,
+}
