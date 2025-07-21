@@ -166,15 +166,6 @@ in
                 force = true;
             };
 
-            ".docker/config.json" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.docker/config.json";
-                force = true;
-            };
-            "containers/auth.json" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.docker/config.json";
-                force = true;
-            };
-
             ".scripts" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.scripts";
                 force = true;

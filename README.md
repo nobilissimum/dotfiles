@@ -110,10 +110,28 @@ git config --global commit.gpgsign true
 #### Containers (docker.io • ghcr.io)
 
 Generate access token for the corresponding container image registry then use it as a password when logging in:
+
 - `podman login docker.io`
 - `podman login ghcr.io`
 
-Because of the configuration in `~/.docker/config.json`, **GPG** will save the password to the keyring and will be used for the next `podman login`s.
+Use credential helper by specifying `credStore` in `~/.docker/config.json` or `~/containers/auth.json` so that **GPG** will save the password to the keyring. **GPG** will then use the saved password for the next `podman login`s.
+
+```json
+{
+    "credStore": "pass"
+}
+```
+
+```json
+{
+    "credStore": "osxkeychain"
+}
+```
+
+References:
+
+- `dotfiles/.docker/config.darwin.json`
+- `dotfiles/.docker/config.linux.json`
 
 ### Environment
 
