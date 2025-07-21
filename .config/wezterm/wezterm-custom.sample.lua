@@ -15,6 +15,25 @@ local font_specs = {
     { name = "GeistMono Nerd Font", regular = "Regular", half = "Regular", bold = "Regular", native = true },
 }
 
+-- native = false
+-- wezterm.font("Geist Mono", {weight="Light", ...})
+-- wezterm.font("Geist Mono", {weight="Regular", ...})
+-- wezterm.font("Geist Mono", {weight="Medium", ...})
+-- wezterm.font("Geist Mono", {weight="DemiBold", ...})
+-- wezterm.font("Geist Mono", {weight="Bold", ...})
+-- wezterm.font("Geist Mono", {weight="ExtraBold", ...})
+-- wezterm.font("Geist Mono", {weight="Black", ...})
+
+-- native = true
+-- wezterm.font("Geist Mono Light", {weight="Regular", ...})
+-- wezterm.font("Geist Mono Regular", {weight="Regular", ...})
+-- wezterm.font("Geist Mono Medium", {weight="Regular", ...})
+-- wezterm.font("Geist Mono DemiBold", {weight="Regular", ...})
+-- wezterm.font("Geist Mono Bold", {weight="Regular", ...})
+-- wezterm.font("Geist Mono ExtraBold", {weight="Regular", ...})
+-- wezterm.font("Geist Mono Black", {weight="Regular", ...})
+
+
 return  {
     config = custom_config,
     font_specs = font_specs,
