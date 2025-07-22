@@ -225,6 +225,10 @@ return {
 
             local installed_packages = {}
             local formatters_by_ft = {}
+            local formatters_by_ft_extra = {
+                ruff = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+            }
+
             for _, package in ipairs(mason_registry.get_installed_packages()) do
                 if not F.is_string_in_table("Formatter", package.spec.categories) then
                     goto outer_continue
@@ -234,11 +238,20 @@ return {
                 for _, language in ipairs(package.spec.languages) do
                     local fmt_language = string.lower(language)
                     local priorities = formatters_prioritization[fmt_language]
+                    local value = package.name
+
                     if priorities and F.is_string_in_table(package.name, priorities) then
-                        break
+                        value = nil
                     end
 
-                    F.upsert(fmt_language, package.name, formatters_by_ft)
+                    F.upsert(fmt_language, value, formatters_by_ft)
+
+                    local formatters_extra_by_language = formatters_by_ft_extra[package.name]
+                    if (formatters_extra_by_language ~= nil) and (formatters_extra_by_language ~= vim.NIL) then
+                        for _, formatter in pairs(formatters_extra_by_language) do
+                            F.upsert(fmt_language, formatter, formatters_by_ft)
+                        end
+                    end
 
                     local aliases = LspAlias[fmt_language]
                     if not aliases then
@@ -246,7 +259,14 @@ return {
                     end
 
                     for _, alias in ipairs(aliases) do
-                        F.upsert(alias, package.name, formatters_by_ft)
+                        F.upsert(alias, value, formatters_by_ft)
+
+                        local formatters_extra_by_alias = formatters_by_ft_extra[package.name]
+                        if (formatters_extra_by_alias ~= nil) and (formatters_extra_by_alias ~= vim.NIL) then
+                            for _, formatter in pairs(formatters_extra_by_alias) do
+                                F.upsert(alias, formatter, formatters_by_ft)
+                            end
+                        end
                     end
 
                     ::inner_continue::
