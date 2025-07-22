@@ -189,7 +189,6 @@ return {
                 automatic_enable = ensure_installed,
             })
 
-            local lspconfig = require("lspconfig")
             local installed_servers = mason_lspconfig.get_installed_servers()
             for _, language_server_name in pairs(installed_servers) do
                 local server_configuration = server_configurations[language_server_name] or {}
@@ -199,7 +198,9 @@ return {
                     capabilities,
                     server_configuration.capabilities or {}
                 )
-                lspconfig[language_server_name].setup(server_configuration)
+
+                vim.lsp.config(language_server_name, server_configuration)
+                vim.lsp.enable(language_server_name)
             end
 
             -- Formatting
