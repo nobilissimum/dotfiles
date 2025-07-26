@@ -150,7 +150,7 @@ return {
         vim.keymap.set("n", "<leader>sr", tl_builtin.resume, { desc = "[S]earch [R]esume" })
         vim.keymap.set("n", "<leader>s.", tl_builtin.oldfiles, { desc = "[S]earch recent files ('.' for repeat)" })
 
-        vim.keymap.set("n", "<leader><leader>", tl_builtin.buffers, { desc = "[ ] Find existing buffers" })
+        vim.keymap.set("n", "<C-Space>", tl_builtin.buffers, { desc = "[ ] Find existing buffers" })
 
         -- Colors
         vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = Colors.hush.main })
