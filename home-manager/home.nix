@@ -15,6 +15,10 @@ let
         CXX = "${pkgs.gcc}/bin/g++";
         YACC = "${pkgs.bison}/bin/yacc";
 
+        CONFIG_HOME =
+            let env = builtins.getEnv("XDG_CONFIG_HOME");
+            in if env != "" then env else "${config.home.homeDirectory}/.config";
+
         PKG_CONFIG_PATH = "${pkgs.libevent.dev}/lib/pkgconfig:${pkgs.ncurses.dev}/lib/pkgconfig:$PKG_CONFIG_PATH";
     };
 
