@@ -127,6 +127,10 @@ in
         ];
 
         file = {
+            "${xdgConfigHome}/.gitignore" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/.gitignore";
+                force = true;
+            };
             "${xdgConfigHome}/btop" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/btop";
                 force = true;
