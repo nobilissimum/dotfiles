@@ -24,7 +24,7 @@ Nix is installed using the **[Determinate Nix installer](https://github.com/Dete
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
 ```
 
-To get started, open a new shell or run
+To get started, open a new shell or run. _(Note that this might not give any response - it only means that no error occurred)_
 
 ```sh
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
