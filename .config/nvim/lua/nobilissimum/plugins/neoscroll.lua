@@ -5,6 +5,8 @@ return {
             "<C-u>",
             "<C-d>",
         },
-        easing = "quadratic",
+        easing = "linear",
+        duration_multiplier = 0.5,
+        performance_mode = true,
     },
 }
