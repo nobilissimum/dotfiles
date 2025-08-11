@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-infocmp -x tmux-256color > tmux-terminal
+infocmp -x xterm-256color > tmux-terminal

@@ -1,5 +1,5 @@
 export LANG="C.UTF-8"
-export TERM="tmux-256color"
+export TERM="xterm-256color"
 
 # Docker
 export DOCKER_BUILDKIT=1
