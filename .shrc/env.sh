@@ -1,6 +1,10 @@
 export LANG="C.UTF-8"
 export TERM="xterm-256color"
 
+[ -f /usr/bin/gcc ] && export CC=/usr/bin/gcc
+[ -f /usr/bin/g++ ] && export CXX=/usr/bin/g++
+[ -f /usr/bin/yacc ] && export CXX=/usr/bin/yacc
+
 # Docker
 export DOCKER_BUILDKIT=1
 
