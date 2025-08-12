@@ -225,9 +225,7 @@ return {
 
             local installed_packages = {}
             local formatters_by_ft = {}
-            local formatters_by_ft_extra = {
-                ruff = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
-            }
+            local formatters_by_ft_extra = {}
 
             for _, package in ipairs(mason_registry.get_installed_packages()) do
                 if not F.is_string_in_table("Formatter", package.spec.categories) then
@@ -500,6 +498,33 @@ return {
             })
 
             vim.keymap.set({ "n", "x" }, "<leader>ca", tiny_code_action.code_action, { desc = "[C]ode [A]ction" })
+        end,
+    },
+    {
+        "mfussenegger/nvim-dap",
+        dependencies = {
+            "mfussenegger/nvim-dap-python",
+        },
+        config = function()
+            local dap = require("dap")
+            local widgets = require("dap.ui.widgets")
+
+            vim.keymap.set('n', '<F5>', dap.continue)
+            vim.keymap.set('n', '<F10>', dap.step_over)
+            vim.keymap.set('n', '<F11>', dap.step_into)
+            vim.keymap.set('n', '<F12>', dap.step_out)
+
+            vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle [D]ebugger [B]reakpoint" })
+            vim.keymap.set("n", "<leader>dB", dap.set_breakpoint, { desc = "Set [D]ebugger [B]reakpoint" })
+            vim.keymap.set("n", "<leader>dr", dap.repl.open, { desc = "Open [D]ebug [R]epl" })
+            vim.keymap.set("n", "<leader>dl", dap.run_last, { desc = "Run [D]ebug [L]ast" })
+
+            vim.keymap.set("n", "<leader>dh", widgets.hover, { desc = "Hover [D]ebug [H]over" })
+            vim.keymap.set("n", "<leader>dp", widgets.preview, { desc = "Hover [D]ebug [H]over" })
+            vim.keymap.set("n", "<leader>df", function() widgets.centered_float(widgets.frames) end, { desc = "Hover [D]ebug [H]over" })
+            vim.keymap.set("n", "<leader>ds", function() widgets.centered_float(widgets.scopes) end, { desc = "Hover [D]ebug [H]over" })
+
+            require("dap-python").setup("uv")
         end,
     },
 }
