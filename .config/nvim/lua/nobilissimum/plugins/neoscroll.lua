@@ -7,6 +7,6 @@ return {
         },
         easing = "linear",
         duration_multiplier = 0.5,
-        performance_mode = true,
+        performance_mode = false,
     },
 }
