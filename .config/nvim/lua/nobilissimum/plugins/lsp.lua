@@ -524,6 +524,16 @@ return {
             vim.keymap.set("n", "<leader>df", function() widgets.centered_float(widgets.frames) end, { desc = "Hover [D]ebug [H]over" })
             vim.keymap.set("n", "<leader>ds", function() widgets.centered_float(widgets.scopes) end, { desc = "Hover [D]ebug [H]over" })
 
+            vim.fn.sign_define("DapBreakpoint", {
+                text = "",
+                texthl = "DapBreakpoint",
+                linehl = "",
+                numhl = "",
+                priority = 10,
+            })
+
+            vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = Colors.red })
+
             require("dap-python").setup("uv")
         end,
     },

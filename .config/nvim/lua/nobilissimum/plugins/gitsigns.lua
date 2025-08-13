@@ -7,11 +7,15 @@ return {
             signs = {
                 add = { text = "▌" },
                 change = { text = "▌" },
+                untracked = { text = " " },
             },
             signs_staged = {
                 add = { text = "▌" },
                 change = { text = "▌" },
+                untracked = { text = " " },
             },
+            sign_priority = 99,
+            attach_to_untracked = true,
             culhl = true,
             current_line_blame = true,
             current_line_blame_opts = {
@@ -103,7 +107,6 @@ return {
 
         local copy_line_commit_hash = function()
             local line = vim.api.nvim_win_get_cursor(0)[1]
-
 
             local blame_cmd = string.format("git blame -l %s -L %d,%d | awk '{print $1}'", vim.fn.expand('%:p'), line, line)
             local result = vim.fn.systemlist(blame_cmd)
