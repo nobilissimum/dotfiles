@@ -33,6 +33,9 @@ return {
         vim.api.nvim_set_hl(0, "CursorLineNr", { bg = Colors.hush.dark, fg = Colors.white })
         vim.api.nvim_set_hl(0, "CursorLineSign", { bg = Colors.hush.dark })
 
+        -- Sign column
+        vim.api.nvim_set_hl(0, "LineSep", { fg = Colors.bright_black2 })
+
         -- Popup pane
         local dark_bg = { bg = Colors.hush.dark }
         vim.api.nvim_set_hl(0, "NormalFLoat", dark_bg)

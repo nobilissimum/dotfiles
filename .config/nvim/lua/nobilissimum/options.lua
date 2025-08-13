@@ -8,6 +8,7 @@ vim.g.lazy_lock_disabled = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
+vim.opt.statuscolumn = "%@SignCb@%s%=%T%@NumCb@%l%T%#LineSep# │%*"
 
 
 -- Indentions
