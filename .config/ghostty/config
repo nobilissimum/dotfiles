@@ -32,3 +32,5 @@ keybind = ctrl+minus=decrease_font_size:1
 keybind = super+n=toggle_maximize
 keybind = super+w=quit
 keybind = super+q=quit
+
+working-directory = home
