@@ -8,12 +8,12 @@ return {
                 signs = {
                     add = { text = "▌" },
                     change = { text = "▌" },
-                    untracked = { text = " " },
+                    untracked = { text = "▌" },
                 },
                 signs_staged = {
                     add = { text = "▌" },
                     change = { text = "▌" },
-                    untracked = { text = " " },
+                    untracked = { text = "▌" },
                 },
                 sign_priority = 99,
                 attach_to_untracked = true,
@@ -134,6 +134,10 @@ return {
             local change_color = Colors.blue
             vim.api.nvim_set_hl(0, "GitSignsChange", { fg = change_color, bold = true })
             vim.api.nvim_set_hl(0, "GitSignsChangeCul", { fg = change_color, bg = Colors.hush.dark, bold = true })
+
+            local untracked_color = Colors.magenta
+            vim.api.nvim_set_hl(0, "GitSignsUntracked", { fg = untracked_color, bold = true })
+            vim.api.nvim_set_hl(0, "GitSignsUntrackedCul", { fg = untracked_color, bg = Colors.hush.dark, bold = true })
 
             local delete_color = Colors.red
             vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = delete_color, bold = true })
