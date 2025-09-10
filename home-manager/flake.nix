@@ -19,6 +19,7 @@
             inherit pkgs;
             modules = [ ./home.nix ]
                 ++ (pkgs.lib.optionals (pkgs.stdenv.system == "x86_64-linux") [ ./systems/x86_64-linux.nix ])
+                ++ (pkgs.lib.optionals (pkgs.stdenv.system == "aarch64-darwin") [ ./systems/aarch64-darwin.nix ])
             ;
         };
     };
