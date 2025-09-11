@@ -2,7 +2,7 @@
 
 let
     sessionVariables = {
-        EDITOR = "vim";
+        EDITOR = "nvim";
 
         FZF_HOME = "${pkgs.fzf}";
         LIBEVENT_HOME = "${pkgs.libevent}";

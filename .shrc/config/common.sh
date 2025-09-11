@@ -4,8 +4,8 @@ export HISTSIZE=5000
 
 
 # Editor
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=nvim
+export VISUAL=nvim
 
 echo -ne '\e]12;#c0c0c0\a'
 echo -ne '\e[4 q'
