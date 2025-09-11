@@ -147,6 +147,10 @@ in
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/nvim";
                 force = true;
             };
+            "${xdgConfigHome}/posting" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/posting";
+                force = true;
+            };
             "${xdgConfigHome}/starship.toml" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/starship.toml";
                 force = true;
@@ -171,6 +175,12 @@ in
             };
             "${xdgConfigHome}/superfile/themes/hush.toml" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/superfile/themes/hush.toml";
+                force = true;
+            };
+
+
+            ".local/share/posting/themes/hush.yaml" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.local/share/posting/themes/hush.yaml";
                 force = true;
             };
 

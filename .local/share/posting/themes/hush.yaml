@@ -1,0 +1,15 @@
+name: hush
+
+primary: '#74add2'
+secondary: '#cec999'
+accent: '#f77172'
+
+background: '#1d232e'
+surface: '#1f2a35'
+
+error: '#f77172'
+success: '#65a884'
+warning: '#cec999'
+
+author: Ronn Angelo Lee
+description: A color theme for clarity and comfort.

@@ -1,0 +1,9 @@
+theme: hush
+layout: horizontal
+
+response:
+    prettify_json: false
+
+heading:
+    visible: true
+    show_host: true
