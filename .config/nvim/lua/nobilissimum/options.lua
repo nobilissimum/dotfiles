@@ -76,32 +76,33 @@ vim.keymap.set(
 
 
 -- Clipboard
+local function shell(cmd) return { (vim.o.shell or "sh"), "-c", cmd } end
+local sanitize = [[perl -CSDA -pe 's/\x{00A0}|\x{202F}|\x{2007}/ /g']]
+local name, copy, paste
+
 if F.is_executable("pbcopy") and F.is_executable("pbpaste") then
-    vim.g.clipboard = {
-        name = "macOS-clipboard",
-        copy = {
-            ["+"] = "pbcopy",
-            ["*"] = "pbcopy",
-        },
-        paste = {
-            ["+"] = "pbpaste",
-            ["*"] = "pbpaste",
-        },
-        cache_enabled = 0,
-    }
+    name = "osx"
+    copy = "pbcopy"
+    paste = "pbpaste"
 elseif F.is_executable("xclip") then
-    vim.g.clipboard = {
-        name = "xclip",
-        copy = {
-            ["+"] = "xclip -selection clipboard",
-            ["*"] = "xclip -selection clipboard",
-        },
-        paste = {
-            ["+"] = "xclip -selection clipboard -o",
-            ["*"] = "xclip -selection clipboard -o",
-        },
-        cache_enabled = 0,
-    }
+    name = "xclip"
+    copy = "xclip -selection clipboard"
+    paste = "xclip -selection clipboard -o"
 else
     vim.notify("No suitable clipboard tool found", vim.log.levels.WARN)
 end
+
+vim.g.clipboard = {
+    name = name,
+    copy = {
+        ["+"] = shell(sanitize .. " | " .. copy),
+        ["*"] = shell(sanitize .. " | " .. copy),
+    },
+    paste = {
+        ["+"] = shell(paste .. " | " .. sanitize),
+        ["*"] = shell(paste .. " | " .. sanitize),
+    },
+    cache_enabled = 0,
+}
+
+vim.keymap.set("n", "<C-s>", ":%s/\\%u00A0/ /g<CR>", { desc = "Sanitize text" })
