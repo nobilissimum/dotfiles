@@ -20,7 +20,10 @@ return {
 
             layout.prompt.title = false
             layout.results.title = false
-            layout.preview.title = false
+
+            if layout.preview then
+                layout.preview.title = false
+            end
 
             return layout
         end
@@ -164,5 +167,50 @@ return {
 
         vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = Colors.hush.dark, bold = true })
         vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { bg = Colors.hush.dark, bold = true })
+
+        -- Custom commands
+        local tl_pickers = require("telescope.pickers")
+        local tl_finders = require("telescope.finders")
+        local tl_actions_state = require("telescope.actions.state")
+        local tl_conf = require("telescope.config").values
+
+        local function lazy_plugins_picker(opts)
+            opts = opts or {}
+
+            local lazy = require("lazy")
+            local plugins = lazy.plugins()
+
+            -- Convert plugins to a simpler format for display
+            local plugin_list = {}
+            for _, plugin in ipairs(plugins) do
+                table.insert(plugin_list, plugin.name)
+            end
+            table.sort(plugin_list)
+
+            tl_pickers.new(opts, {
+                prompt_title = "Plugins",
+                finder = tl_finders.new_table({results = plugin_list}),
+                previewer = false,
+                sorter = tl_conf.generic_sorter(opts),
+                attach_mappings = function(prompt_bufnr)
+                    tl_actions.select_default:replace(function()
+                        local selection = tl_actions_state.get_selected_entry()
+                        tl_actions.close(prompt_bufnr)
+
+                        local plugin_name = selection[1]
+                        vim.cmd("Lazy reload " .. plugin_name)
+                    end)
+
+                    return true
+                end,
+            }):find()
+        end
+
+        vim.keymap.set(
+            "n",
+            "<leader>pr",
+            function() lazy_plugins_picker() end,
+            { desc = "[P]lugin [R]eload lazy a plugin" }
+        )
     end,
 }
