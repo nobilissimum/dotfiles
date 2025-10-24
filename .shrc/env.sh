@@ -13,11 +13,11 @@ export PIPENV_VENV_IN_PROJECT=1
 export POETRY_VIRTUALENVS_IN_PROJECT=1
 
 # Bun
-# BUN_INSTALL="$HOME/.bun"
-# if [ -d "$BUN_INSTALL" ]; then
-#     export PATH="${BUN_INSTALL}/bin:$PATH"
-#     source "$BUN_INSTALL/_bun"
-# fi
+BUN_INSTALL="$HOME/.bun"
+if [ -d "$BUN_INSTALL" ]; then
+    export PATH="${BUN_INSTALL}/bin:$PATH"
+    [ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
+fi
 
 # .NET
 DOTNET_DIR="$HOME/.dotnet"
