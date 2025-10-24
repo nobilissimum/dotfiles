@@ -174,6 +174,8 @@ return {
         local tl_actions_state = require("telescope.actions.state")
         local tl_conf = require("telescope.config").values
 
+        vim.api.nvim_set_hl(0, "TelescopeCustomResultsIdentifier", { fg = Colors.blue, bold = true })
+        vim.api.nvim_set_hl(0, "TelescopeCustomResultsIdentifierAlt", { fg = Colors.cyan })
         local function lazy_plugins_picker(opts)
             opts = opts or {}
 
@@ -189,7 +191,29 @@ return {
 
             tl_pickers.new(opts, {
                 prompt_title = "Plugins",
-                finder = tl_finders.new_table({results = plugin_list}),
+                finder = tl_finders.new_table({
+                    results = plugin_list,
+                    entry_maker = function(entry)
+                        local name_part, extension = entry:match("^(.*)(%..*)$")
+
+                        if not name_part then
+                            name_part = entry
+                            extension = ""
+                        end
+
+                        return {
+                            value = entry,
+                            display = function()
+                                local display_text = name_part .. extension
+                                return display_text, {
+                                    { {0, #name_part}, "TelescopeCustomResultsIdentifier" },
+                                    { {#name_part, #display_text}, "TelescopeCustomResultsIdentifierAlt" },
+                                }
+                            end,
+                            ordinal = entry,
+                        }
+                    end,
+                }),
                 previewer = false,
                 sorter = tl_conf.generic_sorter(opts),
                 attach_mappings = function(prompt_bufnr)
