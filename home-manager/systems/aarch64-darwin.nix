@@ -29,6 +29,12 @@ in
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/superfile/themes/hush.toml";
                 force = true;
             };
+
+            ".hammerspoon" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.hammerspoon";
+                force = true;
+            };
+
         };
     };
 }
