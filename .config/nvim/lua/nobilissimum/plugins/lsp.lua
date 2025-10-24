@@ -480,7 +480,10 @@ return {
 
                 layout.prompt.title = false
                 layout.results.title = false
-                layout.preview.title = false
+
+                if layout.preview then
+                    layout.preview.title = false
+                end
 
                 return layout
             end
@@ -491,7 +494,9 @@ return {
                     "telescope",
                     opts = {
                         layout_strategy = "clean_vertical",
-                        layout_config = {},
+                        layout_config = {
+                            preview_cutoff = 1,
+                        },
                     },
                 },
 
