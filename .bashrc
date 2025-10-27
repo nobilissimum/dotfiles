@@ -85,6 +85,8 @@ SH_DIR="$HOME/.shrc"
 # Initialize tools
 source "$SH_DIR/config/bash.sh"
 source "$SH_DIR/tools/bash.sh"
+source "$SH_DIR/utils/bash.sh"
+
 source "$SH_DIR/alias.sh"
 source "$SH_DIR/func.sh"
 source "$SH_DIR/env.sh"
