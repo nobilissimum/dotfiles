@@ -11,6 +11,7 @@ font-family = "GeistMono Nerd Font"
 font-size = 14
 font-feature = -calt, -liga, -dlig
 
+maximize = true
 title = ""
 
 window-decoration = none
