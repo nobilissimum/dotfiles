@@ -16,6 +16,7 @@ Colors = {
 
     red = "#f77172",
     green = "#65a884",
+    orange = "#f5dec4",
     yellow = "#cec999",
     blue = "#74add2",
     magenta = "#a980c4",
