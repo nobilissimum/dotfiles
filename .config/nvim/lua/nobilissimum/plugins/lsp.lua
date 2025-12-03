@@ -138,6 +138,14 @@ return {
                 },
                 vimls = {},
 
+                -- Protobuf
+                buf_ls = {
+                    ---@diagnostic disable-next-line: unused-local
+                    on_attach = function(client, bufnr)
+                        client.server_capabilities.semanticTokensProvider = nil
+                    end,
+                },
+
                 -- Python
                 pyright = {
                     capabilities = capabilities,
