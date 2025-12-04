@@ -30,6 +30,8 @@ To get started, open a new shell or run. _(Note that this might not give any res
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 ```
 
+_Optional: login to Nix package database using `determinate-nixd login`. You can create and use a new Flakehub token through `https://flakehub.com/token/create?description=Determinate+NixD+on+Nobilissimum`._
+
 Install specified packages in `home.nix` by running. You may not use the flag `-b backup` for the succeeding switches after the initial switch.
 
 ```sh

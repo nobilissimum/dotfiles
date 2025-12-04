@@ -2,9 +2,12 @@
     description = "Home Manager configuration";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+        fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*";
+        # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+        nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2505.*";
         home-manager = {
-            url = "github:nix-community/home-manager/release-25.05";
+            # url = "github:nix-community/home-manager/release-25.05";
+            url = "https://flakehub.com/f/nix-community/home-manager/0.2505.*";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
