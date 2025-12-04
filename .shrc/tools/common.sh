@@ -22,7 +22,7 @@ get_path () {
 
 
 # Tmux
- get_session_name () {
+get_session_name () {
     local target_path="$(get_path "$1")"
     local session_name="$(basename $(dirname "$target_path") | sed 's/\./-/g')-$(basename "$target_path" | sed 's/\./-/g')"
     echo "$session_name"
