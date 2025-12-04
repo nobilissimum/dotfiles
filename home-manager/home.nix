@@ -88,6 +88,7 @@ in
             pkgs.btop
             pkgs.eza
             pkgs.fzf
+            pkgs.go-task
             pkgs.oha
             pkgs.starship
             pkgs.zoxide

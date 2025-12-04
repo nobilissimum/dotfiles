@@ -1,0 +1,27 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  FLAKEHUB_TOKEN_URL: https://flakehub.com/token/create?description=Determinate+NixD+on+Nobilissimum
+
+tasks:
+  default:
+    cmds:
+      - task: help
+
+  help:
+    desc: Show available tasks
+    cmds:
+      - task --list
+    silent: true
+
+  nix-login:
+    desc: Login to Nix package repository. You may create a token at {{.FLAKEHUB_TOKEN_URL}}
+    cmds:
+      - determinate-nixd login
+
+  nix-setup:
+    desc: Setup machine using Nix flake for Home Manager
+    cmds:
+      - nix run home-manager -- switch --flake ./home-manager/#nobi --impure -b backup
