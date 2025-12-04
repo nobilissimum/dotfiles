@@ -170,9 +170,12 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 
 
 # Golang
-[ -n "$(go env GOROOT)" ] && export PATH="$PATH:$(go env GOROOT)/bin"
-[ -n "$(go env GOBIN)" ] && export PATH="$PATH:$(go env GOBIN)"
-[ -n "$(go env GOPATH)" ] && export PATH="$PATH:$(go env GOPATH)/bin"
+if [ -d "/usr/local/go" ]; then
+    export PATH="$PATH:/usr/local/go/bin"
+    [ -n "$(go env GOROOT)" ] && export PATH="$PATH:$(go env GOROOT)/bin"
+    [ -n "$(go env GOBIN)" ] && export PATH="$PATH:$(go env GOBIN)"
+    [ -n "$(go env GOPATH)" ] && export PATH="$PATH:$(go env GOPATH)/bin"
+fi
 
 
 
