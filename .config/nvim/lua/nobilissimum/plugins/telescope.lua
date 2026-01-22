@@ -176,6 +176,7 @@ return {
 
         vim.api.nvim_set_hl(0, "TelescopeCustomResultsIdentifier", { fg = Colors.blue, bold = true })
         vim.api.nvim_set_hl(0, "TelescopeCustomResultsIdentifierAlt", { fg = Colors.cyan })
+
         local function lazy_plugins_picker(opts)
             opts = opts or {}
 
@@ -221,7 +222,7 @@ return {
                         local selection = tl_actions_state.get_selected_entry()
                         tl_actions.close(prompt_bufnr)
 
-                        local plugin_name = selection[1]
+                        local plugin_name = selection.value
                         vim.cmd("Lazy reload " .. plugin_name)
                     end)
 
