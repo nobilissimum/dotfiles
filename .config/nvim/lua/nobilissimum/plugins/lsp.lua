@@ -216,6 +216,7 @@ return {
             local mason_registry = require("mason-registry")
 
             local formatters_prioritization = {
+                css = { "biome" },
                 typescriptreact = { "biome" },
                 javascriptreact = { "biome" },
                 typescript = { "biome" },
