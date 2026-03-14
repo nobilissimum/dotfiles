@@ -18,7 +18,7 @@ return {
         local plugins = #vim.tbl_keys(require("lazy").plugins())
         local version = vim.version()
         local platform = vim.fn.has("win32") == 1 and "" or ""
-        local footer = string.format(
+        local _footer = string.format(
             "󰂖 %d • %s • v%d.%d.%d",
             plugins,
             platform,
@@ -26,6 +26,8 @@ return {
             version.minor,
             version.patch
         )
+        local _footer_padding = string.rep(" ", math.floor(#_footer / 2))
+        local footer = string.format("%s%s", _footer, _footer_padding)
 
         local plugins_length = string.len(plugins) + 5
         local platform_length = 3
