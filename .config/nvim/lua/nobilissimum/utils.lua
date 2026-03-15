@@ -39,6 +39,14 @@ function F.is_executable(cmd)
 end
 
 function F.get_uname()
+    local uv = vim.uv or vim.loop
+    if uv and uv.os_uname then
+        local ok, uname = pcall(uv.os_uname)
+        if ok and uname and uname.sysname then
+            return uname.sysname
+        end
+    end
+
     local f = io.popen("uname")
     if f == nil then
         return nil
