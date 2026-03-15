@@ -105,7 +105,16 @@ tmxdirs () {
 
 # Zoxide
 if command -v zoxide >/dev/null 2>&1; then
-    eval "$(zoxide init --cmd cd zsh)"
+    ZOXIDE_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/zoxide"
+    ZOXIDE_INIT="$ZOXIDE_CACHE/init.zsh"
+
+    mkdir -p "$ZOXIDE_CACHE"
+
+    if [[ ! -f "$ZOXIDE_INIT" || "$ZOXIDE_INIT" -ot "$(command -v zoxide)" ]]; then
+        zoxide init --cmd cd zsh >| "$ZOXIDE_INIT"
+    fi
+
+    source "$ZOXIDE_INIT"
 fi
 
 
