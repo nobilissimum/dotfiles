@@ -1,6 +1,7 @@
 return {
     {
         "neovim/nvim-lspconfig",
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             -- LSP
             { "mason-org/mason.nvim", config = true },
@@ -341,6 +342,7 @@ return {
     },
     {
         "mfussenegger/nvim-lint",
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
             events = { "BufWritePost", "BufReadPost", "InsertLeave" },
         },
@@ -412,6 +414,7 @@ return {
     },
     {
         "j-hui/fidget.nvim",
+        event = "LspAttach",
         opts = {
             notification = {
                 window = {
