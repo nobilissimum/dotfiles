@@ -426,8 +426,8 @@ return {
     },
     {
         "Exafunction/windsurf.vim",
-        event = "BufEnter",
         config = function()
+        event = "InsertEnter",
             vim.g.codeium_disable_bindings = 1
 
             local keymaps = {
