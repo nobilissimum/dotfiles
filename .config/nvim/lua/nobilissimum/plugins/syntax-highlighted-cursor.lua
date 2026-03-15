@@ -1,5 +1,6 @@
 return {
     "ukyouz/syntax-highlighted-cursor.nvim",
+    event = "VeryLazy",
     config = function()
         require("syntax-highlighted-cursor").setup({})
         vim.opt.guicursor = "n-v-ve:block-Cursor/lCursor,i:hor20-Cursor/lCursor,c-ci-cr:hor20-CursorCommandline"
