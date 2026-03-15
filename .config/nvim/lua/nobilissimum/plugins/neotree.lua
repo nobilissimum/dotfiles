@@ -1,10 +1,15 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
+    cmd = "Neotree",
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
         "MunifTanjim/nui.nvim",
+    },
+    keys = {
+        { "<C-e>", "<CMD>Neotree toggle<CR>", desc = "Neo-tree toggle", noremap = true, silent = true },
+        { "<leader>\\", "<CMD>Neotree reveal<CR>", desc = "Neo-tree reveal", noremap = true, silent = true },
     },
     config = function()
         require("neo-tree").setup({
@@ -50,9 +55,6 @@ return {
                 },
             },
         })
-
-        vim.keymap.set("n", "<C-\\>", ":Neotree toggle<CR>", { noremap = true, silent = true })
-        vim.keymap.set("n", "<leader>\\", ":Neotree reveal<CR>", { noremap = true, silent = true })
 
         -- Colors
         vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { bg = Colors.hush.main, fg = Colors.blue, bold = true })
