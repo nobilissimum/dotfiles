@@ -13,6 +13,7 @@ return {
         build = "cargo build --release",
         dependencies = "rafamadriz/friendly-snippets",
         version = "*",
+        event = "InsertEnter",
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
