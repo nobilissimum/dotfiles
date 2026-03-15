@@ -347,7 +347,7 @@ return {
             events = { "BufWritePost", "BufReadPost", "InsertLeave" },
         },
         config = function(_, opts)
-            N = {}
+            local N = {}
 
             local mason_registry = require("mason-registry")
 
@@ -426,10 +426,11 @@ return {
     },
     {
         "Exafunction/windsurf.vim",
-        config = function()
         event = "InsertEnter",
+        init = function()
             vim.g.codeium_disable_bindings = 1
-
+        end,
+        config = function()
             local keymaps = {
                 prev_comp =  "<M-]>",
                 next_comp = "<M-[>",
@@ -536,25 +537,29 @@ return {
         dependencies = {
             "mfussenegger/nvim-dap-python",
         },
+        keys = {
+            { "<F5>", function() require("dap").continue() end, desc = "DAP continue" },
+            { "<F10>", function() require("dap").step_over() end, desc = "DAP step over" },
+            { "<F11>", function() require("dap").step_into() end, desc = "DAP step into" },
+            { "<F12>", function() require("dap").step_out() end, desc = "DAP step out" },
+
+            { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle [D]ebugger [B]reakpoint" },
+            { "<leader>dB", function() require("dap").set_breakpoint() end, desc = "Set [D]ebugger [B]reakpoint" },
+            { "<leader>dr", function() require("dap").repl.open() end, desc = "Open [D]ebug [R]epl" },
+            { "<leader>dl", function() require("dap").run_last() end, desc = "Run [D]ebug [L]ast" },
+
+            { "<leader>dh", function() require("dap.ui.widgets").hover() end, desc = "Hover [D]ebug [H]over" },
+            { "<leader>dp", function() require("dap.ui.widgets").preview() end, desc = "Hover [D]ebug [P]review" },
+            { "<leader>df", function()
+                local widgets = require("dap.ui.widgets")
+                widgets.centered_float(widgets.frames)
+            end, desc = "Show [D]ebug [F]rames" },
+            { "<leader>ds", function()
+                local widgets = require("dap.ui.widgets")
+                widgets.centered_float(widgets.scopes)
+            end, desc = "Show [D]ebug [S]copes" },
+        },
         config = function()
-            local dap = require("dap")
-            local widgets = require("dap.ui.widgets")
-
-            vim.keymap.set('n', '<F5>', dap.continue)
-            vim.keymap.set('n', '<F10>', dap.step_over)
-            vim.keymap.set('n', '<F11>', dap.step_into)
-            vim.keymap.set('n', '<F12>', dap.step_out)
-
-            vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle [D]ebugger [B]reakpoint" })
-            vim.keymap.set("n", "<leader>dB", dap.set_breakpoint, { desc = "Set [D]ebugger [B]reakpoint" })
-            vim.keymap.set("n", "<leader>dr", dap.repl.open, { desc = "Open [D]ebug [R]epl" })
-            vim.keymap.set("n", "<leader>dl", dap.run_last, { desc = "Run [D]ebug [L]ast" })
-
-            vim.keymap.set("n", "<leader>dh", widgets.hover, { desc = "Hover [D]ebug [H]over" })
-            vim.keymap.set("n", "<leader>dp", widgets.preview, { desc = "Hover [D]ebug [H]over" })
-            vim.keymap.set("n", "<leader>df", function() widgets.centered_float(widgets.frames) end, { desc = "Hover [D]ebug [H]over" })
-            vim.keymap.set("n", "<leader>ds", function() widgets.centered_float(widgets.scopes) end, { desc = "Hover [D]ebug [H]over" })
-
             vim.fn.sign_define("DapBreakpoint", {
                 text = "",
                 texthl = "DapBreakpoint",
