@@ -310,8 +310,22 @@ return {
 
             vim.api.nvim_create_user_command("FormatBuf", function(opts)
                 local formatter = opts.args
-                if formatter ~= "" then
-                    conform.format({ formatters = { formatter } })
+
+                if formatter == "biome" or (formatter == "" and vim.tbl_contains(conform.list_formatters_for_buffer(), "biome")) then
+                    vim.lsp.buf.code_action({
+                        context = {
+                            only = { "source.organizeImports" },
+                            diagnostics = {},
+                        },
+                        apply = true,
+                    })
+                    vim.defer_fn(function()
+                        if formatter ~= "" then
+                            conform.format({ formatters = { formatter } })
+                        else
+                            conform.format()
+                        end
+                    end, 100)
                 else
                     conform.format()
                 end
