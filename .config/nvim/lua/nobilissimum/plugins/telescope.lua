@@ -1,5 +1,6 @@
 return {
     "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
     dependencies = {
         "nvim-lua/plenary.nvim",
         {
@@ -13,6 +14,59 @@ return {
             "nvim-telescope/telescope-live-grep-args.nvim" ,
             version = "^1.1.0",
         },
+    },
+    keys = {
+        { "<leader>sh", function() require("telescope.builtin").help_tags() end, desc = "[S]earch [H]elp" },
+        { "<leader>sk", function() require("telescope.builtin").keymaps() end, desc = "[S]earch [K]eymaps" },
+        { "<C-p>", function() require("telescope.builtin").find_files() end, desc = "Search files" },
+        {
+            "<leader>sp",
+            function()
+                require("telescope.builtin").find_files({
+                    hidden = true,
+                    no_ignore = true,
+                })
+            end,
+            desc = "[S]earch files [P]alette",
+        },
+        { "<leader>ss", function() require("telescope.builtin").builtin() end, desc = "[S]earch [S]elect Telescope" },
+        { "<leader>sw", function() require("telescope.builtin").grep_string() end, desc = "[S]earch current [W]ord" },
+        { "<leader>sc", function() require("telescope.builtin").git_commits() end, desc = "[S]earch git [C]ommits" },
+        { "<C-f>", function() require("telescope.builtin").live_grep() end, desc = "[F]ind live grep" },
+        {
+            "<leader>sf",
+            function()
+                require("telescope.builtin").live_grep({
+                    additional_args = function()
+                        return { "--hidden", "--no-ignore" }
+                    end,
+                })
+            end,
+            desc = "[S]earch [F]iles using live grep",
+        },
+        {
+            "<leader>sF",
+            function() require("telescope").extensions.live_grep_args.live_grep_args() end,
+            desc = "[F]ind live grep with args",
+        },
+        {
+            "<leader>/",
+            function() require("telescope.builtin").current_buffer_fuzzy_find() end,
+            desc = "Search in current buffer",
+        },
+        { "<leader>sd", function() require("telescope.builtin").diagnostics() end, desc = "[S]earch [D]iagnostics" },
+        { "<leader>sr", function() require("telescope.builtin").resume() end, desc = "[S]earch [R]esume" },
+        {
+            "<leader>s.",
+            function() require("telescope.builtin").oldfiles() end,
+            desc = "[S]earch recent files ('.' for repeat)",
+        },
+        {
+            "<C-Space>",
+            function() require("telescope.builtin").buffers() end,
+            desc = "[ ] Find existing buffers",
+        },
+        { "<leader>pr", function() require("nobilissimum.telescope").lazy_plugins_picker() end, desc = "[P]lugin [R]eload lazy a plugin" },
     },
     config = function()
         require("telescope.pickers.layout_strategies").clean_flex = function(...)
@@ -28,10 +82,8 @@ return {
             return layout
         end
 
-        local tl_builtin = require("telescope.builtin")
         local tl_actions = require("telescope.actions")
 
-        local tl_lga = require("telescope").extensions.live_grep_args
         local tl_lga_actions = require("telescope-live-grep-args.actions")
 
 
@@ -126,35 +178,6 @@ return {
         require("telescope").load_extension("fzf")
         require("telescope").load_extension("live_grep_args")
 
-        -- Keymaps
-        vim.keymap.set("n", "<leader>sh", tl_builtin.help_tags, { desc = "[S]earch [H]elp" })
-        vim.keymap.set("n", "<leader>sk", tl_builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-        vim.keymap.set("n", "<C-p>", tl_builtin.find_files, { desc = "Search files" })
-        vim.keymap.set("n", "<leader>sp", function()
-            tl_builtin.find_files({
-                hidden = true,
-                no_ignore = true,
-            })
-        end, { desc = "[S]earch files [P]alette", noremap = true, silent = true })
-        vim.keymap.set("n", "<leader>ss", tl_builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
-        vim.keymap.set("n", "<leader>sw", tl_builtin.grep_string, { desc = "[S]earch current [W]ord" })
-        vim.keymap.set("n", "<leader>sc", tl_builtin.git_commits, { desc = "[S]earch git [C]ommits" })
-        vim.keymap.set("n", "<C-f>", tl_builtin.live_grep, { desc = "[F]ind live grep" })
-        vim.keymap.set("n", "<leader>sf", function()
-            tl_builtin.live_grep({
-                additional_args = function()
-                    return { "--hidden", "--no-ignore" }
-                end,
-            })
-        end, { desc = "[S]earch [F]iles using live grep", noremap = true })
-        vim.keymap.set("n", "<leader>sF", tl_lga.live_grep_args, { desc = "[F]ind live grep with args" })
-        vim.keymap.set("n", "<leader>/", tl_builtin.current_buffer_fuzzy_find, { desc = "Search in current buffer" })
-        vim.keymap.set("n", "<leader>sd", tl_builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-        vim.keymap.set("n", "<leader>sr", tl_builtin.resume, { desc = "[S]earch [R]esume" })
-        vim.keymap.set("n", "<leader>s.", tl_builtin.oldfiles, { desc = "[S]earch recent files ('.' for repeat)" })
-
-        vim.keymap.set("n", "<C-Space>", tl_builtin.buffers, { desc = "[ ] Find existing buffers" })
-
         -- Colors
         vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = Colors.hush.main })
         vim.api.nvim_set_hl(0, "TelescopePromptBorder", { bg = Colors.hush.main, fg = Colors.bright_black })
@@ -168,74 +191,7 @@ return {
         vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = Colors.hush.dark, bold = true })
         vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { bg = Colors.hush.dark, bold = true })
 
-        -- Custom commands
-        local tl_pickers = require("telescope.pickers")
-        local tl_finders = require("telescope.finders")
-        local tl_actions_state = require("telescope.actions.state")
-        local tl_conf = require("telescope.config").values
-
         vim.api.nvim_set_hl(0, "TelescopeCustomResultsIdentifier", { fg = Colors.blue, bold = true })
         vim.api.nvim_set_hl(0, "TelescopeCustomResultsIdentifierAlt", { fg = Colors.cyan })
-
-        local function lazy_plugins_picker(opts)
-            opts = opts or {}
-
-            local lazy = require("lazy")
-            local plugins = lazy.plugins()
-
-            -- Convert plugins to a simpler format for display
-            local plugin_list = {}
-            for _, plugin in ipairs(plugins) do
-                table.insert(plugin_list, plugin.name)
-            end
-            table.sort(plugin_list)
-
-            tl_pickers.new(opts, {
-                prompt_title = "Plugins",
-                finder = tl_finders.new_table({
-                    results = plugin_list,
-                    entry_maker = function(entry)
-                        local name_part, extension = entry:match("^(.*)(%..*)$")
-
-                        if not name_part then
-                            name_part = entry
-                            extension = ""
-                        end
-
-                        return {
-                            value = entry,
-                            display = function()
-                                local display_text = name_part .. extension
-                                return display_text, {
-                                    { {0, #name_part}, "TelescopeCustomResultsIdentifier" },
-                                    { {#name_part, #display_text}, "TelescopeCustomResultsIdentifierAlt" },
-                                }
-                            end,
-                            ordinal = entry,
-                        }
-                    end,
-                }),
-                previewer = false,
-                sorter = tl_conf.generic_sorter(opts),
-                attach_mappings = function(prompt_bufnr)
-                    tl_actions.select_default:replace(function()
-                        local selection = tl_actions_state.get_selected_entry()
-                        tl_actions.close(prompt_bufnr)
-
-                        local plugin_name = selection.value
-                        vim.cmd("Lazy reload " .. plugin_name)
-                    end)
-
-                    return true
-                end,
-            }):find()
-        end
-
-        vim.keymap.set(
-            "n",
-            "<leader>pr",
-            function() lazy_plugins_picker() end,
-            { desc = "[P]lugin [R]eload lazy a plugin" }
-        )
     end,
 }
