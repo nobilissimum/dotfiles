@@ -1,5 +1,5 @@
 ls_alias="ls --color=always"
-if eza --version $COMMAND &> /dev/null; then
+if command -v eza >/dev/null 2>&1; then
     ls_alias="eza --color=always --long --git --icons=always"
 fi
 alias ls=$ls_alias
