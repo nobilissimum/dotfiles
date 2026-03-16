@@ -78,8 +78,7 @@ declare -a tmx_dirs=(
 
 
 # Python
-path+=('$HOME/.local/bin')
-export PATH=$PATH:$HOME/.local/bin
+export PATH="$PATH:$HOME/.local/bin"
 
 ruffscan () {
     is_git="$(git rev-parse --is-inside-work-tree)" 2>/dev/null
