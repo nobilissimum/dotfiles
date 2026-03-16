@@ -11,7 +11,7 @@ filepath="$IMAGE_CACHE_DIRPATH/vimdash${width}x${height}.txt"
 
 image=""
 if [ -f "$filepath" ]; then
-    image=$(cat $filepath)
+    image="$(cat "$filepath")"
 fi
 
 if [[ -z "$image" || "$(wc -l < "$filepath")" -eq "${height}" ]]; then
@@ -20,7 +20,11 @@ if [[ -z "$image" || "$(wc -l < "$filepath")" -eq "${height}" ]]; then
 fi
 
 {
-    stty -echo
+    if [[ -t 0 ]]; then
+        stty -echo
+    fi
     printf "%s" "$image"
-    stty echo
+    if [[ -t 0 ]]; then
+        stty echo
+    fi
 }
