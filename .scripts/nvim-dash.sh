@@ -14,8 +14,13 @@ if [ -f "$filepath" ]; then
     image="$(cat "$filepath")"
 fi
 
-if [[ -z "$image" || "$(wc -l < "$filepath")" -eq "${height}" ]]; then
-    image=$(ascii-image-converter  -C -c "$IMAGE_SRC_PATH" -d "$width,${height}")
+cached_lines=""
+if [ -f "$filepath" ]; then
+    cached_lines="$(wc -l < "$filepath" | tr -d ' ')"
+fi
+
+if [[ -z "$image" || "$cached_lines" -ne "${height}" ]]; then
+    image="$(ascii-image-converter -C -c "$IMAGE_SRC_PATH" -d "$width,${height}")"
     printf "%s" "$image" > "$filepath"
 fi
 
