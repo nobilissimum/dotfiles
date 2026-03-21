@@ -7,7 +7,7 @@ return {
             "<C-d>",
         },
         easing = "linear",
-        duration_multiplier = 0.5,
-        performance_mode = false,
+        duration_multiplier = 0.25,
+        performance_mode = true,
     },
 }
