@@ -9,7 +9,7 @@ return {
     },
     keys = {
         { "<C-e>", "<CMD>Neotree toggle<CR>", desc = "Neo-tree toggle", noremap = true, silent = true },
-        { "<leader>\\", "<CMD>Neotree reveal<CR>", desc = "Neo-tree reveal", noremap = true, silent = true },
+        { "<leader>E", "<CMD>Neotree reveal<CR>", desc = "Neo-tree reveal", noremap = true, silent = true },
     },
     config = function()
         require("neo-tree").setup({
