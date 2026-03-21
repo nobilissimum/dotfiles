@@ -21,21 +21,9 @@ return {
             -- Vim diagnostic
             vim.diagnostic.config({
                 virtual_text = {
-                    source = false,
+                    source = "if_many",
                     prefix = "●",
-                    format = function(diagnostic)
-                        local source = diagnostic.source or ""
-                        if (source ~= "") and (source ~= vim.NIL) then
-                            source = "(" .. tostring(source) .. ") "
-                        end
-
-                        local code = diagnostic.code or ""
-                        if (code ~= "") and (code ~= vim.NIL) then
-                            code = tostring(code) .. " • "
-                        end
-
-                        return string.format("%s%s%s", source, code, diagnostic.message)
-                    end,
+                    spacing = 2,
                 },
                 float = {
                     source = true,
