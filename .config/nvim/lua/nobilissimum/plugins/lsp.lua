@@ -332,7 +332,7 @@ return {
         "mfussenegger/nvim-lint",
         event = { "BufReadPre", "BufNewFile" },
         opts = {
-            events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+            events = { "BufWritePost", "InsertLeave" },
         },
         config = function(_, opts)
             local N = {}
