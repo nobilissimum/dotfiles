@@ -9,6 +9,7 @@ return {
     },
     keys = {
         { "<C-e>", "<CMD>Neotree toggle<CR>", desc = "Neo-tree toggle", noremap = true, silent = true },
+        { "<C-S-e>", "<CMD>Neotree reveal<CR>", desc = "Neo-tree toggle", noremap = true, silent = true },
         { "<M-e>", "<CMD>Neotree reveal<CR>", desc = "Neo-tree reveal", noremap = true, silent = true },
     },
     config = function()

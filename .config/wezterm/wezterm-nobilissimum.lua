@@ -196,6 +196,10 @@ config.keys = {
 
     { key = "w", mods = "SUPER", action = wezterm.action.CloseCurrentPane { confirm = false } },
     { key = "n", mods = "SUPER", action = wezterm.action.ToggleFullScreen },
+
+    -- Neovim
+    { key = "e", mods = "CTRL|SHIFT", action = wezterm.action.SendString('\x1be') },
+
 }
 
 

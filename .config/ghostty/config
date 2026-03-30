@@ -34,6 +34,6 @@ keybind = super+n=toggle_maximize
 keybind = super+w=quit
 keybind = super+q=quit
 
-keybind = opt+e=text:\x1be
+keybind = ctrl+shift+e=esc:e
 
 working-directory = home
