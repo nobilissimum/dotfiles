@@ -108,3 +108,12 @@ function F.debounce(ms, fn)
         end)
     end
 end
+
+function F.get_windows_host()
+    for line in io.lines("/etc/resolv.conf") do
+        local ip = line:match("^nameserver%s+(%S+)")
+        if ip then
+            return ip
+        end
+    end
+end

@@ -92,7 +92,26 @@ return {
                 end,
             })
 
-            -- LSP configurations
+            local lspconfig = require("lspconfig")
+
+            local gdscript_on_attach = function(client, bufnr)
+                vim.notify("Attached gdscript: " .. vim.inspect(client.config.cmd) .. "\nBuffer number: " .. bufnr, vim.log.levels.DEBUG)
+            end
+            if os.getenv("WSL_DISTRO_NAME") ~= nil then
+                lspconfig.gdscript.setup({
+                    on_attach = gdscript_on_attach,
+                    cmd = {
+                        "godot-wsl-proxy", "run",
+                        "--lsp-host", os.getenv("GODOT_LSP_HOST"),
+                        "--lsp-port", os.getenv("GODOT_LSP_PORT"),
+                    },
+                })
+            else
+                lspconfig.gdscript.setup({
+                    on_attach = gdscript_on_attach,
+                })
+            end
+
             local python = require("nobilissimum.lsp.python")
             python.setup()
 

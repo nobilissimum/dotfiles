@@ -202,6 +202,10 @@ in
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.tmux.conf";
                 force = true;
             };
+            ".zshenv" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.zshenv";
+                force = true;
+            };
             ".zshrc" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.zshrc";
                 force = true;
