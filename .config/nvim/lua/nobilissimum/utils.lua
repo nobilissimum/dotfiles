@@ -38,6 +38,17 @@ function F.is_executable(cmd)
     return vim.fn.executable(cmd) == 1
 end
 
+-- ---------- AI Generated Code - Sonnet 4.6 ----------
+function F.get_git_branch()
+    local result = vim.fn.systemlist("git -C " .. vim.fn.getcwd() .. " rev-parse --abbrev-ref HEAD 2>/dev/null")
+    if vim.v.shell_error == 0 and result[1] then
+        return result[1]
+    end
+
+    return nil
+end
+-- ---------- ------------------------------ ----------
+
 function F.get_uname()
     local uv = vim.uv or vim.loop
     if uv and uv.os_uname then

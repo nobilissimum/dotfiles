@@ -99,6 +99,37 @@ return {
                 end,
             })
 
+            -- ---------- AI Generated Code - Sonnet 4.6 ----------
+            local last_branch = nil
+            vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+                group = vim.api.nvim_create_augroup("nobilissimum-branch-watch", { clear = true }),
+                callback = function()
+                    local branch = F.get_git_branch()
+                    if branch and last_branch and branch ~= last_branch then
+                        -- Reload files changed on disk
+                        vim.cmd("checktime")
+                        -- Restart LSP clients attached to open buffers
+                        vim.schedule(function()
+                            for _, client in ipairs(vim.lsp.get_clients()) do
+                                local bufs = vim.lsp.get_buffers_by_client_id(client.id)
+                                for _, buf in ipairs(bufs) do
+                                    if vim.api.nvim_buf_is_valid(buf) then
+                                        vim.lsp.buf_detach_client(buf, client.id)
+                                    end
+                                end
+
+                                vim.lsp.stop_client(client.id)
+                            end
+                            -- LSP will re-attach via LspAttach autocmd on next buffer access
+                            vim.cmd("edit")
+                        end)
+                        vim.notify("Branch changed → LSP restarted", vim.log.levels.INFO)
+                    end
+                    last_branch = branch or last_branch
+                end,
+            })
+            -- ---------- ------------------------------ ----------
+
             local gdscript_on_attach = function(client, bufnr)
                 vim.notify("Attached gdscript: " .. vim.inspect(client.config.cmd) .. "\nBuffer number: " .. bufnr, vim.log.levels.DEBUG)
             end
