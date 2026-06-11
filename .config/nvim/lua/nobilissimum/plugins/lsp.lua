@@ -54,6 +54,13 @@ return {
                     map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
                     map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 
+                    -- ---------- AI Generated Code - Sonnet 4.6 ----------
+                    map("<leader>lr", function()
+                        vim.cmd("LspRestart")
+                        vim.notify("LSP restarted", vim.log.levels.INFO)
+                    end, "[L]SP [R]estart")
+                    -- ---------- ------------------------------ ----------
+
                     map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
                     local client = vim.lsp.get_client_by_id(event.data.client_id)
