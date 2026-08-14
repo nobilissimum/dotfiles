@@ -42,6 +42,13 @@ local app_bindings = {
     ["3"] = "Apidog",
     ["4"] = "Trello",
     ["5"] = "Obsidian",
+    ["6"] = "Outlook",
+    ["7"] = "TablePlus",
+    ["9"] = "Chrome",
+    ["0"] = "Cursor",
+}
+
+local app_bindings_alt = {
 }
 
 local edge_window_bindings = {
@@ -52,6 +59,12 @@ local edge_window_bindings = {
 
 for key, appName in pairs(app_bindings) do
     hs.hotkey.bind({"alt"}, key, function()
+        focus_app(appName)
+    end)
+end
+
+for key, appName in pairs(app_bindings_alt) do
+    hs.hotkey.bind({"alt", "shift"}, key, function()
         focus_app(appName)
     end)
 end
@@ -82,8 +95,8 @@ hs.hotkey.bind({"ctrl", "cmd"}, "L", function()
     hs.openConsole()
 end)
 
-hs.hotkey.bind({"option"}, "M", function()
-  local win = hs.window.focusedWindow()
+local function maximize_with_padding(win)
+  if not win then return end
   local screen = win:screen():frame()
   local margin = 10
   win:setFrame({
@@ -92,6 +105,19 @@ hs.hotkey.bind({"option"}, "M", function()
     w = screen.w - 2 * margin,
     h = screen.h - 2 * margin
   })
+end
+
+hs.hotkey.bind({"option"}, "M", function()
+  maximize_with_padding(hs.window.focusedWindow())
+end)
+
+hs.hotkey.bind({"option", "ctrl"}, "M", function()
+  for _, win in ipairs(hs.window.visibleWindows()) do
+    if win:isStandard() then
+      maximize_with_padding(win)
+    end
+  end
+  hs.notify.new({title="Hammerspoon", informativeText="Maximized all windows"}):send()
 end)
 
 hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reload_config):start()
