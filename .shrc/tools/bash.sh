@@ -87,6 +87,11 @@ gitblameuser () {
 
 # Tmux
 tmxdirs () {
+    if [ ! -z "${TMUX}" ]; then
+        echo "${YELLOW}Already in a tmux session"
+        return
+    fi
+
     local target_session=""
     for key in "${!tmx_dirs[@]}"; do
         if [[ ! -d "$key" ]]; then
@@ -96,6 +101,11 @@ tmxdirs () {
 
         local session_name="$(get_session_name $key)"
         [[ -z "$target_session" ]] && target_session="$session_name"
+
+        if tmux has-session -t $session_name 2>/dev/null; then
+            continue
+        fi
+
         tmx "$key" "false"
     done
 
