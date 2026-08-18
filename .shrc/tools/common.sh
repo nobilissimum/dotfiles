@@ -36,7 +36,7 @@ tmxinit () {
     tmux new-window -c "$target_path"
     tmux new-window -c "$target_path"
     tmux new-window -c "$target_path"
-    tmux select-window -t "${session_name}:0"
+    tmux select-window -t "=${session_name}:0"
 }
 tmx () {
     if [ ! -z "${TMUX}" ]; then
@@ -49,7 +49,7 @@ tmx () {
         tmxinit "$1"
 
         if [[ "$2" != "false" ]]; then
-            tmux attach -t "$session_name"
+            tmux attach -t "=$session_name"
         fi
 
         return
@@ -57,14 +57,14 @@ tmx () {
 
     existing_session_name=$(tmux list-session -F '#S' | grep "^${session_name}$")
     if [ ! -z "$existing_session_name" ]; then
-        tmux attach -t "$session_name"
+        tmux attach -t "=$session_name"
         return
     fi
 
     tmxinit "$1"
 
     if [[ "$2" != "false" ]]; then
-        tmux attach -t "$session_name"
+        tmux attach -t "=$session_name"
     fi
 }
 

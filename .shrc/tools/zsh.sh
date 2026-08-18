@@ -101,14 +101,14 @@ tmxdirs () {
         local session_name="$(get_session_name $key)"
         [[ -z "$target_session" ]] && target_session="$session_name"
 
-        if tmux has-session -t $session_name 2>/dev/null; then
+        if tmux has-session -t "=$session_name" 2>/dev/null; then
             continue
         fi
 
         tmx "$key" "false"
     done
 
-    tmux a -t "$target_session"
+    tmux a -t "=$target_session"
 }
 
 
