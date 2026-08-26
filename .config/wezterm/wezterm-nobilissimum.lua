@@ -135,10 +135,10 @@ config.force_reverse_video_cursor = false
 -- Spacing
 config.line_height = 1.15
 config.window_padding = {
-    left = 0,
-    right = 0,
-    top = 1,
-    bottom = 0,
+    left = 10,
+    right = 10,
+    top = 10,
+    bottom = 10,
 }
 
 
