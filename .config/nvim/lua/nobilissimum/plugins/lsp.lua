@@ -168,7 +168,25 @@ return {
 
             local server_configurations = {
                 -- JavaScript
-                biome = {},
+                biome = {
+                    flags = { debounce_text_changes = 750 },
+                },
+                eslint = {
+                    flags = { debounce_text_changes = 750 },
+                    settings = {
+                        run = "onSave",
+                        format = false,
+                    },
+                },
+                ts_ls = {
+                    flags = { debounce_text_changes = 750 },
+                    on_attach = function(client)
+                        client.server_capabilities.semanticTokensProvider = nil
+                    end,
+                },
+                tailwindcss = {
+                    flags = { debounce_text_changes = 750 },
+                },
 
                 -- Lua
                 lua_ls = {
@@ -387,7 +405,7 @@ return {
         "mfussenegger/nvim-lint",
         event = { "BufReadPre", "BufNewFile" },
         opts = {
-            events = { "BufWritePost", "InsertLeave" },
+            events = { "BufReadPost", "BufWritePost" },
         },
         config = function(_, opts)
             local N = {}
@@ -422,7 +440,18 @@ return {
             local lint = require("lint")
             lint.linters_by_ft = linters_by_ft
 
+            local lsp_provides_diagnostics = {
+                javascript = true,
+                javascriptreact = true,
+                typescript = true,
+                typescriptreact = true,
+            }
+
             function N.lint()
+                if lsp_provides_diagnostics[vim.bo.filetype] then
+                    return
+                end
+
                 local linters = lint._resolve_linter_by_ft(vim.bo.filetype)
                 linters = vim.list_extend({}, linters)
 
