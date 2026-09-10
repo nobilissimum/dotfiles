@@ -197,6 +197,12 @@ lua_version="${LUA_VERSION:-5.4.7}"
 
 
 
+# OpenCode
+OPENCODE_DIRPATH="$HOME/.opencode/bin"
+[ -d "$OPENCODE_DIRPATH" ] && export PATH="$PATH:$OPENCODE_DIRPATH"
+
+
+
 # pnpm
 export PNPM_HOME="/home/tenshiro/.local/share/pnpm"
 case ":$PATH:" in
