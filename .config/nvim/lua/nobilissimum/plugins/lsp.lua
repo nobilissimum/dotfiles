@@ -31,7 +31,7 @@ return {
                 },
                 signs = false,
                 underline = true,
-                update_in_insert = true,
+                update_in_insert = false,
             })
 
             -- LSP keymaps
@@ -66,13 +66,13 @@ return {
                     local client = vim.lsp.get_client_by_id(event.data.client_id)
                     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
                         local highlight_augroup = vim.api.nvim_create_augroup("nobilissimum-lsp-highlight", { clear = false })
-                        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+                        vim.api.nvim_create_autocmd({ "CursorHold" }, {
                             buffer = event.buf,
                             group = highlight_augroup,
                             callback = vim.lsp.buf.document_highlight,
                         })
 
-                        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+                        vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" }, {
                             buffer = event.buf,
                             group = highlight_augroup,
                             callback = vim.lsp.buf.clear_references,
