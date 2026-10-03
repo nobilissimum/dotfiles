@@ -58,6 +58,12 @@ Register the **SSH key** to online tools using SSH connections such as **GitHub*
 cat ~/.ssh/id_ed25519.pub
 ```
 
+You might have to update the permission of the SSH key before you can use it.
+
+```sh
+chmod 700 ~/.ssh/id_ed25519
+```
+
 #### GNU Privacy Guard
 
 
@@ -92,6 +98,12 @@ Initialize **GNU Pass** with the new created GPG key.
 
 ```sh
 pass init BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+```
+
+You might get warnings after running the `pass init` command. This just tells you that the GPG doesn't have the correct permissions.
+
+```
+chmod 700 ~/.gnupg
 ```
 
 Register the **GPG key** to online tools that use GPG key for authentication such as **GitHub** and **Docker Hub**.
