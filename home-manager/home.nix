@@ -96,6 +96,7 @@ in
             # Rust
             pkgs.rustc
             pkgs.cargo
+            pkgs.rustPlatform.rustcSrc
 
             # Neovim dependencies
             pkgs.nixpkgs-fmt
