@@ -217,3 +217,13 @@ return custom_config
 The version of nix and home-manager repositories are specified in `home-manager/flake.nix`; they should always match.
 
 You may upgrade to the latest version by getting the latest stable version of home manager from its [repository](https://github.com/nix-community/home-manager) (noted in the `README.md`).
+
+### Neovim
+
+You might have to manually build telescope and autocompletion (cmp) for their fuzzy finding. The build commands can be located in `/dotfiles/.shrc/nvim.sh`. You'll just have to source that then run the functions.
+
+```sh
+source .shrc/nvim.sh
+rebuild-telscope
+rebuild-cmp
+```
