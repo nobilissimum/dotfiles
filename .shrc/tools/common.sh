@@ -209,3 +209,10 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
+
+
+# Nix
+NIX_PROFILE="$HOME/.nix-profile"
+if [ -d "$NIX_PROFILE/bin" ]; then
+    source "$NIX_PROFILE/bin"
+fi

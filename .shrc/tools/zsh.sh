@@ -131,6 +131,6 @@ fi
 
 # Rust
 CARGO_HOME="$HOME/.cargo"
-if [ -f "$CARGO_HOME" ]; then
+if [ -f "$CARGO_HOME/env" ]; then
     source "$CARGO_HOME/env"       # For sh/bash/zsh/ash/dash/pdksh
 fi
