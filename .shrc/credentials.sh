@@ -6,12 +6,12 @@ gpginit () {
 # SSH
 sshinit () {
     eval $(ssh-agent);
-    ssh-add;
+    ssh-add "${@}";
 }
 
 
 gitinit () {
-    sshinit
+    sshinit "${@}"
     gpginit
 }
 
