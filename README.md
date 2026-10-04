@@ -155,6 +155,12 @@ If you're using WSL2 and planning to edit Godot projects in Windows, you have to
 pipx install godot-wsl-proxy
 ```
 
+If you're using C# for Godot, you'll have to install the compatible version of **dotnet** to your Godot version and **omnisharp** (or _**omnisharp-mono**_ for old projects) LSP.
+
+```sh
+sudo apt install dotnet-sdk-8.0
+```
+
 
 ### Environment
 
