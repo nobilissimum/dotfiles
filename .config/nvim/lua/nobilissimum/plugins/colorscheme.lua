@@ -38,7 +38,7 @@ return {
 
         -- Popup pane
         local dark_bg = { bg = Colors.hush.dark }
-        vim.api.nvim_set_hl(0, "NormalFLoat", dark_bg)
+        vim.api.nvim_set_hl(0, "NormalFloat", dark_bg)
         vim.api.nvim_set_hl(0, "FloatBorder", dark_bg)
 
         vim.api.nvim_set_hl(0, "Pmenu", { bg = Colors.hush.light })
@@ -51,8 +51,7 @@ return {
         vim.api.nvim_set_hl(0, "BlinkCmpDocSeparator", { bg = Colors.bright_black2_5 })
         vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = Colors.hush.dark })
 
-        vim.api.nvim_set_hl(0, "FidgetComment", { bg = Colors.hush.light })
-        vim.api.nvim_set_hl(0, "FidgetComment", { fg = Colors.white })
+        vim.api.nvim_set_hl(0, "FidgetComment", { fg = Colors.white, bg = Colors.hush.light })
 
         vim.api.nvim_set_hl(0, "Identifier", { fg = Colors.cyan })
         vim.api.nvim_set_hl(0, "Todo", { fg = Colors.cyan })
