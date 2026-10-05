@@ -73,10 +73,9 @@ return {
     end,
 
     lazy_ruff_cmd = function(self)
-        local resolved_cmd = nil
         return function(dispatchers, config)
-            resolved_cmd = resolved_cmd or self.get_ruff_cmd()
-            return vim.lsp.rpc.start(resolved_cmd, dispatchers, {
+            self.resolved_ruff_cmd = self.resolved_ruff_cmd or self.get_ruff_cmd()
+            return vim.lsp.rpc.start(self.resolved_ruff_cmd, dispatchers, {
                 cwd = config.cmd_cwd or config.root_dir,
                 env = config.cmd_env,
                 detached = config.detached,

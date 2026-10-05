@@ -236,8 +236,14 @@ return {
                 },
                 ruff = {
                     cmd = python:lazy_ruff_cmd(),
-                    on_attach = function(client)
-                        vim.notify("Attached ruff: " .. vim.inspect(client.config.cmd), vim.log.levels.DEBUG)
+                    on_attach = function(client, bufnr)
+                        local cmd = python.resolved_ruff_cmd and table.concat(python.resolved_ruff_cmd, " ") or "unknown"
+                        vim.notify(
+                            "Ruff atttached to " .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+                                .. "\nCommand: " .. cmd
+                                .. "\nRoot: " .. (client.root_dir or "none"),
+                            vim.log.levels.DEBUG
+                        )
                     end,
                     init_options = {
                         settings = {
