@@ -32,6 +32,7 @@ return {
                 signs = false,
                 underline = true,
                 update_in_insert = false,
+                severity_sort = true,
             })
 
             -- LSP keymaps
@@ -45,13 +46,19 @@ return {
                         vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
                     end
 
-                    map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-                    map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-                    map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+                    local telescope = function(picker)
+                        return function()
+                            require("telescope.builtin")[picker]()
+                        end
+                    end
 
-                    map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-                    map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-                    map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+                    map("gd", telescope("lsp_definitions"), "[G]oto [D]efinition")
+                    map("gr", telescope("lsp_references"), "[G]oto [R]eferences")
+                    map("gI", telescope("lsp_implementations"), "[G]oto [I]mplementation")
+
+                    map("<leader>D", telescope("lsp_type_definitions"), "Type [D]efinition")
+                    map("<leader>ds", telescope("lsp_document_symbols"), "[D]ocument [S]ymbols")
+                    map("<leader>ws", telescope("lsp_dynamic_workspace_symbols"), "[W]orkspace [S]ymbols")
                     map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 
                     -- ---------- AI Generated Code - Sonnet 4.6 ----------
@@ -66,6 +73,7 @@ return {
                     local client = vim.lsp.get_client_by_id(event.data.client_id)
                     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
                         local highlight_augroup = vim.api.nvim_create_augroup("nobilissimum-lsp-highlight", { clear = false })
+                        vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event.buf })
                         vim.api.nvim_create_autocmd({ "CursorHold" }, {
                             buffer = event.buf,
                             group = highlight_augroup,
@@ -91,7 +99,8 @@ return {
                         map(
                             "<leader>th",
                             function()
-                                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+                                local filter = { bufnr = event.buf }
+                                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
                             end,
                             "[T]oggle Inlay [H]ints"
                         )
@@ -101,31 +110,34 @@ return {
 
             -- ---------- AI Generated Code - Sonnet 4.6 ----------
             local last_branch = nil
+            local branch_check_running = false
             vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
                 group = vim.api.nvim_create_augroup("nobilissimum-branch-watch", { clear = true }),
                 callback = function()
-                    local branch = F.get_git_branch()
-                    if branch and last_branch and branch ~= last_branch then
-                        -- Reload files changed on disk
-                        vim.cmd("checktime")
-                        -- Restart LSP clients attached to open buffers
-                        vim.schedule(function()
-                            for _, client in ipairs(vim.lsp.get_clients()) do
-                                local bufs = vim.lsp.get_buffers_by_client_id(client.id)
-                                for _, buf in ipairs(bufs) do
-                                    if vim.api.nvim_buf_is_valid(buf) then
-                                        vim.lsp.buf_detach_client(buf, client.id)
-                                    end
-                                end
-
-                                vim.lsp.stop_client(client.id)
-                            end
-                            -- LSP will re-attach via LspAttach autocmd on next buffer access
-                            vim.cmd("edit")
-                        end)
-                        vim.notify("Branch changed → LSP restarted", vim.log.levels.INFO)
+                    if branch_check_running then
+                        return
                     end
-                    last_branch = branch or last_branch
+                    branch_check_running = true
+
+                    vim.system(
+                        { "git", "rev-parse", "--abbrev-ref", "HEAD" },
+                        { text = true, cwd = vim.fn.getcwd() },
+                        vim.schedule_wrap(function(result)
+                            branch_check_running = false
+
+                            local branch = result.code == 0 and vim.trim(result.stdout or "") or nil
+                            if branch == "" then
+                                branch = nil
+                            end
+
+                            if branch and last_branch and branch ~= last_branch then
+                                vim.cmd("checktime")
+                                vim.cmd("LspRestart")
+                                vim.notify("Branch changed → LSP restarted", vim.log.levels.INFO)
+                            end
+                            last_branch = branch or last_branch
+                        end)
+                    )
                 end,
             })
             -- ---------- ------------------------------ ----------
@@ -223,7 +235,7 @@ return {
                     },
                 },
                 ruff = {
-                    cmd = python.get_ruff_cmd(),
+                    cmd = python:lazy_ruff_cmd(),
                     on_attach = function(client)
                         vim.notify("Attached ruff: " .. vim.inspect(client.config.cmd), vim.log.levels.DEBUG)
                     end,
@@ -486,7 +498,9 @@ return {
     },
     {
         "j-hui/fidget.nvim",
-        event = "LspAttach",
+        keys = {
+            { "<leader>ca", mode = { "n", "x" }, desc = "[C]ode [A]ction" },
+        },
         opts = {
             notification = {
                 window = {

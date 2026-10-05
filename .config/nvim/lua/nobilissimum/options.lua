@@ -80,7 +80,7 @@ local function shell(cmd) return { (vim.o.shell or "sh"), "-c", cmd } end
 local sanitize = [[perl -CSDA -pe 's/\x{00A0}|\x{202F}|\x{2007}/ /g']]
 local name, copy, paste
 
-if F.is_executable("pbcopy") and F.is_executable("pbpaste") then
+if vim.fn.has("mac") == 1 or (F.is_executable("pbcopy") and F.is_executable("pbpaste")) then
     name = "osx"
     copy = "pbcopy"
     paste = "pbpaste"
