@@ -106,3 +106,32 @@ vim.g.clipboard = {
 }
 
 vim.keymap.set("n", "<C-s>", ":%s/\\%u00A0/ /g<CR>", { desc = "Sanitize text" })
+
+
+-- Filetypes
+local file_aliases = {
+    ["%.env%.[%w_.-]+"] = { filetype = "sh", icon = ".env" },
+}
+
+local filetype_patterns = {}
+for pattern, alias in pairs(file_aliases) do
+    filetype_patterns[pattern] = alias.filetype
+end
+vim.filetype.add({ pattern = filetype_patterns })
+
+-- nvim-web-devicons has no pattern overrides, so register an icon per matching filename on open
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPre" }, {
+    callback = function(args)
+        local filename = vim.fn.fnamemodify(args.file, ":t"):lower()
+
+        for pattern, alias in pairs(file_aliases) do
+            if alias.icon and filename:match("^" .. pattern .. "$") then
+                local ok, devicons = pcall(require, "nvim-web-devicons")
+                if not ok or devicons.get_icons()[filename] then return end
+
+                devicons.set_icon({ [filename] = devicons.get_icons_by_filename()[alias.icon] })
+                return
+            end
+        end
+    end,
+})
