@@ -19,3 +19,14 @@ bakpath () {
         command cp -p -- "${src}" "${dest}"
     fi
 }
+
+grevert() {
+  local sha
+  for sha in "$@"; do
+    echo ">> Reverting $sha"
+    if ! git revert --no-edit "$sha"; then
+      echo "!! Revert failed on $sha. Fix the conflicts, then run 'git revert --continue', or run 'git revert --abort' to cancel."
+      return 1
+    fi
+  done
+}
