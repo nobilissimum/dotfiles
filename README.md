@@ -149,7 +149,7 @@ References:
 
 #### Godot
 
-If you're using WSL2 and planning to edit Godot projects in Windows, you have to install [godot-wsl-proxy](https://github.com/venomlab/godot-wsl-proxy). Also verify if the environment variable `GODOT_LSP_HOST` defined in `.shrc/env.sh` is correct. 
+If you're using WSL2 and planning to edit Godot projects in Windows, you have to install [godot-wsl-proxy](https://github.com/venomlab/godot-wsl-proxy). Also verify if the environment variable `GODOT_LSP_HOST` defined in `.shrc/env.sh` (or `~/.shrc/custom.sh`) is correct - you may configure this in **Editor** → **Editor Settings** → **Network** → **Language Server** then configure **Remote Host** and or **Remote Port** (you might need to activate _Advanced Settings_).
 
 ```sh
 pipx install godot-wsl-proxy
