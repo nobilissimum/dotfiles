@@ -10,6 +10,7 @@ return {
         Snacks = require("snacks")
         vim.keymap.set("n", "<leader>hb", Snacks.git.blame_line, { desc = "Git [b]lame line" })
         vim.keymap.set("n", "<leader>un", Snacks.notifier.hide, { desc = "Dismiss all notifications" })
+        vim.keymap.set("n", "<leader>uh", Snacks.notifier.show_history, { desc = "Notification history" })
 
         vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = Colors.blue, bold = true })
         vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = Colors.blue, bold = true })
