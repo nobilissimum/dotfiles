@@ -25,3 +25,9 @@ tasks:
     desc: Setup machine using Nix flake for Home Manager
     cmds:
       - nix run home-manager -- switch --flake ./home-manager/#nobi --impure -b backup
+
+  git-ignore:
+    desc: Setup global gitignore
+    cmds:
+      - touch ~/.gitignore
+      - git config --global core.excludesfile ~/.gitignore
