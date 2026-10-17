@@ -16,3 +16,5 @@ alias lazgi='lazygitinit'
 
 alias vi='nvim'
 alias vim='nvim'
+
+alias spf='superfile'
