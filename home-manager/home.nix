@@ -44,6 +44,7 @@ in
         };
 
         packages = [
+            pkgs.bat
             pkgs.bison
             pkgs.deno
             pkgs.fd
