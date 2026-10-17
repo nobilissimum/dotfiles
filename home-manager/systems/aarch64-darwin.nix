@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 let
     homeDirectory = builtins.getEnv("HOME");
@@ -13,7 +13,7 @@ in
         stateVersion = "24.05";
 
         packages = [
-            pkgs.superfile
+            pkgs-unstable.superfile
         ];
 
         file = {

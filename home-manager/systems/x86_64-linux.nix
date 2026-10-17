@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
     home = {
@@ -10,7 +10,8 @@
             pkgs.cl
             pkgs.glibc
             pkgs.libgcc
-            pkgs.superfile
+
+            pkgs-unstable.superfile
         ];
     };
 

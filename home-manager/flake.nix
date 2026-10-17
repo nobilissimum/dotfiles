@@ -5,6 +5,7 @@
         fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*";
         # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
         nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2505.*";
+        nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
         home-manager = {
             # url = "github:nix-community/home-manager/release-25.05";
             url = "https://flakehub.com/f/nix-community/home-manager/0.2505.*";
@@ -12,14 +13,15 @@
         };
     };
 
-    outputs = { nixpkgs, home-manager, ... }:
+    outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }:
     let
         system = builtins.currentSystem;
         pkgs = nixpkgs.legacyPackages.${system};
+        pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
     in {
-
         homeConfigurations."nobi" = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
+            extraSpecialArgs = { inherit pkgs-unstable; };
             modules = [ ./home.nix ]
                 ++ (pkgs.lib.optionals (pkgs.stdenv.system == "x86_64-linux") [ ./systems/x86_64-linux.nix ])
                 ++ (pkgs.lib.optionals (pkgs.stdenv.system == "aarch64-darwin") [ ./systems/aarch64-darwin.nix ])
