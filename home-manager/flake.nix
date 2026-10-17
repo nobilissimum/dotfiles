@@ -3,12 +3,10 @@
 
     inputs = {
         fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*";
-        # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-        nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2505.*";
+        nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2605.*";  # github:nixos/nixpkgs/nixos-26.05
         nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
         home-manager = {
-            # url = "github:nix-community/home-manager/release-25.05";
-            url = "https://flakehub.com/f/nix-community/home-manager/0.2505.*";
+            url = "https://flakehub.com/f/nix-community/home-manager/0.2605.*";  # github:nix-community/home-manager/release-26.05
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
