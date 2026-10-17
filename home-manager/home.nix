@@ -47,6 +47,7 @@ in
             pkgs.bat
             pkgs.bison
             pkgs.deno
+            pkgs.exiftool
             pkgs.fd
             pkgs.gawk
             pkgs.gcc
