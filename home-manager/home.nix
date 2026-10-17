@@ -80,6 +80,7 @@ in
             pkgs.xclip
             pkgs.zig
             pkgs.zip
+            pkgs.zsh
 
             # Credentials
             pkgs.docker-credential-helpers
@@ -99,7 +100,8 @@ in
             pkgs.cargo
             pkgs.rustPlatform.rustcSrc
 
-            # Neovim dependencies
+            # Neovim
+            pkgs.neovim
             pkgs.nixpkgs-fmt
             pkgs.sql-formatter
 
@@ -225,17 +227,6 @@ in
     programs = {
         home-manager = {
             enable = true;
-        };
-
-        neovim = {
-            enable = true;
-            viAlias = true;
-            vimAlias = true;
-        };
-
-        zsh = {
-            enable = true;
-            sessionVariables = sessionVariables;
         };
     };
 }

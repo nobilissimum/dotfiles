@@ -2,3 +2,4 @@
 # inherit environment variables even when .zshrc is skipped (non-interactive shells).
 
 [ -f "${HOME}/.shrc/env.sh" ] && . "${HOME}/.shrc/env.sh"
+[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ] && . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"

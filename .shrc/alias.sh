@@ -13,3 +13,6 @@ alias c='clearall'
 
 alias lazg='lazygit'
 alias lazgi='lazygitinit'
+
+alias vi='nvim'
+alias vim='nvim'
