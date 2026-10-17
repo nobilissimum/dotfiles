@@ -26,6 +26,11 @@ tasks:
     cmds:
       - nix run home-manager -- switch --flake ./home-manager/#nobi --impure -b backup
 
+  nix-update:
+    desc: Update nix lock
+    cmds:
+      - nix flake update --flake ./home-manager
+
   git-ignore:
     desc: Setup global gitignore
     cmds:
