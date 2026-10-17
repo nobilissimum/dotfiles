@@ -38,7 +38,7 @@ in
 
         activation = {
             tpm = config.lib.dag.entryAfter ["writeBoundary"] ''
-                [[ -d ~/.tmux-plugins/tpm ]] && rm -rf ~/.tmux/plugins/tpm
+                [[ -d ~/.tmux/plugins/tpm ]] && rm -rf ~/.tmux/plugins/tpm
                 ${pkgs.git}/bin/git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm &> /dev/null 2>&1
             '';
         };
