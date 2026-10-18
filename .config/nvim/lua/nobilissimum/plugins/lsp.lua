@@ -108,7 +108,64 @@ return {
                 end,
             })
 
-            -- ---------- AI Generated Code - Sonnet 4.6 ----------
+            local restarting = false
+            local function safe_lsp_restart()
+                if restarting then
+                    return
+                end
+                restarting = true
+
+                local pending = 0
+                local function done_one()
+                    pending = pending - 1
+                    if pending <= 0 then
+                        restarting = false
+                    end
+                end
+
+                for _, client in ipairs(vim.lsp.get_clients()) do
+                    if not client:is_stopped() then
+                        local config = client.config
+                        local bufs = vim.tbl_filter(function(b)
+                            if not vim.api.nvim_buf_is_valid(b) then
+                                return false
+                            end
+                            local name = vim.api.nvim_buf_get_name(b)
+                            return name ~= "" and vim.uv.fs_stat(name) ~= nil
+                        end, vim.tbl_keys(client.attached_buffers))
+
+                        pending = pending + 1
+                        client:stop()
+
+                        local tries = 0
+                        local timer = assert(vim.uv.new_timer())
+                        timer:start(
+                            50,
+                            50,
+                            vim.schedule_wrap(function()
+                                tries = tries + 1
+                                if client:is_stopped() or tries > 60 then
+                                    timer:stop()
+                                    timer:close()
+                                    if client:is_stopped() then
+                                        for _, b in ipairs(bufs) do
+                                            if vim.api.nvim_buf_is_valid(b) then
+                                                pcall(vim.lsp.start, config, { bufnr = b })
+                                            end
+                                        end
+                                    end
+                                    done_one()
+                                end
+                            end)
+                        )
+                    end
+                end
+
+                if pending == 0 then
+                    restarting = false
+                end
+            end
+
             local last_branch = nil
             local branch_check_running = false
             vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
@@ -130,17 +187,16 @@ return {
                                 branch = nil
                             end
 
+                            last_branch = branch or last_branch
                             if branch and last_branch and branch ~= last_branch then
                                 vim.cmd("checktime")
-                                vim.cmd("LspRestart")
+                                safe_lsp_restart()
                                 vim.notify("Branch changed → LSP restarted", vim.log.levels.INFO)
                             end
-                            last_branch = branch or last_branch
                         end)
                     )
                 end,
             })
-            -- ---------- ------------------------------ ----------
 
             local gdscript_on_attach = function(client, bufnr)
                 vim.notify("Attached gdscript: " .. vim.inspect(client.config.cmd) .. "\nBuffer number: " .. bufnr, vim.log.levels.DEBUG)
