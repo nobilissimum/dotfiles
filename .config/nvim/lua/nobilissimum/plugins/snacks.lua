@@ -73,6 +73,17 @@ return {
         vim.api.nvim_create_autocmd("User", {
             pattern = "VeryLazy",
             callback = function()
+                local min_timeout = 5000
+                local snacks_notify = vim.notify
+                vim.notify = function(msg, level, opts)
+                    opts = opts or {}
+                    if (opts.timeout ~= 0) and (opts.timeout or 0) < min_timeout then
+                        opts.timeout = min_timeout
+                    end
+
+                    return snacks_notify(msg, level, opts)
+                end
+
                 vim.api.nvim_err_writeln = function(msg)
                     vim.notify(msg, vim.log.levels.ERROR, {
                         title = "Neovim Error",
