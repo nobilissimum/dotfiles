@@ -36,7 +36,6 @@ $cobol\
 $daml\
 $dart\
 $deno\
-$dotnet\
 $erlang\
 $fennel\
 $guix_shell\
@@ -73,6 +72,7 @@ $status\
 $aws\
 $c\
 $docker_context\
+$dotnet\
 $elixir\
 $elm\
 $golang\
@@ -95,6 +95,7 @@ aws = '#FF9C08'
 c = '#699DD3'
 cmd_duration = '#65A884'
 docker = '#1D63ED'
+dotnet = '#512BD4'
 elixir = '#9F8FAF'
 elm = '#E79F00'
 golang = '#00ADD8'
@@ -148,6 +149,12 @@ read_only = ''
 format = ' [$symbol ( $version)]($style) '
 style = 'bold fg:docker'
 symbol = '󰡨'
+
+
+[dotnet]
+format = ' [$symbol ( $version)]($style) '
+style = 'bold fg:dotnet'
+symbol = '󰪮'
 
 
 [elixir]
