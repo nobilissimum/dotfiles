@@ -108,12 +108,7 @@ return {
                 selection_caret = "  • ",
 
                 mappings = {
-                    i = {
-                        ["<C-d>"] = tl_actions.delete_buffer,
-                    },
                     n = {
-                        ["<C-d>"] = tl_actions.delete_buffer,
-                        ["dd"] = tl_actions.delete_buffer,
                         ["y"] = function()
                             local selection = require("telescope.actions.state").get_selected_entry()
                             if selection then
@@ -165,6 +160,13 @@ return {
                 buffers = {
                     ignore_current_buffer = true,
                     sort_mru = true,
+                    mappings = {
+                        i = { ["<C-d>"] = tl_actions.delete_buffer },
+                        n = {
+                            ["<C-d>"] = tl_actions.delete_buffer,
+                            ["dd"] = tl_actions.delete_buffer,
+                        },
+                    },
                 },
                 find_files = { hidden = true },
                 live_grep = {
