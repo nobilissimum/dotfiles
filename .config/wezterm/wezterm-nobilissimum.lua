@@ -3,17 +3,18 @@ local wezterm = require("wezterm")
 local function is_module_available(path)
     if package.loaded[path] then
         return true
-    else
-        for _, searcher in ipairs(package.searchers) do
-            local loader = searcher(path)
-            if type(loader) == "function" then
-                package.preload[path] = loader
-                return true
-            end
-        end
-
-        return false
     end
+
+    local searchers = package.searchers or package.loaders
+    for _, searcher in ipairs(searchers) do
+        local loader = searcher(path)
+        if type(loader) == "function" then
+            package.preload[path] = loader
+            return true
+        end
+    end
+
+    return false
 end
 
 local config = {}
@@ -211,29 +212,6 @@ config.front_end = "WebGpu"
 config.bold_brightens_ansi_colors = false
 config.webgpu_power_preference = "HighPerformance"
 config.freetype_load_target = "Normal"
-
-local webgpu_preferred_adapter = {}
-local gpu_deprio = {}
-for _, gpu in pairs(wezterm.gui.enumerate_gpus()) do
-    if gpu.backend == "Dx12" and gpu.device_type == "DiscreteGpu" then
-        webgpu_preferred_adapter = gpu
-        break
-    end
-
-    if gpu.device_type == "DiscreteGpu" and ((next(gpu_deprio) ~= nil and gpu_deprio.backend ~= "Vulkan") or (next(gpu_deprio) == nil)) then
-        gpu_deprio = gpu
-    end
-end
-
-if next(webgpu_preferred_adapter) == nil and next(gpu_deprio) ~= nil then
-    webgpu_preferred_adapter = gpu_deprio
-end
-
-if next(webgpu_preferred_adapter) == nil then
-    config.front_end = "OpenGL"
-else
-    config.webgpu_preferred_adapter = webgpu_preferred_adapter
-end
 
 
 -- Audio
