@@ -15,7 +15,7 @@ export DOCKER_BUILDKIT=1
 
 
 # Godot
-export GODOT_LSP_HOST="$(grep -m1 nameserver /etc/resolv.conf | awk '{print $2}')"
+[[ "$OSTYPE" == "linux" ]] && export GODOT_LSP_HOST="$(grep -m1 nameserver /etc/resolv.conf | awk '{print $2}')"
 export GODOT_LSP_PORT=6005
 
 
