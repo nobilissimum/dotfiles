@@ -85,6 +85,11 @@ gitblameuser () {
 
 
 
+# Mise
+eval "$(mise activate bash)"
+
+
+
 # Tmux
 tmxdirs () {
     if [ ! -z "${TMUX}" ]; then

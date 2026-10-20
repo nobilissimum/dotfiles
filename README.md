@@ -38,6 +38,12 @@ Install specified packages in `home.nix` by running. You may not use the flag `-
 nix run home-manager -- switch --flake ./home-manager/#nobi --impure -b backup
 ```
 
+Install tools using [mise](https://github.com/jdx/mise)
+
+```sh
+mise install  # or `task mise-setup` specified in taskfile.dist.yml
+```
+
 #### Secure Shell
 
 Create SSH key. This would be used for **GitHub** and **SSH** connections.

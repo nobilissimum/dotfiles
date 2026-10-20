@@ -5,6 +5,9 @@ version: '3'
 vars:
   FLAKEHUB_TOKEN_URL: https://flakehub.com/token/create?description=Determinate+NixD+on+Nobilissimum
 
+  GO_VERSION: 1.25
+  NODE_VERSION: 22
+
 tasks:
   default:
     cmds:
@@ -36,3 +39,43 @@ tasks:
     cmds:
       - touch ~/.gitignore
       - git config --global core.excludesfile ~/.gitignore
+
+  mise-setup:
+    desc: Setup tools using mise (~/.config/mise/config.toml)
+    cmds:
+      - mise install
+
+  mise-go-install:
+    desc: Install Golang using mise
+    cmds:
+      - mise install go@{{.GO_VERSION}}
+
+  mise-go-uninstall:
+    desc: Uninstall Golang using mise
+    cmds:
+      - mise uninstall go@{{.GO_VERSION}}
+
+  mise-go-ls:
+    desc: List installed Golang versions
+    cmds:
+      - mise ls go
+
+  mise-go-ls-remote:
+    desc: List Golang versions ready for installation
+    cmds:
+      - mise ls-remote go
+
+  mise-go-use-global:
+    desc: Set global Golang version
+    cmds:
+      - mise use --global go@{{.GO_VERSION}}
+
+  mise-go-use-local:
+    desc: Set local Golang version. This would create .mist.toml
+    cmds:
+      - mise use go@{{.GO_VERSION}}
+
+  mise-go-use-shell:
+    desc: Set Golang version for the current session
+    cmds:
+      - mise shell go@{{.GO_VERSION}}

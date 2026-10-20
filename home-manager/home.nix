@@ -66,9 +66,9 @@ in
             pkgs.libevent.dev
             pkgs.luajit
             pkgs.luajitPackages.luarocks
+            pkgs.mise
             pkgs.ncurses
             pkgs.ncurses.dev
-            pkgs.nodejs_22
             pkgs.p7zip
             pkgs.pass
             pkgs.pinentry-curses
@@ -147,6 +147,10 @@ in
             };
             "${xdgConfigHome}/lf" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/lf";
+                force = true;
+            };
+            "${xdgConfigHome}/mise" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/mise";
                 force = true;
             };
             "${xdgConfigHome}/nvim" = {

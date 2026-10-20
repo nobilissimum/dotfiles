@@ -84,6 +84,11 @@ gitblameuser () {
 
 
 
+# Mise
+eval "$(mise activate zsh)"
+
+
+
 # Tmux
 tmxdirs () {
     if [ ! -z "${TMUX}" ]; then

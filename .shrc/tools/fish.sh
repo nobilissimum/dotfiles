@@ -1,3 +1,8 @@
+# Mise
+eval "$(mise activate fish)"
+
+
+
 # Rust
 CARGO_HOME="$HOME/.cargo"
 if [ -f "$CARGO_HOME/env.fish" ]; then
