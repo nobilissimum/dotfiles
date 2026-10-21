@@ -214,6 +214,34 @@ config.webgpu_power_preference = "HighPerformance"
 config.freetype_load_target = "Normal"
 
 
+local webgpu_preferred_adapter = {}
+local gpu_deprio = {}
+
+local ok, gpus = pcall(wezterm.gui.enumerate_gpus)
+if ok then
+    for _, gpu in pairs(gpus) do
+        if gpu.backend == "Dx12" and gpu.device_type == "DiscreteGpu" then
+            webgpu_preferred_adapter = gpu
+            break
+        end
+
+        if gpu.device_type == "DiscreteGpu" and ((next(gpu_deprio) ~= nil and gpu_deprio.backend ~= "Vulkan") or (next(gpu_deprio) == nil)) then
+            gpu_deprio = gpu
+        end
+    end
+end
+
+if next(webgpu_preferred_adapter) == nil and next(gpu_deprio) ~= nil then
+    webgpu_preferred_adapter = gpu_deprio
+end
+
+if next(webgpu_preferred_adapter) == nil then
+    config.front_end = "OpenGL"
+else
+    config.webgpu_preferred_adapter = webgpu_preferred_adapter
+end
+
+
 -- Audio
 config.audible_bell = "Disabled"
 
