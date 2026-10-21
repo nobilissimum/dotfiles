@@ -6,8 +6,7 @@ return {
     config = function()
         local ts = require("nvim-treesitter")
 
-        -- Preinstalled on first launch; install() skips anything already present
-        ts.install({
+        local preinstall = {
             "bash",
             "c",
             "html",
@@ -26,17 +25,52 @@ return {
             "vim",
             "vimdoc",
             "yaml",
-        })
+        }
 
-        local installing = {} -- avoid duplicate installs for the same language
+        local installing = {}
+        for _, l in ipairs(preinstall) do installing[l] = true end
+
+        local function attach(lang)
+            pcall(function()
+                local get = vim.treesitter.query.get --[[@as table]]
+                if get.clear then get:clear() end
+            end)
+
+            local ok, err = pcall(vim.treesitter.language.add, lang)
+            if not ok then
+                vim.notify("Treesitter: could not load parser " .. lang .. ": " .. tostring(err), vim.log.levels.ERROR)
+                return
+            end
+
+            for _, b in ipairs(vim.api.nvim_list_bufs()) do
+                if vim.api.nvim_buf_is_loaded(b)
+                    and vim.treesitter.language.get_lang(vim.bo[b].filetype) == lang
+                then
+                    pcall(vim.treesitter.stop, b)
+                    local started, serr = pcall(vim.treesitter.start, b, lang)
+                    if not started then
+                        vim.notify("Treesitter: failed to start for " .. lang .. ": " .. tostring(serr), vim.log.levels.WARN)
+                    end
+                end
+            end
+        end
+
+        ts.install(preinstall):await(function()
+            vim.schedule(function()
+                for _, l in ipairs(preinstall) do
+                    installing[l] = nil
+                    if vim.list_contains(ts.get_installed(), l) then attach(l) end
+                end
+            end)
+        end)
+
         vim.api.nvim_create_autocmd("FileType", {
             callback = function(args)
-                local buf = args.buf
                 local lang = vim.treesitter.language.get_lang(args.match)
                 if not lang then return end
 
                 if vim.list_contains(ts.get_installed(), lang) then
-                    pcall(vim.treesitter.start, buf)
+                    attach(lang)
                     return
                 end
 
@@ -47,11 +81,10 @@ return {
                 installing[lang] = true
                 vim.notify("Installing treesitter parser: " .. lang, vim.log.levels.INFO)
                 ts.install(lang):await(function()
-                    installing[lang] = nil
                     vim.schedule(function()
-                        if vim.api.nvim_buf_is_valid(buf)
-                            and vim.list_contains(ts.get_installed(), lang) then
-                            pcall(vim.treesitter.start, buf)
+                        installing[lang] = nil
+                        if vim.list_contains(ts.get_installed(), lang) then
+                            attach(lang)
                             vim.notify("Installed treesitter parser: " .. lang, vim.log.levels.INFO)
                         else
                             vim.notify("Failed to install parser: " .. lang, vim.log.levels.ERROR)
