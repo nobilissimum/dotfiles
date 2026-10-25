@@ -18,9 +18,9 @@ return {
     keys = {
         { "<leader>sh", function() require("telescope.builtin").help_tags() end, desc = "[S]earch [H]elp" },
         { "<leader>sk", function() require("telescope.builtin").keymaps() end, desc = "[S]earch [K]eymaps" },
-        { "<C-p>", function() require("telescope.builtin").find_files() end, desc = "Search files" },
+        { "<leader>sp", function() require("telescope.builtin").find_files() end, desc = "Search files" },
         {
-            "<leader>sp",
+            "<C-p>",
             function()
                 require("telescope.builtin").find_files({
                     hidden = true,
