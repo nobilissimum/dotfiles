@@ -1,0 +1,14 @@
+version: '3'
+
+includes:
+  dist:
+    taskfile: ./taskfile.dist.yml
+    flatten: true
+    excludes: [shell]
+
+tasks:
+  shell:
+    desc: Prints out what shell the current session is using
+    cmds:
+      - echo $SHELL
+    silent: true

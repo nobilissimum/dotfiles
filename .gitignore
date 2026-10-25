@@ -14,5 +14,11 @@ flake.lock
 # Wezterm
 wezterm-custom.lua
 
+# Taskfile
+Taskfile.yaml
+Taskfile.yml
+taskfile.yaml
+taskfile.yml
+
 # Tmux
 tmux-terminal
