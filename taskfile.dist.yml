@@ -9,6 +9,10 @@ vars:
   NODE_VERSION: 22
 
 tasks:
+  # --------------------------------------
+  # Header
+  # --------------------------------------
+
   default:
     cmds:
       - task: help
@@ -33,6 +37,16 @@ tasks:
     desc: Update nix lock
     cmds:
       - nix flake update --flake ./home-manager
+
+  setup:
+    desc: Run setup commands
+    cmds:
+      - task: mise-setup
+      - task: ssh-setup
+
+  # --------------------------------------
+  # Body
+  # --------------------------------------
 
   git-ignore:
     desc: Setup global gitignore
@@ -79,3 +93,8 @@ tasks:
     desc: Set Golang version for the current session
     cmds:
       - mise shell go@{{.GO_VERSION}}
+
+  ssh-setup:
+    desc: Setup SSH config
+    cmds:
+      - cp ./.ssh/config $HOME/.ssh/config
