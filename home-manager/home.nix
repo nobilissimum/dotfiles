@@ -203,10 +203,6 @@ in
                 force = true;
             };
 
-            ".ssh/config" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.ssh/config";
-                force = true;
-            };
             ".tmux.conf" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.tmux.conf";
                 force = true;
