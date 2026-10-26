@@ -1,4 +1,6 @@
-local custom_config = function(config)
+local M = {}
+
+function M.config_custom(config)
     -- For WSL
     config.default_prog = { "C:\\Windows\\System32\\wsl.exe", "-d", "openSUSE-Tumbleweed", "--cd", "~" }
 
@@ -10,7 +12,7 @@ local custom_config = function(config)
     return config
 end
 
-local font_specs = {
+M.font_specs = {
     { name = "Geist Mono", regular = "Regular", half = "Bold", bold = "Bold", native = true },
     { name = "GeistMono Nerd Font", regular = "Regular", half = "Regular", bold = "Regular", native = true },
 }
@@ -34,7 +36,4 @@ local font_specs = {
 -- wezterm.font("Geist Mono Black", {weight="Regular", ...})
 
 
-return  {
-    config = custom_config,
-    font_specs = font_specs,
-}
+return M

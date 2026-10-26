@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
+local M = {}
 
-local function is_module_available(path)
+function M.is_module_available(path)
     if package.loaded[path] then
         return true
     end
@@ -245,7 +246,5 @@ end
 -- Audio
 config.audible_bell = "Disabled"
 
-return {
-    config = config,
-    is_module_available = is_module_available,
-}
+M.config = config
+return M
