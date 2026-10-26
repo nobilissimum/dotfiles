@@ -25,8 +25,8 @@ in
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/superfile/hotkeys.toml";
                 force = true;
             };
-            "${homeDirectory}/Library/Application Support/superfile/themes/hush.toml" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/superfile/themes/hush.toml";
+            "${homeDirectory}/Library/Application Support/superfile/theme/hush.toml" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/superfile/theme/hush.toml";
                 force = true;
             };
 
