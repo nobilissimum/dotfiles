@@ -92,8 +92,8 @@ border_top_left = '╭'
 border_top_right = '╮'
 border_bottom_left = '╰'
 border_bottom_right = '╯'
-border_middle_left = '├'
-border_middle_right = '┤'
+border_middle_left = ' '
+border_middle_right = ' '
 #
 # ==========PLUGINS========== #
 # Plugins means that you need to install some external dependencies to use them.
