@@ -4,8 +4,8 @@ confirm = ['enter', 'right', 'l']
 quit = ['q', 'esc']
 cd_quit = ['Q', '']
 # movement
-list_up = ['up', 'k']
-list_down = ['down', 'j']
+list_up = ['up', 'k', 'ctrl+p']
+list_down = ['down', 'j', 'ctrl+n']
 page_up = ['ctrl+u', '']
 page_down = ['ctrl+d', '']
 # file panel control
@@ -21,7 +21,7 @@ toggle_reverse_sort = ['R', '']
 focus_on_process_bar = ['P', '']
 focus_on_sidebar = ['S', '']
 focus_on_metadata = ['M', '']
-# create file/directory and rename 
+# create file/directory and rename
 file_panel_item_create = ['a', '']
 file_panel_item_rename = ['r', '']
 # file operate
