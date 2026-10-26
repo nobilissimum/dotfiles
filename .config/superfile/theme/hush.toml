@@ -5,7 +5,7 @@ code_syntax_highlight = "catppuccin-macchiato"
 
 # ========= Border =========
 file_panel_border = "#535b68" # Overlay0
-sidebar_border = "#1f2a35"    # Base
+sidebar_border = "#1d232e"    # Base
 footer_border = "#535b68"     # Overlay0
 
 # ========= Border Active =========
@@ -15,11 +15,11 @@ footer_border_active = "#65a884"     # Green
 modal_border_active = "#393c4d"      # Overlay2
 
 # ========= Background (bg) =========
-full_screen_bg = "#1f2a35" # Base
-file_panel_bg = "#1f2a35"  # Base
-sidebar_bg = "#1f2a35"     # Base
-footer_bg = "#1f2a35"      # Base
-modal_bg = "#1f2a35"       # Base
+full_screen_bg = "#1d232e" # Base
+file_panel_bg = "#1d232e"  # Base
+sidebar_bg = "#1d232e"     # Base
+footer_bg = "#1d232e"      # Base
+modal_bg = "#1d232e"       # Base
 
 # ========= Foreground (fg) =========
 full_screen_fg = "#a5adcb" # Subtext0
@@ -42,19 +42,19 @@ gradient_color = ["#74add2", "#a980c4"] # [Blue, Mauve]
 file_panel_top_directory_icon = "#65a884" # Green
 file_panel_top_path = "#74add2"           # Blue
 file_panel_item_selected_fg = "#74add2"   # Sky
-file_panel_item_selected_bg = "#1f2a35"   # Base
+file_panel_item_selected_bg = "#1d232e"   # Base
 
 # ========= Sidebar Special Items =========
 sidebar_title = "#74add2"            # Sapphire
 sidebar_item_selected_fg = "#74add2" # Sky
-sidebar_item_selected_bg = "#1f2a35" # Base
+sidebar_item_selected_bg = "#1d232e" # Base
 sidebar_divider = "#393c4d"          # Overlay2
 
 # ========= Modal Special Items =========
-modal_cancel_fg = "#1d232e" # Surface0
+modal_cancel_fg = "#121c26" # Surface0
 modal_cancel_bg = "#f77172" # Maroon
 
-modal_confirm_fg = "#1d232e" # Surface0
+modal_confirm_fg = "#121c26" # Surface0
 modal_confirm_bg = "#74add2" # Sky
 
 # ========= Help Menu =========
