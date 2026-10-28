@@ -25,6 +25,22 @@ Colors = {
     cyan_dark = "#223442",
 
     white = "#dde2f3",
+
+    -- Derived: white blended over hush.main
+    comment = "#737987", -- 45% white
+    subtext = "#9a9fae", -- 65% white
+
+    -- Derived: accent blended over hush.main
+    diff = {
+        red = { subtle = "#49333c", strong = "#693e46" },     -- 20% / 35%
+        green = { subtle = "#2b3e3f", strong = "#36524c" },   -- 20% / 35%
+    },
+    tint = { -- 35% accent over hush.main
+        magenta = "#4e4462",
+        blue = "#3b5367",
+        cyan = "#234b56",
+        yellow = "#5b5d53",
+    },
 }
 
 

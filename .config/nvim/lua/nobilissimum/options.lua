@@ -109,6 +109,12 @@ vim.keymap.set("n", "<C-s>", ":%s/\\%u00A0/ /g<CR>", { desc = "Sanitize text" })
 
 
 -- Filetypes
+local file_extension = {
+    ththeme = "xml",
+    tmLanguage = "xml",
+    tmTheme = "xml",
+    tmlanguage = "xml",
+}
 local file_names = {
     [".env"] = "sh",
 }
@@ -120,7 +126,11 @@ local filetype_patterns = {}
 for pattern, alias in pairs(file_aliases) do
     filetype_patterns[pattern] = { alias.filetype, { priority = 10 } }
 end
-vim.filetype.add({ filename = file_names, pattern = filetype_patterns })
+vim.filetype.add({
+    extension = file_extension,
+    filename = file_names,
+    pattern = filetype_patterns,
+})
 
 -- nvim-web-devicons has no pattern overrides, so register an icon per matching filename on open
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPre" }, {

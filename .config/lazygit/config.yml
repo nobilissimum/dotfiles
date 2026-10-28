@@ -1,25 +1,23 @@
+git:
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
 gui:
-    mouseEvents: false
-    sidePanelWidth: 0.3
-
-    theme:
-        activeBorderColor:
-            - '#74add2'
-            - bold
-
-        inactiveBorderColor:
-            - '#6c7077'
-
-        selectedLineBgColor:
-            - '#121c26'
-            - bold
-
-    showIcons: true
-    nerdFontsVersion: '3'
-    showFileIcons: true
-
-    border: 'rounded'
-
+  mouseEvents: false
+  sidePanelWidth: 0.3
+  theme:
+    activeBorderColor:
+      - '#74add2'
+      - bold
+    inactiveBorderColor:
+      - '#6c7077'
+    selectedLineBgColor:
+      - '#121c26'
+      - bold
+  showIcons: true
+  nerdFontsVersion: '3'
+  showFileIcons: true
+  border: 'rounded'
 os:
-    editPreset: 'vim'
-    copyToClipboardCmd: 'echo {{text}} | xclip -selection clipboard && kill -9 $(pgrep xclip)'
+  editPreset: 'vim'
+  copyToClipboardCmd: 'echo {{text}} | xclip -selection clipboard && kill -9 $(pgrep xclip)'

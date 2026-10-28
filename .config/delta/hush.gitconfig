@@ -1,0 +1,30 @@
+[delta "hush"]
+	blame-palette = "#1d232e #202733 #121c26 #223442 #2a3342"
+	commit-decoration-style = "#737987" bold box ul
+	dark = true
+	file-decoration-style = "#737987"
+	file-style = "#dde2f3"
+	hunk-header-decoration-style = "#737987" box ul
+	hunk-header-file-style = bold
+	hunk-header-line-number-style = bold "#9a9fae"
+	hunk-header-style = file line-number syntax
+	line-numbers-left-style = "#737987"
+	line-numbers-minus-style = bold "#f77172"
+	line-numbers-plus-style = bold "#65a884"
+	line-numbers-right-style = "#737987"
+	line-numbers-zero-style = "#737987"
+	# 35% red 65% base
+	minus-emph-style = bold syntax "#693e46"
+	# 20% red 80% base
+	minus-style = syntax "#49333c"
+	# 35% green 65% base
+	plus-emph-style = bold syntax "#36524c"
+	# 20% green 80% base
+	plus-style = syntax "#2b3e3f"
+	map-styles = \
+		bold purple => syntax "#4e4462", \
+		bold blue => syntax "#3c5367", \
+		bold cyan => syntax "#234b56", \
+		bold yellow => syntax "#5b5d54"
+	# Should match the name of the bat theme
+	syntax-theme = Hush

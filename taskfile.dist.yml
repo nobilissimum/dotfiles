@@ -41,7 +41,8 @@ tasks:
   setup:
     desc: Run setup commands
     cmds:
-      - task: git-ignore-setup
+      - task: bat-setup
+      - task: git-setup
       - task: mise-setup
       - task: ssh-setup
 
@@ -49,11 +50,24 @@ tasks:
   # Body
   # --------------------------------------
 
-  git-ignore-setup:
-    desc: Setup global gitignore
+  bat-setup:
+    desc: Build bat to detect custom theme
+    cmds:
+      - bat cache --build
+
+  git-setup:
+    desc: Setup global git configurations
     cmds:
       - touch ~/.gitignore
       - git config --global core.excludesfile ~/.gitignore
+      - git config --global core.pager delta
+      - git config --global delta.features hush
+      - git config --global delta.navigate true
+      - git config --global delta.dark true
+      - git config --global delta.syntax-theme 'Hush'
+      - git config --global --fixed-value --get include.path ~/.config/delta/hush.gitconfig || git config --global --add include.path ~/.config/delta/hush.gitconfig
+      - git config --global interactive.diffFilter 'delta --color-only'
+      - git config --global merge.conflictStyle zdiff3
 
   mise-setup:
     desc: Setup tools using mise (~/.config/mise/config.toml)

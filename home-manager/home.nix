@@ -46,6 +46,7 @@ in
         packages = [
             pkgs.bat
             pkgs.bison
+            pkgs.delta  # git
             pkgs.deno
             pkgs.exiftool
             pkgs.fd
@@ -137,8 +138,16 @@ in
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/.gitignore";
                 force = true;
             };
+            "${xdgConfigHome}/bat" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/bat";
+                force = true;
+            };
             "${xdgConfigHome}/btop" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/btop";
+                force = true;
+            };
+            "${xdgConfigHome}/delta" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/delta";
                 force = true;
             };
             "${xdgConfigHome}/lazygit" = {
