@@ -40,7 +40,8 @@ nix run home-manager -- switch --flake ./home-manager/#nobi --impure -b backup
 
 Run taskfile setup command. This would do the following things:
 
-- Creates a global gitignore
+- Initialize global gitignore
+- Setup color theme of concatenation of git and lazygit
 - Install mise tools using `mise install`
 - Apply SSH config by making a copy (compared to the previous that nix creates a symlink)
 
