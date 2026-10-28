@@ -1,69 +1,69 @@
 return {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    cmd = "Neotree",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-web-devicons",
-        "MunifTanjim/nui.nvim",
-    },
-    keys = {
-        { "<C-e>", "<CMD>Neotree toggle<CR>", desc = "Neo-tree toggle", noremap = true, silent = true },
-        { "<C-S-e>", "<CMD>Neotree reveal<CR>", desc = "Neo-tree toggle", noremap = true, silent = true },
-        { "<M-e>", "<CMD>Neotree reveal<CR>", desc = "Neo-tree reveal", noremap = true, silent = true },
-    },
-    config = function()
-        require("neo-tree").setup({
-            close_if_last_window = true,
-            sort_case_insensitive = false,
+  "nvim-neo-tree/neo-tree.nvim",
+  branch = "v3.x",
+  cmd = "Neotree",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-tree/nvim-web-devicons",
+    "MunifTanjim/nui.nvim",
+  },
+  keys = {
+    { "<C-e>", "<CMD>Neotree toggle<CR>", desc = "Neo-tree toggle", noremap = true, silent = true },
+    { "<C-S-e>", "<CMD>Neotree reveal<CR>", desc = "Neo-tree toggle", noremap = true, silent = true },
+    { "<M-e>", "<CMD>Neotree reveal<CR>", desc = "Neo-tree reveal", noremap = true, silent = true },
+  },
+  config = function()
+    require("neo-tree").setup({
+      close_if_last_window = true,
+      sort_case_insensitive = false,
 
-            event_handlers = {
-                {
-                    event = "file_open_requested",
-                    handler = function()
-                        require("neo-tree.command").execute({ action = "close" })
-                    end,
-                },
-            },
-            filesystem = {
-                filtered_items = {
-                    visible = true,
-                    hide_dotfiles = false,
-                    hide_gitignored = false,
-                },
-            },
-            window = {
-                mappings = {
-                    ["h"] = "close_node",
-                    ["l"] = "open",
-                },
-                position = "current",
-            },
-            default_component_configs = {
-                git_status = {
-                    symbols = {
-                        added = "",
-                        modified = "",
-                        deleted = "󰇾",
-                        renamed = "󰁕",
+      event_handlers = {
+        {
+          event = "file_open_requested",
+          handler = function()
+            require("neo-tree.command").execute({ action = "close" })
+          end,
+        },
+      },
+      filesystem = {
+        filtered_items = {
+          visible = true,
+          hide_dotfiles = false,
+          hide_gitignored = false,
+        },
+      },
+      window = {
+        mappings = {
+          ["h"] = "close_node",
+          ["l"] = "open",
+        },
+        position = "current",
+      },
+      default_component_configs = {
+        git_status = {
+          symbols = {
+            added = "",
+            modified = "",
+            deleted = "󰇾",
+            renamed = "󰁕",
 
-                        untracked = "",
-                        ignored = "",
-                        unstaged = "",
-                        staged = "󰏫",
-                        conflict = "",
-                    },
-                },
-            },
-        })
+            untracked = "",
+            ignored = "",
+            unstaged = "",
+            staged = "󰏫",
+            conflict = "",
+          },
+        },
+      },
+    })
 
-        -- Colors
-        vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { bg = Colors.hush.main, fg = Colors.blue, bold = true })
-        vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = Colors.hush.dark, bold = true })
+    -- Colors
+    vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { bg = Colors.hush.main, fg = Colors.blue, bold = true })
+    vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = Colors.hush.dark, bold = true })
 
-        vim.api.nvim_set_hl(0, "NeoTreeFileStats", { fg = Colors.bright_black })
+    vim.api.nvim_set_hl(0, "NeoTreeFileStats", { fg = Colors.bright_black })
 
-        vim.api.nvim_set_hl(0, "NeoTreeFloatNormal", { bg = Colors.hush.main })
-        vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { bg = Colors.hush.main, fg = Colors.hush.main })
-    end,
+    vim.api.nvim_set_hl(0, "NeoTreeFloatNormal", { bg = Colors.hush.main })
+    vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { bg = Colors.hush.main, fg = Colors.hush.main })
+  end,
 }

@@ -1,724 +1,764 @@
 return {
-    {
-        "neovim/nvim-lspconfig",
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = {
-            -- LSP
-            { "mason-org/mason.nvim", config = true },
-            "mason-org/mason-lspconfig.nvim",
-            "WhoIsSethDaniel/mason-tool-installer.nvim",
+  {
+    "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      -- LSP
+      { "mason-org/mason.nvim", config = true },
+      "mason-org/mason-lspconfig.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
 
-            -- Completion
-            "saghen/blink.cmp",
+      -- Completion
+      "saghen/blink.cmp",
 
-            -- Navigation
-            "nvim-telescope/telescope.nvim",
+      -- Navigation
+      "nvim-telescope/telescope.nvim",
 
-            -- Formatting
-            "stevearc/conform.nvim",
-        },
-        config = function()
-            -- Vim diagnostic
-            vim.diagnostic.config({
-                virtual_text = {
-                    source = "if_many",
-                    prefix = "●",
-                    spacing = 2,
-                },
-                float = {
-                    source = true,
-                    border = "rounded",
-                },
-                signs = false,
-                underline = true,
-                update_in_insert = false,
-                severity_sort = true,
-            })
-
-            -- LSP keymaps
-            vim.keymap.set("n", "<leader>lr", ":LspRestart<CR>", { desc = "[L]SP [R]estart" })
-
-            vim.api.nvim_create_autocmd("LspAttach", {
-                group = vim.api.nvim_create_augroup("nobilissimum-lsp-attach", { clear = true }),
-                callback = function(event)
-                    local map = function(keys, func, desc, mode)
-                        mode = mode or "n"
-                        vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-                    end
-
-                    local telescope = function(picker)
-                        return function()
-                            require("telescope.builtin")[picker]()
-                        end
-                    end
-
-                    map("gd", telescope("lsp_definitions"), "[G]oto [D]efinition")
-                    map("gr", telescope("lsp_references"), "[G]oto [R]eferences")
-                    map("gI", telescope("lsp_implementations"), "[G]oto [I]mplementation")
-
-                    map("<leader>D", telescope("lsp_type_definitions"), "Type [D]efinition")
-                    map("<leader>ds", telescope("lsp_document_symbols"), "[D]ocument [S]ymbols")
-                    map("<leader>ws", telescope("lsp_dynamic_workspace_symbols"), "[W]orkspace [S]ymbols")
-                    map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-
-                    -- ---------- AI Generated Code - Sonnet 4.6 ----------
-                    map("<leader>lr", function()
-                        vim.cmd("LspRestart")
-                        vim.notify("LSP restarted", vim.log.levels.INFO)
-                    end, "[L]SP [R]estart")
-                    -- ---------- ------------------------------ ----------
-
-                    map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-
-                    local client = vim.lsp.get_client_by_id(event.data.client_id)
-                    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-                        local highlight_augroup = vim.api.nvim_create_augroup("nobilissimum-lsp-highlight", { clear = false })
-                        vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event.buf })
-                        vim.api.nvim_create_autocmd({ "CursorHold" }, {
-                            buffer = event.buf,
-                            group = highlight_augroup,
-                            callback = vim.lsp.buf.document_highlight,
-                        })
-
-                        vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" }, {
-                            buffer = event.buf,
-                            group = highlight_augroup,
-                            callback = vim.lsp.buf.clear_references,
-                        })
-
-                        vim.api.nvim_create_autocmd("LspDetach", {
-                            group = vim.api.nvim_create_augroup("nobilissimum-lsp-detach", { clear = true }),
-                            callback = function(event2)
-                                vim.lsp.buf.clear_references()
-                                vim.api.nvim_clear_autocmds({ group = "nobilissimum-lsp-highlight", buffer = event2.buf })
-                            end,
-                        })
-                    end
-
-                    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-                        map(
-                            "<leader>th",
-                            function()
-                                local filter = { bufnr = event.buf }
-                                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
-                            end,
-                            "[T]oggle Inlay [H]ints"
-                        )
-                    end
-                end,
-            })
-
-            local restarting = false
-            local function safe_lsp_restart()
-                if restarting then
-                    return
-                end
-                restarting = true
-
-                local pending = 0
-                local function done_one()
-                    pending = pending - 1
-                    if pending <= 0 then
-                        restarting = false
-                    end
-                end
-
-                for _, client in ipairs(vim.lsp.get_clients()) do
-                    if not client:is_stopped() then
-                        local config = client.config
-                        local bufs = vim.tbl_filter(function(b)
-                            if not vim.api.nvim_buf_is_valid(b) then
-                                return false
-                            end
-                            local name = vim.api.nvim_buf_get_name(b)
-                            return name ~= "" and vim.uv.fs_stat(name) ~= nil
-                        end, vim.tbl_keys(client.attached_buffers))
-
-                        pending = pending + 1
-                        client:stop()
-
-                        local tries = 0
-                        local timer = assert(vim.uv.new_timer())
-                        timer:start(
-                            50,
-                            50,
-                            vim.schedule_wrap(function()
-                                tries = tries + 1
-                                if client:is_stopped() or tries > 60 then
-                                    timer:stop()
-                                    timer:close()
-                                    if client:is_stopped() then
-                                        for _, b in ipairs(bufs) do
-                                            if vim.api.nvim_buf_is_valid(b) then
-                                                pcall(vim.lsp.start, config, { bufnr = b })
-                                            end
-                                        end
-                                    end
-                                    done_one()
-                                end
-                            end)
-                        )
-                    end
-                end
-
-                if pending == 0 then
-                    restarting = false
-                end
-            end
-
-            local last_branch = nil
-            local branch_check_running = false
-            vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
-                group = vim.api.nvim_create_augroup("nobilissimum-branch-watch", { clear = true }),
-                callback = function()
-                    if branch_check_running then
-                        return
-                    end
-                    branch_check_running = true
-
-                    vim.system(
-                        { "git", "rev-parse", "--abbrev-ref", "HEAD" },
-                        { text = true, cwd = vim.fn.getcwd() },
-                        vim.schedule_wrap(function(result)
-                            branch_check_running = false
-
-                            local branch = result.code == 0 and vim.trim(result.stdout or "") or nil
-                            if branch == "" then
-                                branch = nil
-                            end
-
-                            last_branch = branch or last_branch
-                            if branch and last_branch and branch ~= last_branch then
-                                vim.cmd("checktime")
-                                safe_lsp_restart()
-                                vim.notify("Branch changed → LSP restarted", vim.log.levels.INFO)
-                            end
-                        end)
-                    )
-                end,
-            })
-
-            local gdscript_on_attach = function(client, bufnr)
-                vim.notify("Attached gdscript: " .. vim.inspect(client.config.cmd) .. "\nBuffer number: " .. bufnr, vim.log.levels.DEBUG)
-            end
-            if os.getenv("WSL_DISTRO_NAME") ~= nil then
-                vim.lsp.config("gdscript", {
-                    on_attach = gdscript_on_attach,
-                    cmd = {
-                        "godot-wsl-proxy", "run",
-                        "--lsp-host", os.getenv("GODOT_LSP_HOST"),
-                        "--lsp-port", os.getenv("GODOT_LSP_PORT"),
-                    },
-                })
-                vim.lsp.enable("gdscript")
-            else
-                vim.lsp.config("gdscript", { on_attach = gdscript_on_attach })
-                vim.lsp.enable("gdscript")
-            end
-
-            local python = require("nobilissimum.lsp.python")
-            python.setup()
-
-            -- Mason
-            require("mason").setup({
-                ui = {
-                    icons = {
-                        package_pending = " ",
-                        package_installed = " ",
-                        package_uninstalled = " ",
-                    },
-                },
-            })
-
-            local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
-            local cmp_capabilities = require("blink.cmp").get_lsp_capabilities()
-            local capabilities = vim.tbl_deep_extend("force", lsp_capabilities, cmp_capabilities)
-
-            local server_configurations = {
-                -- JavaScript
-                biome = {
-                    flags = { debounce_text_changes = 750 },
-                },
-                eslint = {
-                    flags = { debounce_text_changes = 750 },
-                    settings = {
-                        run = "onSave",
-                        format = false,
-                    },
-                },
-                ts_ls = {
-                    flags = { debounce_text_changes = 750 },
-                    on_attach = function(client)
-                        client.server_capabilities.semanticTokensProvider = nil
-                    end,
-                },
-                tailwindcss = {
-                    flags = { debounce_text_changes = 750 },
-                },
-
-                -- Lua
-                lua_ls = {
-                    settings = {
-                        Lua = {
-                            completion = {
-                                callSnippet = "Replace",
-                            },
-                        },
-                    },
-                },
-                vimls = {},
-
-                -- Protobuf
-                buf_ls = {
-                    ---@diagnostic disable-next-line: unused-local
-                    on_attach = function(client, bufnr)
-                        client.server_capabilities.semanticTokensProvider = nil
-                    end,
-                },
-
-                -- Python
-                pyright = {
-                    capabilities = capabilities,
-                    settings = {
-                        pyright = {
-                            disableOrganizeImports = true,
-                        },
-                        python = {
-                            analysis = {
-                                ignore = { "*" },
-                            },
-                        },
-                    },
-                },
-                ruff = {
-                    cmd = python:lazy_ruff_cmd(),
-                    on_attach = function(client, bufnr)
-                        local cmd = python.resolved_ruff_cmd and table.concat(python.resolved_ruff_cmd, " ") or "unknown"
-                        vim.notify(
-                            "Ruff atttached to " .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
-                                .. "\nCommand: " .. cmd
-                                .. "\nRoot: " .. (client.root_dir or "none"),
-                            vim.log.levels.DEBUG
-                        )
-                    end,
-                    init_options = {
-                        settings = {
-                            enable = true,
-                            organizeImports = true,
-                            fixAll = true,
-                            lint = {
-                                enable = true,
-                                run = "onType",
-                            },
-                        },
-                    },
-                },
-            }
-
-            -- LSP installation
-            local ensure_installed = vim.tbl_keys(server_configurations or {})
-            require("mason-tool-installer").setup({
-                ensure_installed = vim.tbl_deep_extend(
-                    "force",
-                    ensure_installed,
-                    { "stylua" }
-                ),
-            })
-
-            -- Mason LSP config
-            local mason_lspconfig = require("mason-lspconfig")
-            mason_lspconfig.setup({
-                automatic_installation = true,
-                ensure_installed = ensure_installed,
-                automatic_enable = ensure_installed,
-            })
-
-            local installed_servers = mason_lspconfig.get_installed_servers()
-            for _, language_server_name in pairs(installed_servers) do
-                local server_configuration = server_configurations[language_server_name] or {}
-                server_configuration.capabilities = vim.tbl_deep_extend(
-                    "force",
-                    {},
-                    capabilities,
-                    server_configuration.capabilities or {}
-                )
-
-                vim.lsp.config(language_server_name, server_configuration)
-                vim.lsp.enable(language_server_name)
-            end
-
-            -- Formatting
-            local conform = require("conform")
-            local mason_registry = require("mason-registry")
-
-            local formatters_prioritization = {
-                css = { "biome" },
-                typescriptreact = { "biome" },
-                javascriptreact = { "biome" },
-                typescript = { "biome" },
-                javascript = { "biome" },
-                json = { "biome" },
-                go = { "goimports-reviser" },
-                python = { "ruff" },
-            }
-            local formatter_keys = {}
-            for _, tbl in pairs(formatters_prioritization) do
-                for _, key in pairs(tbl) do
-                    table.insert(formatter_keys, key)
-                end
-            end
-
-            local installed_packages = {}
-            local formatters_by_ft = {}
-            local formatters_by_ft_extra = {}
-
-            for _, package in ipairs(mason_registry.get_installed_packages()) do
-                if not F.is_string_in_table("Formatter", package.spec.categories) then
-                    goto outer_continue
-                end
-
-                table.insert(installed_packages, package.name)
-                for _, language in ipairs(package.spec.languages) do
-                    local fmt_language = string.lower(language)
-                    local priorities = formatters_prioritization[fmt_language]
-                    local value = package.name
-
-                    if priorities and F.is_string_in_table(package.name, priorities) then
-                        value = nil
-                    end
-
-                    F.upsert(fmt_language, value, formatters_by_ft)
-
-                    local formatters_extra_by_language = formatters_by_ft_extra[package.name]
-                    if (formatters_extra_by_language ~= nil) and (formatters_extra_by_language ~= vim.NIL) then
-                        for _, formatter in pairs(formatters_extra_by_language) do
-                            F.upsert(fmt_language, formatter, formatters_by_ft)
-                        end
-                    end
-
-                    local aliases = LspAlias[fmt_language]
-                    if not aliases then
-                        goto inner_continue
-                    end
-
-                    for _, alias in ipairs(aliases) do
-                        F.upsert(alias, value, formatters_by_ft)
-
-                        local formatters_extra_by_alias = formatters_by_ft_extra[package.name]
-                        if (formatters_extra_by_alias ~= nil) and (formatters_extra_by_alias ~= vim.NIL) then
-                            for _, formatter in pairs(formatters_extra_by_alias) do
-                                F.upsert(alias, formatter, formatters_by_ft)
-                            end
-                        end
-                    end
-
-                    ::inner_continue::
-                end
-
-                ::outer_continue::
-            end
-            for formatter, packages in pairs(formatters_by_ft) do
-                local priorities = formatters_prioritization[formatter]
-                if not priorities then
-                    goto continue
-                end
-
-                local formatters = formatters_by_ft[formatter]
-                for _, priority in ipairs(priorities) do
-                    if F.is_string_in_table(priority, installed_packages) then
-                        table.insert(packages, priority)
-                    end
-                end
-                formatters_by_ft[formatter] = formatters
-
-                ::continue::
-            end
-
-            conform.setup({
-                cmd = "ConformInfo",
-                default_format_opts = {
-                    async = true,
-                    lsp_format = "fallback",
-                    timeout_ms = 20000,
-                },
-                formatters_by_ft = formatters_by_ft,
-            })
-
-            vim.api.nvim_create_user_command("FormatBuf", function(opts)
-                local formatter = opts.args
-
-                if formatter == "biome" or (formatter == "" and vim.tbl_contains(conform.list_formatters_for_buffer(), "biome")) then
-                    vim.lsp.buf.code_action({
-                        context = {
-                            only = { "source.organizeImports" },
-                            diagnostics = {},
-                        },
-                        apply = true,
-                    })
-                    vim.defer_fn(function()
-                        if formatter ~= "" then
-                            conform.format({ formatters = { formatter } })
-                        else
-                            conform.format()
-                        end
-                    end, 100)
-                else
-                    conform.format()
-                end
-            end, {
-                nargs = "?",
-                complete = function()
-                    return conform.list_formatters_for_buffer()
-                end,
-            })
-
-            vim.keymap.set("n", "<leader>f", conform.format, { desc = "[F]ormat" })
-        end,
+      -- Formatting
+      "stevearc/conform.nvim",
     },
-    {
-        "mfussenegger/nvim-lint",
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            events = { "BufReadPost", "BufWritePost" },
+    config = function()
+      -- Vim diagnostic
+      vim.diagnostic.config({
+        virtual_text = {
+          source = "if_many",
+          prefix = "●",
+          spacing = 2,
         },
-        config = function(_, opts)
-            local N = {}
+        float = {
+          source = true,
+          border = "rounded",
+        },
+        signs = false,
+        underline = true,
+        update_in_insert = false,
+        severity_sort = true,
+      })
 
-            local mason_registry = require("mason-registry")
+      -- LSP keymaps
+      vim.keymap.set("n", "<leader>lr", ":LspRestart<CR>", { desc = "[L]SP [R]estart" })
 
-            local linters_by_ft = {}
-            for _, package in ipairs(mason_registry.get_installed_packages()) do
-                if not F.is_string_in_table("Linter", package.spec.categories) then
-                    goto continue_package
-                end
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("nobilissimum-lsp-attach", { clear = true }),
+        callback = function(event)
+          local map = function(keys, func, desc, mode)
+            mode = mode or "n"
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+          end
 
-                for _, language in ipairs(package.spec.languages) do
-                    local lint_language = string.lower(language)
-                    F.upsert(lint_language, package.name, linters_by_ft)
-
-                    local aliases = LspAlias[lint_language]
-                    if not aliases then
-                        goto continue_language
-                    end
-
-                    for _, alias in ipairs(aliases) do
-                        F.upsert(alias, package.name, linters_by_ft)
-                    end
-
-                    ::continue_language::
-                end
-
-                ::continue_package::
+          local telescope = function(picker)
+            return function()
+              require("telescope.builtin")[picker]()
             end
+          end
 
-            local lint = require("lint")
-            lint.linters_by_ft = linters_by_ft
+          map("gd", telescope("lsp_definitions"), "[G]oto [D]efinition")
+          map("gr", telescope("lsp_references"), "[G]oto [R]eferences")
+          map("gI", telescope("lsp_implementations"), "[G]oto [I]mplementation")
 
-            local lsp_provides_diagnostics = {
-                javascript = true,
-                javascriptreact = true,
-                typescript = true,
-                typescriptreact = true,
-            }
+          map("<leader>D", telescope("lsp_type_definitions"), "Type [D]efinition")
+          map("<leader>ds", telescope("lsp_document_symbols"), "[D]ocument [S]ymbols")
+          map("<leader>ws", telescope("lsp_dynamic_workspace_symbols"), "[W]orkspace [S]ymbols")
+          map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 
-            function N.lint()
-                if lsp_provides_diagnostics[vim.bo.filetype] then
-                    return
-                end
+          -- ---------- AI Generated Code - Sonnet 4.6 ----------
+          map("<leader>lr", function()
+            vim.cmd("LspRestart")
+            vim.notify("LSP restarted", vim.log.levels.INFO)
+          end, "[L]SP [R]estart")
+          -- ---------- ------------------------------ ----------
 
-                local linters = lint._resolve_linter_by_ft(vim.bo.filetype)
-                linters = vim.list_extend({}, linters)
+          map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-                if #linters == 0 then
-                  vim.list_extend(linters, lint.linters_by_ft["_"] or {})
-                end
-
-                vim.list_extend(linters, lint.linters_by_ft["*"] or {})
-
-                local ctx = { filename = vim.api.nvim_buf_get_name(0) }
-                ctx.dirname = vim.fn.fnamemodify(ctx.filename, ":h")
-                linters = vim.tbl_filter(function(name)
-                    local linter = lint.linters[name]
-                    -- if not linter then
-                    --     vim.notify("Linter " .. name .. " not found", vim.log.levels.WARN, { title = "nvim-lint" })
-                    -- end
-
-                     return linter and not (type(linter) == "table" and linter.condition and not linter.condition(ctx))
-                end, linters)
-
-                if #linters > 0 then
-                    -- vim.notify("Linting using " .. vim.inspect(linters), vim.log.levels.INFO, { title = "nvim-lint" })
-                    lint.try_lint(linters)
-                end
-            end
-
-            vim.api.nvim_create_autocmd(opts.events, {
-                group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
-                callback = F.debounce(300, N.lint),
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+            local highlight_augroup = vim.api.nvim_create_augroup("nobilissimum-lsp-highlight", { clear = false })
+            vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event.buf })
+            vim.api.nvim_create_autocmd({ "CursorHold" }, {
+              buffer = event.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.document_highlight,
             })
+
+            vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" }, {
+              buffer = event.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.clear_references,
+            })
+
+            vim.api.nvim_create_autocmd("LspDetach", {
+              group = vim.api.nvim_create_augroup("nobilissimum-lsp-detach", { clear = true }),
+              callback = function(event2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds({ group = "nobilissimum-lsp-highlight", buffer = event2.buf })
+              end,
+            })
+          end
+
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+            map("<leader>th", function()
+              local filter = { bufnr = event.buf }
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
+            end, "[T]oggle Inlay [H]ints")
+          end
         end,
-    },
-    {
-        "j-hui/fidget.nvim",
-        keys = {
-            { "<leader>ca", mode = { "n", "x" }, desc = "[C]ode [A]ction" },
+      })
+
+      local restarting = false
+      local function safe_lsp_restart()
+        if restarting then
+          return
+        end
+        restarting = true
+
+        local pending = 0
+        local function done_one()
+          pending = pending - 1
+          if pending <= 0 then
+            restarting = false
+          end
+        end
+
+        for _, client in ipairs(vim.lsp.get_clients()) do
+          if not client:is_stopped() then
+            local config = client.config
+            local bufs = vim.tbl_filter(function(b)
+              if not vim.api.nvim_buf_is_valid(b) then
+                return false
+              end
+              local name = vim.api.nvim_buf_get_name(b)
+              return name ~= "" and vim.uv.fs_stat(name) ~= nil
+            end, vim.tbl_keys(client.attached_buffers))
+
+            pending = pending + 1
+            client:stop()
+
+            local tries = 0
+            local timer = assert(vim.uv.new_timer())
+            timer:start(
+              50,
+              50,
+              vim.schedule_wrap(function()
+                tries = tries + 1
+                if client:is_stopped() or tries > 60 then
+                  timer:stop()
+                  timer:close()
+                  if client:is_stopped() then
+                    for _, b in ipairs(bufs) do
+                      if vim.api.nvim_buf_is_valid(b) then
+                        pcall(vim.lsp.start, config, { bufnr = b })
+                      end
+                    end
+                  end
+                  done_one()
+                end
+              end)
+            )
+          end
+        end
+
+        if pending == 0 then
+          restarting = false
+        end
+      end
+
+      local last_branch = nil
+      local branch_check_running = false
+      vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+        group = vim.api.nvim_create_augroup("nobilissimum-branch-watch", { clear = true }),
+        callback = function()
+          if branch_check_running then
+            return
+          end
+          branch_check_running = true
+
+          vim.system(
+            { "git", "rev-parse", "--abbrev-ref", "HEAD" },
+            { text = true, cwd = vim.fn.getcwd() },
+            vim.schedule_wrap(function(result)
+              branch_check_running = false
+
+              local branch = result.code == 0 and vim.trim(result.stdout or "") or nil
+              if branch == "" then
+                branch = nil
+              end
+
+              last_branch = branch or last_branch
+              if branch and last_branch and branch ~= last_branch then
+                vim.cmd("checktime")
+                safe_lsp_restart()
+                vim.notify("Branch changed → LSP restarted", vim.log.levels.INFO)
+              end
+            end)
+          )
+        end,
+      })
+
+      local gdscript_on_attach = function(client, bufnr)
+        vim.notify(
+          "Attached gdscript: " .. vim.inspect(client.config.cmd) .. "\nBuffer number: " .. bufnr,
+          vim.log.levels.DEBUG
+        )
+      end
+      if os.getenv("WSL_DISTRO_NAME") ~= nil then
+        vim.lsp.config("gdscript", {
+          on_attach = gdscript_on_attach,
+          cmd = {
+            "godot-wsl-proxy",
+            "run",
+            "--lsp-host",
+            os.getenv("GODOT_LSP_HOST"),
+            "--lsp-port",
+            os.getenv("GODOT_LSP_PORT"),
+          },
+        })
+        vim.lsp.enable("gdscript")
+      else
+        vim.lsp.config("gdscript", { on_attach = gdscript_on_attach })
+        vim.lsp.enable("gdscript")
+      end
+
+      local python = require("nobilissimum.lsp.python")
+      python.setup()
+
+      -- Mason
+      require("mason").setup({
+        ui = {
+          icons = {
+            package_pending = " ",
+            package_installed = " ",
+            package_uninstalled = " ",
+          },
         },
-        opts = {
-            notification = {
-                window = {
-                    normal_hl = "FidgetComment",
-                    winblend = 0,
-                },
+      })
+
+      local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
+      local cmp_capabilities = require("blink.cmp").get_lsp_capabilities()
+      local capabilities = vim.tbl_deep_extend("force", lsp_capabilities, cmp_capabilities)
+
+      local server_configurations = {
+        -- JavaScript
+        biome = {
+          flags = { debounce_text_changes = 750 },
+        },
+        eslint = {
+          flags = { debounce_text_changes = 750 },
+          settings = {
+            run = "onSave",
+            format = false,
+          },
+        },
+        ts_ls = {
+          flags = { debounce_text_changes = 750 },
+          on_attach = function(client)
+            client.server_capabilities.semanticTokensProvider = nil
+          end,
+        },
+        tailwindcss = {
+          flags = { debounce_text_changes = 750 },
+        },
+
+        -- Lua
+        lua_ls = {
+          settings = {
+            Lua = {
+              completion = {
+                callSnippet = "Replace",
+              },
             },
+          },
         },
-    },
-    {
-        "Exafunction/windsurf.vim",
-        event = "InsertEnter",
-        init = function()
-            vim.g.codeium_disable_bindings = 1
-        end,
-        config = function()
-            local keymaps = {
-                prev_comp =  "<M-]>",
-                next_comp = "<M-[>",
-                trigger = "<M-Bslash>",
-                accept_word = "<M-l>",
-                accept_line = "<M-j>",
-            }
-            local uname = F.get_uname()
-            if uname == "Darwin" then
-                keymaps["prev_comp"] = "‘"
-                keymaps["next_comp"] = "“"
-                keymaps["trigger"] = "«"
-                keymaps["accept_word"] = "¬"
-                keymaps["accept_line"] = "∆"
+        vimls = {},
+
+        -- Protobuf
+        buf_ls = {
+          ---@diagnostic disable-next-line: unused-local
+          on_attach = function(client, bufnr)
+            client.server_capabilities.semanticTokensProvider = nil
+          end,
+        },
+
+        -- Python
+        pyright = {
+          capabilities = capabilities,
+          settings = {
+            pyright = {
+              disableOrganizeImports = true,
+            },
+            python = {
+              analysis = {
+                ignore = { "*" },
+              },
+            },
+          },
+        },
+        ruff = {
+          cmd = python:lazy_ruff_cmd(),
+          on_attach = function(client, bufnr)
+            local cmd = python.resolved_ruff_cmd and table.concat(python.resolved_ruff_cmd, " ") or "unknown"
+            vim.notify(
+              "Ruff atttached to "
+                .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+                .. "\nCommand: "
+                .. cmd
+                .. "\nRoot: "
+                .. (client.root_dir or "none"),
+              vim.log.levels.DEBUG
+            )
+          end,
+          init_options = {
+            settings = {
+              enable = true,
+              organizeImports = true,
+              fixAll = true,
+              lint = {
+                enable = true,
+                run = "onType",
+              },
+            },
+          },
+        },
+      }
+
+      -- LSP installation
+      local ensure_installed = vim.tbl_keys(server_configurations or {})
+      require("mason-tool-installer").setup({
+        ensure_installed = vim.tbl_deep_extend("force", ensure_installed, { "stylua" }),
+      })
+
+      -- Mason LSP config
+      local mason_lspconfig = require("mason-lspconfig")
+      mason_lspconfig.setup({
+        automatic_installation = true,
+        ensure_installed = ensure_installed,
+        automatic_enable = ensure_installed,
+      })
+
+      local installed_servers = mason_lspconfig.get_installed_servers()
+      for _, language_server_name in pairs(installed_servers) do
+        local server_configuration = server_configurations[language_server_name] or {}
+        server_configuration.capabilities =
+          vim.tbl_deep_extend("force", {}, capabilities, server_configuration.capabilities or {})
+
+        vim.lsp.config(language_server_name, server_configuration)
+        vim.lsp.enable(language_server_name)
+      end
+
+      -- Formatting
+      local conform = require("conform")
+      local mason_registry = require("mason-registry")
+
+      local formatters_prioritization = {
+        css = { "biome" },
+        typescriptreact = { "biome" },
+        javascriptreact = { "biome" },
+        typescript = { "biome" },
+        javascript = { "biome" },
+        json = { "biome" },
+        go = { "goimports-reviser" },
+        python = { "ruff" },
+      }
+      local formatter_keys = {}
+      for _, tbl in pairs(formatters_prioritization) do
+        for _, key in pairs(tbl) do
+          table.insert(formatter_keys, key)
+        end
+      end
+
+      local installed_packages = {}
+      local formatters_by_ft = {}
+      local formatters_by_ft_extra = {}
+
+      for _, package in ipairs(mason_registry.get_installed_packages()) do
+        if not F.is_string_in_table("Formatter", package.spec.categories) then
+          goto outer_continue
+        end
+
+        table.insert(installed_packages, package.name)
+        for _, language in ipairs(package.spec.languages) do
+          local fmt_language = string.lower(language)
+          local priorities = formatters_prioritization[fmt_language]
+          local value = package.name
+
+          if priorities and F.is_string_in_table(package.name, priorities) then
+            value = nil
+          end
+
+          F.upsert(fmt_language, value, formatters_by_ft)
+
+          local formatters_extra_by_language = formatters_by_ft_extra[package.name]
+          if (formatters_extra_by_language ~= nil) and (formatters_extra_by_language ~= vim.NIL) then
+            for _, formatter in pairs(formatters_extra_by_language) do
+              F.upsert(fmt_language, formatter, formatters_by_ft)
             end
+          end
 
-            vim.keymap.set(
-                "i",
-                "<C-]>",
-                function () return vim.fn['codeium#Clear']() end,
-                { expr = true, silent = true }
-            )
-            vim.keymap.set(
-                "i",
-                keymaps.prev_comp,
-                function () return vim.fn['codeium#CycleCompletions'](1) end,
-                { expr = true, silent = true }
-            )
-            vim.keymap.set(
-                "i",
-                keymaps.next_comp,
-                function () return vim.fn['codeium#CycleCompletions'](-1) end,
-                { expr = true, silent = true }
-            )
+          local aliases = LspAlias[fmt_language]
+          if not aliases then
+            goto inner_continue
+          end
 
-            vim.keymap.set(
-                "i",
-                "<C-g>",
-                function () return vim.fn['codeium#Accept']() end,
-                { expr = true, silent = true }
-            )
-            vim.keymap.set(
-                "i",
-                keymaps.trigger,
-                function () return vim.fn['codeium#Complete']() end,
-                { expr = true, silent = true }
-            )
+          for _, alias in ipairs(aliases) do
+            F.upsert(alias, value, formatters_by_ft)
 
-            vim.keymap.set(
-                "i",
-                keymaps.accept_word,
-                function () return vim.fn['codeium#AcceptNextWord']() end,
-                { expr = true, silent = true }
-            )
-            vim.keymap.set(
-                "i",
-                keymaps.accept_line,
-                function () return vim.fn['codeium#AcceptNextLine']() end,
-                { expr = true, silent = true }
-            )
-        end,
-    },
-    {
-        "rachartier/tiny-code-action.nvim",
-        dependencies = {
-            { "nvim-lua/plenary.nvim" },
-            { "nvim-telescope/telescope.nvim" },
-        },
-        event = "LspAttach",
-        config = function()
-            local tiny_code_action = require("tiny-code-action")
-            require("telescope.pickers.layout_strategies").clean_vertical = function(...)
-                local layout = require("telescope.pickers.layout_strategies").vertical(...)
-
-                layout.prompt.title = false
-                layout.results.title = false
-
-                if layout.preview then
-                    layout.preview.title = false
-                end
-
-                return layout
+            local formatters_extra_by_alias = formatters_by_ft_extra[package.name]
+            if (formatters_extra_by_alias ~= nil) and (formatters_extra_by_alias ~= vim.NIL) then
+              for _, formatter in pairs(formatters_extra_by_alias) do
+                F.upsert(alias, formatter, formatters_by_ft)
+              end
             end
+          end
 
+          ::inner_continue::
+        end
 
-            tiny_code_action.setup({
-                picker = {
-                    "telescope",
-                    opts = {
-                        layout_strategy = "clean_vertical",
-                        layout_config = {
-                            preview_cutoff = 1,
-                        },
-                    },
-                },
+        ::outer_continue::
+      end
+      for formatter, packages in pairs(formatters_by_ft) do
+        local priorities = formatters_prioritization[formatter]
+        if not priorities then
+          goto continue
+        end
 
-            })
+        local formatters = formatters_by_ft[formatter]
+        for _, priority in ipairs(priorities) do
+          if F.is_string_in_table(priority, installed_packages) then
+            table.insert(packages, priority)
+          end
+        end
+        formatters_by_ft[formatter] = formatters
 
-            vim.keymap.set({ "n", "x" }, "<leader>ca", tiny_code_action.code_action, { desc = "[C]ode [A]ction" })
-        end,
-    },
-    {
-        "mfussenegger/nvim-dap",
-        dependencies = {
-            "mfussenegger/nvim-dap-python",
+        ::continue::
+      end
+
+      conform.setup({
+        cmd = "ConformInfo",
+        default_format_opts = {
+          async = true,
+          lsp_format = "fallback",
+          timeout_ms = 20000,
         },
-        keys = {
-            { "<F5>", function() require("dap").continue() end, desc = "DAP continue" },
-            { "<F10>", function() require("dap").step_over() end, desc = "DAP step over" },
-            { "<F11>", function() require("dap").step_into() end, desc = "DAP step into" },
-            { "<F12>", function() require("dap").step_out() end, desc = "DAP step out" },
+        formatters_by_ft = formatters_by_ft,
+      })
 
-            { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle [D]ebugger [B]reakpoint" },
-            { "<leader>dB", function() require("dap").set_breakpoint() end, desc = "Set [D]ebugger [B]reakpoint" },
-            { "<leader>dr", function() require("dap").repl.open() end, desc = "Open [D]ebug [R]epl" },
-            { "<leader>dl", function() require("dap").run_last() end, desc = "Run [D]ebug [L]ast" },
+      vim.api.nvim_create_user_command("FormatBuf", function(opts)
+        local formatter = opts.args
 
-            { "<leader>dh", function() require("dap.ui.widgets").hover() end, desc = "Hover [D]ebug [H]over" },
-            { "<leader>dp", function() require("dap.ui.widgets").preview() end, desc = "Hover [D]ebug [P]review" },
-            { "<leader>df", function()
-                local widgets = require("dap.ui.widgets")
-                widgets.centered_float(widgets.frames)
-            end, desc = "Show [D]ebug [F]rames" },
-            { "<leader>ds", function()
-                local widgets = require("dap.ui.widgets")
-                widgets.centered_float(widgets.scopes)
-            end, desc = "Show [D]ebug [S]copes" },
-        },
-        config = function()
-            vim.fn.sign_define("DapBreakpoint", {
-                text = "",
-                texthl = "DapBreakpoint",
-                linehl = "",
-                numhl = "",
-                priority = 10,
-            })
-
-            vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = Colors.red })
-
-            require("dap-python").setup("uv")
+        if
+          formatter == "biome" or (formatter == "" and vim.tbl_contains(conform.list_formatters_for_buffer(), "biome"))
+        then
+          vim.lsp.buf.code_action({
+            context = {
+              only = { "source.organizeImports" },
+              diagnostics = {},
+            },
+            apply = true,
+          })
+          vim.defer_fn(function()
+            if formatter ~= "" then
+              conform.format({ formatters = { formatter } })
+            else
+              conform.format()
+            end
+          end, 100)
+        else
+          conform.format()
+        end
+      end, {
+        nargs = "?",
+        complete = function()
+          return conform.list_formatters_for_buffer()
         end,
+      })
+
+      vim.keymap.set("n", "<leader>f", conform.format, { desc = "[F]ormat" })
+    end,
+  },
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      events = { "BufReadPost", "BufWritePost" },
     },
+    config = function(_, opts)
+      local N = {}
+
+      local mason_registry = require("mason-registry")
+
+      local linters_by_ft = {}
+      for _, package in ipairs(mason_registry.get_installed_packages()) do
+        if not F.is_string_in_table("Linter", package.spec.categories) then
+          goto continue_package
+        end
+
+        for _, language in ipairs(package.spec.languages) do
+          local lint_language = string.lower(language)
+          F.upsert(lint_language, package.name, linters_by_ft)
+
+          local aliases = LspAlias[lint_language]
+          if not aliases then
+            goto continue_language
+          end
+
+          for _, alias in ipairs(aliases) do
+            F.upsert(alias, package.name, linters_by_ft)
+          end
+
+          ::continue_language::
+        end
+
+        ::continue_package::
+      end
+
+      local lint = require("lint")
+      lint.linters_by_ft = linters_by_ft
+
+      local lsp_provides_diagnostics = {
+        javascript = true,
+        javascriptreact = true,
+        typescript = true,
+        typescriptreact = true,
+      }
+
+      function N.lint()
+        if lsp_provides_diagnostics[vim.bo.filetype] then
+          return
+        end
+
+        local linters = lint._resolve_linter_by_ft(vim.bo.filetype)
+        linters = vim.list_extend({}, linters)
+
+        if #linters == 0 then
+          vim.list_extend(linters, lint.linters_by_ft["_"] or {})
+        end
+
+        vim.list_extend(linters, lint.linters_by_ft["*"] or {})
+
+        local ctx = { filename = vim.api.nvim_buf_get_name(0) }
+        ctx.dirname = vim.fn.fnamemodify(ctx.filename, ":h")
+        linters = vim.tbl_filter(function(name)
+          local linter = lint.linters[name]
+          return linter and not (type(linter) == "table" and linter.condition and not linter.condition(ctx))
+        end, linters)
+
+        if #linters > 0 then
+          -- vim.notify("Linting using " .. vim.inspect(linters), vim.log.levels.INFO, { title = "nvim-lint" })
+          lint.try_lint(linters)
+        end
+      end
+
+      vim.api.nvim_create_autocmd(opts.events, {
+        group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
+        callback = F.debounce(300, N.lint),
+      })
+    end,
+  },
+  {
+    "j-hui/fidget.nvim",
+    keys = {
+      { "<leader>ca", mode = { "n", "x" }, desc = "[C]ode [A]ction" },
+    },
+    opts = {
+      notification = {
+        window = {
+          normal_hl = "FidgetComment",
+          winblend = 0,
+        },
+      },
+    },
+  },
+  {
+    "Exafunction/windsurf.vim",
+    event = "InsertEnter",
+    init = function()
+      vim.g.codeium_disable_bindings = 1
+    end,
+    config = function()
+      local keymaps = {
+        prev_comp = "<M-]>",
+        next_comp = "<M-[>",
+        trigger = "<M-Bslash>",
+        accept_word = "<M-l>",
+        accept_line = "<M-j>",
+      }
+      local uname = F.get_uname()
+      if uname == "Darwin" then
+        keymaps["prev_comp"] = "‘"
+        keymaps["next_comp"] = "“"
+        keymaps["trigger"] = "«"
+        keymaps["accept_word"] = "¬"
+        keymaps["accept_line"] = "∆"
+      end
+
+      vim.keymap.set("i", "<C-]>", function()
+        return vim.fn["codeium#Clear"]()
+      end, { expr = true, silent = true })
+      vim.keymap.set("i", keymaps.prev_comp, function()
+        return vim.fn["codeium#CycleCompletions"](1)
+      end, { expr = true, silent = true })
+      vim.keymap.set("i", keymaps.next_comp, function()
+        return vim.fn["codeium#CycleCompletions"](-1)
+      end, { expr = true, silent = true })
+
+      vim.keymap.set("i", "<C-g>", function()
+        return vim.fn["codeium#Accept"]()
+      end, { expr = true, silent = true })
+      vim.keymap.set("i", keymaps.trigger, function()
+        return vim.fn["codeium#Complete"]()
+      end, { expr = true, silent = true })
+
+      vim.keymap.set("i", keymaps.accept_word, function()
+        return vim.fn["codeium#AcceptNextWord"]()
+      end, { expr = true, silent = true })
+      vim.keymap.set("i", keymaps.accept_line, function()
+        return vim.fn["codeium#AcceptNextLine"]()
+      end, { expr = true, silent = true })
+    end,
+  },
+  {
+    "rachartier/tiny-code-action.nvim",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope.nvim" },
+    },
+    event = "LspAttach",
+    config = function()
+      local tiny_code_action = require("tiny-code-action")
+      require("telescope.pickers.layout_strategies").clean_vertical = function(...)
+        local layout = require("telescope.pickers.layout_strategies").vertical(...)
+
+        layout.prompt.title = false
+        layout.results.title = false
+
+        if layout.preview then
+          layout.preview.title = false
+        end
+
+        return layout
+      end
+
+      tiny_code_action.setup({
+        picker = {
+          "telescope",
+          opts = {
+            layout_strategy = "clean_vertical",
+            layout_config = {
+              preview_cutoff = 1,
+            },
+          },
+        },
+      })
+
+      vim.keymap.set({ "n", "x" }, "<leader>ca", tiny_code_action.code_action, { desc = "[C]ode [A]ction" })
+    end,
+  },
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "mfussenegger/nvim-dap-python",
+    },
+    keys = {
+      {
+        "<F5>",
+        function()
+          require("dap").continue()
+        end,
+        desc = "DAP continue",
+      },
+      {
+        "<F10>",
+        function()
+          require("dap").step_over()
+        end,
+        desc = "DAP step over",
+      },
+      {
+        "<F11>",
+        function()
+          require("dap").step_into()
+        end,
+        desc = "DAP step into",
+      },
+      {
+        "<F12>",
+        function()
+          require("dap").step_out()
+        end,
+        desc = "DAP step out",
+      },
+
+      {
+        "<leader>db",
+        function()
+          require("dap").toggle_breakpoint()
+        end,
+        desc = "Toggle [D]ebugger [B]reakpoint",
+      },
+      {
+        "<leader>dB",
+        function()
+          require("dap").set_breakpoint()
+        end,
+        desc = "Set [D]ebugger [B]reakpoint",
+      },
+      {
+        "<leader>dr",
+        function()
+          require("dap").repl.open()
+        end,
+        desc = "Open [D]ebug [R]epl",
+      },
+      {
+        "<leader>dl",
+        function()
+          require("dap").run_last()
+        end,
+        desc = "Run [D]ebug [L]ast",
+      },
+
+      {
+        "<leader>dh",
+        function()
+          require("dap.ui.widgets").hover()
+        end,
+        desc = "Hover [D]ebug [H]over",
+      },
+      {
+        "<leader>dp",
+        function()
+          require("dap.ui.widgets").preview()
+        end,
+        desc = "Hover [D]ebug [P]review",
+      },
+      {
+        "<leader>df",
+        function()
+          local widgets = require("dap.ui.widgets")
+          widgets.centered_float(widgets.frames)
+        end,
+        desc = "Show [D]ebug [F]rames",
+      },
+      {
+        "<leader>ds",
+        function()
+          local widgets = require("dap.ui.widgets")
+          widgets.centered_float(widgets.scopes)
+        end,
+        desc = "Show [D]ebug [S]copes",
+      },
+    },
+    config = function()
+      vim.fn.sign_define("DapBreakpoint", {
+        text = "",
+        texthl = "DapBreakpoint",
+        linehl = "",
+        numhl = "",
+        priority = 10,
+      })
+
+      vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = Colors.red })
+
+      require("dap-python").setup("uv")
+    end,
+  },
 }

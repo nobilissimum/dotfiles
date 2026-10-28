@@ -1,16 +1,16 @@
 if vim.loader then
-    vim.loader.enable()
+  vim.loader.enable()
 end
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 _G.dd = function(...)
-    Snacks.debug.inspect(...)
+  Snacks.debug.inspect(...)
 end
 
 _G.bt = function()
-    Snacks.debug.backtrace()
+  Snacks.debug.backtrace()
 end
 
 _G.print = _G.dd
@@ -25,5 +25,5 @@ require("nobilissimum.manager")
 
 local custom_path = "nobilissimum.custom"
 if F.is_module_available(custom_path) then
-    require(custom_path)()
+  require(custom_path)()
 end

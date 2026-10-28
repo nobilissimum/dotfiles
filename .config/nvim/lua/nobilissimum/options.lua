@@ -3,12 +3,10 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.lazy_lock_disabled = true
 
-
 -- Number line
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
-
 
 -- Indentions
 vim.opt.tabstop = 4
@@ -18,133 +16,119 @@ vim.opt.expandtab = true
 vim.opt.autoindent = true
 vim.opt.breakindent = true
 
-
 -- Fonts
 vim.g.have_nerd_font = true
 
 -- Modes
 vim.opt.showmode = false
 
-
 -- Utilities
 vim.opt.undofile = true
 vim.opt.updatetime = 250
 vim.opt.mouse = ""
 
-
 -- Searching
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
-
 -- Scrolling
 vim.opt.scrolloff = 10
 
-
 -- Other keymaps
-vim.keymap.set(
-    "n",
-    "<Esc>",
-    function()
-        vim.cmd("stopinsert")
-        vim.cmd("nohlsearch")
-    end
-)
-
+vim.keymap.set("n", "<Esc>", function()
+  vim.cmd("stopinsert")
+  vim.cmd("nohlsearch")
+end)
 
 -- Diagnostics keymaps
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open diagnostic float" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
-
 -- Copy keymaps
-vim.keymap.set(
-    "n",
-    "<leader>yb",
-    function()
-        local relative_path = vim.fn.expand("%")
-        if relative_path == "" then
-            vim.notify("Buffer is empty", vim.log.levels.WARN)
-            return
-        end
+vim.keymap.set("n", "<leader>yb", function()
+  local relative_path = vim.fn.expand("%")
+  if relative_path == "" then
+    vim.notify("Buffer is empty", vim.log.levels.WARN)
+    return
+  end
 
-        vim.fn.setreg("+", relative_path)
-        vim.notify("Copied relative path of current buffer", vim.log.levels.INFO)
-    end,
-    { desc = "[Y]ank [B]uffer filename" }
-)
-
+  vim.fn.setreg("+", relative_path)
+  vim.notify("Copied relative path of current buffer", vim.log.levels.INFO)
+end, { desc = "[Y]ank [B]uffer filename" })
 
 -- Clipboard
-local function shell(cmd) return { (vim.o.shell or "sh"), "-c", cmd } end
+local function shell(cmd)
+  return { (vim.o.shell or "sh"), "-c", cmd }
+end
 local sanitize = [[perl -CSDA -pe 's/\x{00A0}|\x{202F}|\x{2007}/ /g']]
 local name, copy, paste
 
 if vim.fn.has("mac") == 1 or (F.is_executable("pbcopy") and F.is_executable("pbpaste")) then
-    name = "osx"
-    copy = "pbcopy"
-    paste = "pbpaste"
+  name = "osx"
+  copy = "pbcopy"
+  paste = "pbpaste"
 elseif F.is_executable("xclip") then
-    name = "xclip"
-    copy = "xclip -selection clipboard"
-    paste = "xclip -selection clipboard -o"
+  name = "xclip"
+  copy = "xclip -selection clipboard"
+  paste = "xclip -selection clipboard -o"
 else
-    vim.notify("No suitable clipboard tool found", vim.log.levels.WARN)
+  vim.notify("No suitable clipboard tool found", vim.log.levels.WARN)
 end
 
 vim.g.clipboard = {
-    name = name,
-    copy = {
-        ["+"] = shell(sanitize .. " | " .. copy),
-        ["*"] = shell(sanitize .. " | " .. copy),
-    },
-    paste = {
-        ["+"] = shell(paste .. " | " .. sanitize),
-        ["*"] = shell(paste .. " | " .. sanitize),
-    },
-    cache_enabled = 0,
+  name = name,
+  copy = {
+    ["+"] = shell(sanitize .. " | " .. copy),
+    ["*"] = shell(sanitize .. " | " .. copy),
+  },
+  paste = {
+    ["+"] = shell(paste .. " | " .. sanitize),
+    ["*"] = shell(paste .. " | " .. sanitize),
+  },
+  cache_enabled = 0,
 }
 
 vim.keymap.set("n", "<C-s>", ":%s/\\%u00A0/ /g<CR>", { desc = "Sanitize text" })
 
-
 -- Filetypes
 local file_extension = {
-    ththeme = "xml",
-    tmLanguage = "xml",
-    tmTheme = "xml",
-    tmlanguage = "xml",
+  ththeme = "xml",
+  tmLanguage = "xml",
+  tmTheme = "xml",
+  tmlanguage = "xml",
 }
 local file_names = {
-    [".env"] = "sh",
+  [".env"] = "sh",
 }
 local file_aliases = {
-    ["%.env%.[%w_.-]+"] = { filetype = "sh", icon = ".env" },
+  ["%.env%.[%w_.-]+"] = { filetype = "sh", icon = ".env" },
 }
 
 local filetype_patterns = {}
 for pattern, alias in pairs(file_aliases) do
-    filetype_patterns[pattern] = { alias.filetype, { priority = 10 } }
+  filetype_patterns[pattern] = { alias.filetype, { priority = 10 } }
 end
 vim.filetype.add({
-    extension = file_extension,
-    filename = file_names,
-    pattern = filetype_patterns,
+  extension = file_extension,
+  filename = file_names,
+  pattern = filetype_patterns,
 })
 
 -- nvim-web-devicons has no pattern overrides, so register an icon per matching filename on open
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPre" }, {
-    callback = function(args)
-        local filename = vim.fn.fnamemodify(args.file, ":t"):lower()
+  callback = function(args)
+    local filename = vim.fn.fnamemodify(args.file, ":t"):lower()
 
-        for pattern, alias in pairs(file_aliases) do
-            if alias.icon and filename:match("^" .. pattern .. "$") then
-                local ok, devicons = pcall(require, "nvim-web-devicons")
-                if not ok or devicons.get_icons()[filename] then return end
-
-                devicons.set_icon({ [filename] = devicons.get_icons_by_filename()[alias.icon] })
-                return
-            end
+    for pattern, alias in pairs(file_aliases) do
+      if alias.icon and filename:match("^" .. pattern .. "$") then
+        local ok, devicons = pcall(require, "nvim-web-devicons")
+        if not ok or devicons.get_icons()[filename] then
+          return
         end
-    end,
+
+        devicons.set_icon({ [filename] = devicons.get_icons_by_filename()[alias.icon] })
+        return
+      end
+    end
+  end,
 })

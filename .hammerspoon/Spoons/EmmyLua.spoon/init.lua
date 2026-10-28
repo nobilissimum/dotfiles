@@ -29,10 +29,9 @@ M.author = "http://github.com/folke"
 M.license = "MIT - https://opensource.org/licenses/MIT"
 M.logger = hs.logger.new("EmmyLua")
 
-
 local options = {
   annotations = hs.spoons.resourcePath("annotations"),
-  timestampsFilename = hs.spoons.resourcePath("annotations").."/timestamps.json",
+  timestampsFilename = hs.spoons.resourcePath("annotations") .. "/timestamps.json",
   timestamps = {},
   timestampsChanged = false,
   types = {
@@ -207,13 +206,13 @@ function M.createWhenChanged(jsonDocs, prefix)
   local mtime = hs.fs.attributes(jsonDocs, "modification")
   local timestamp = options.timestamps[jsonDocs]
 
-  if(timestamp == nil or mtime ~= timestamp) then
-    M.logger.i("reading "..jsonDocs)
+  if timestamp == nil or mtime ~= timestamp then
+    M.logger.i("reading " .. jsonDocs)
     M.create(jsonDocs, prefix)
     options.timestamps[jsonDocs] = mtime
     options.timestampsChanged = true
   else
-    M.logger.i("skipping "..jsonDocs)
+    M.logger.i("skipping " .. jsonDocs)
   end
 end
 
@@ -235,7 +234,6 @@ function M.writeTimestamps()
 end
 
 function M:init()
-
   hs.fs.mkdir(options.annotations)
 
   M.readTimestamps()
@@ -252,7 +250,6 @@ function M:init()
   end
 
   M.writeTimestamps()
-
 end
 
 return M

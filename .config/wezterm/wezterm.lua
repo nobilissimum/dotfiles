@@ -4,7 +4,7 @@ local is_module_available = wezterm_nobilissimum.is_module_available
 
 local custom_path = "wezterm-custom"
 if is_module_available(custom_path) then
-    config = require(custom_path).config_custom(config)
+  config = require(custom_path).config_custom(config)
 end
 
 return config

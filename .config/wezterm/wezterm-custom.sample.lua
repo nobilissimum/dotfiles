@@ -1,20 +1,20 @@
 local M = {}
 
 function M.config_custom(config)
-    -- For WSL
-    config.default_prog = { "C:\\Windows\\System32\\wsl.exe", "-d", "openSUSE-Tumbleweed", "--cd", "~" }
+  -- For WSL
+  config.default_prog = { "C:\\Windows\\System32\\wsl.exe", "-d", "openSUSE-Tumbleweed", "--cd", "~" }
 
-    -- For MacOS
-    config.window_background_opacity = 0.9
-    config.macos_window_background_blur = 30
-    config.font_size = 14
+  -- For MacOS
+  config.window_background_opacity = 0.9
+  config.macos_window_background_blur = 30
+  config.font_size = 14
 
-    return config
+  return config
 end
 
 M.font_specs = {
-    { name = "Geist Mono", regular = "Regular", half = "Bold", bold = "Bold", native = true },
-    { name = "GeistMono Nerd Font", regular = "Regular", half = "Regular", bold = "Regular", native = true },
+  { name = "Geist Mono", regular = "Regular", half = "Bold", bold = "Bold", native = true },
+  { name = "GeistMono Nerd Font", regular = "Regular", half = "Regular", bold = "Regular", native = true },
 }
 
 -- native = false
@@ -34,6 +34,5 @@ M.font_specs = {
 -- wezterm.font("Geist Mono Bold", {weight="Regular", ...})
 -- wezterm.font("Geist Mono ExtraBold", {weight="Regular", ...})
 -- wezterm.font("Geist Mono Black", {weight="Regular", ...})
-
 
 return M

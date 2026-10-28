@@ -1,130 +1,129 @@
 F = {}
 F.unpack = table.unpack
 if not F.unpack then
----@diagnostic disable-next-line: deprecated
-    F.unpack = unpack
+  ---@diagnostic disable-next-line: deprecated
+  F.unpack = unpack
 end
 
 function F.is_string_in_table(str, tbl)
-    for _, value in ipairs(tbl) do
-        if value == str then
-            return true
-        end
+  for _, value in ipairs(tbl) do
+    if value == str then
+      return true
     end
+  end
 
-    return false
+  return false
 end
 
-
 function F.upsert(key, value, tbl)
-    local current_value = tbl[key]
-    if current_value then
-        table.insert(current_value, value)
-    else
-        tbl[key] = { value }
-    end
+  local current_value = tbl[key]
+  if current_value then
+    table.insert(current_value, value)
+  else
+    tbl[key] = { value }
+  end
 end
 
 function F.empty_table(length)
-    local table = {}
-    for i = 1, length do
-        table[i] = ""
-    end
+  local table = {}
+  for i = 1, length do
+    table[i] = ""
+  end
 
-    return table
+  return table
 end
 
 function F.is_executable(cmd)
-    return vim.fn.executable(cmd) == 1
+  return vim.fn.executable(cmd) == 1
 end
 
 -- ---------- AI Generated Code - Sonnet 4.6 ----------
 function F.get_git_branch()
-    local result = vim.fn.systemlist("git -C " .. vim.fn.getcwd() .. " rev-parse --abbrev-ref HEAD 2>/dev/null")
-    if vim.v.shell_error == 0 and result[1] then
-        return result[1]
-    end
+  local result = vim.fn.systemlist("git -C " .. vim.fn.getcwd() .. " rev-parse --abbrev-ref HEAD 2>/dev/null")
+  if vim.v.shell_error == 0 and result[1] then
+    return result[1]
+  end
 
-    return nil
+  return nil
 end
 -- ---------- ------------------------------ ----------
 
 function F.get_uname()
-    local uv = vim.uv or vim.loop
-    if uv and uv.os_uname then
-        local ok, uname = pcall(uv.os_uname)
-        if ok and uname and uname.sysname then
-            return uname.sysname
-        end
+  local uv = vim.uv or vim.loop
+  if uv and uv.os_uname then
+    local ok, uname = pcall(uv.os_uname)
+    if ok and uname and uname.sysname then
+      return uname.sysname
     end
+  end
 
-    local f = io.popen("uname")
-    if f == nil then
-        return nil
-    end
+  local f = io.popen("uname")
+  if f == nil then
+    return nil
+  end
 
-    local uname = f:read("*l")
-    f:close()
+  local uname = f:read("*l")
+  f:close()
 
-    return uname
+  return uname
 end
 
 function F.log_to_cache(msg)
-    local log_path = vim.fn.stdpath("cache") .. "/nvim.log"
-    local file = io.open(log_path, "a")
-    if not file then
-        vim.notify("Failed to open log file", vim.log.levels.ERROR)
-        return
-    end
+  local log_path = vim.fn.stdpath("cache") .. "/nvim.log"
+  local file = io.open(log_path, "a")
+  if not file then
+    vim.notify("Failed to open log file", vim.log.levels.ERROR)
+    return
+  end
 
-    file:write(tostring(msg) .. "\n")
-    file:close()
+  file:write(tostring(msg) .. "\n")
+  file:close()
 
-    vim.notify("Logged to " .. log_path, vim.log.levels.INFO)
+  vim.notify("Logged to " .. log_path, vim.log.levels.INFO)
 end
 
 function F.is_module_available(path)
-    if package.loaded[path] then
-        return true
-    end
+  if package.loaded[path] then
+    return true
+  end
 
-    for _, searcher in ipairs(package.loaders) do
-        local loader = searcher(path)
-        if type(loader) == "function" then
-            package.preload[path] = loader
-            return true
-        end
+  for _, searcher in ipairs(package.loaders) do
+    local loader = searcher(path)
+    if type(loader) == "function" then
+      package.preload[path] = loader
+      return true
     end
+  end
 
-    return false
+  return false
 end
 
 local uv = vim.uv
 if (uv == nil) or (uv == vim.NIL) then
-    uv = vim.loop
+  uv = vim.loop
 end
 function F.debounce(ms, fn)
-    local timer = uv.new_timer()
-    if timer == nil then
-        return function (...)
-            fn(...)
-        end
-    end
-
+  local timer = uv.new_timer()
+  if timer == nil then
     return function(...)
-        local argv = { ... }
-        timer:start(ms, 0, function()
-            timer:stop()
-            vim.schedule_wrap(fn)(F.unpack(argv))
-        end)
+      fn(...)
     end
+  end
+
+  return function(...)
+    local argv = { ... }
+    timer:start(ms, 0, function()
+      timer:stop()
+      vim.schedule_wrap(fn)(F.unpack(argv))
+    end)
+  end
 end
 
 function F.get_windows_host()
-    for line in io.lines("/etc/resolv.conf") do
-        local ip = line:match("^nameserver%s+(%S+)")
-        if ip then
-            return ip
-        end
+  for line in io.lines("/etc/resolv.conf") do
+    local ip = line:match("^nameserver%s+(%S+)")
+    if ip then
+      return ip
     end
+  end
 end
