@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 let
     sessionVariables = {
@@ -131,6 +131,8 @@ in
                     tmux attach-session -d -t "$session_name"
                 fi
             '')
+
+            pkgs-unstable.sesh
         ];
 
         file = {
