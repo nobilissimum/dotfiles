@@ -89,6 +89,30 @@ eval "$(mise activate zsh)"
 
 
 
+# Rust
+CARGO_HOME="$HOME/.cargo"
+if [ -f "$CARGO_HOME/env" ]; then
+    source "$CARGO_HOME/env"       # For sh/bash/zsh/ash/dash/pdksh
+fi
+
+
+
+# Task
+if (( $+commands[task] )); then
+    TASK_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/task"
+    TASK_COMPLETION="$TASK_CACHE/completion.zsh"
+
+    mkdir -p "$TASK_CACHE"
+
+    if [[ ! -f "$TASK_COMPLETION" || "$TASK_COMPLETION" -ot "${commands[task]}" ]]; then
+        task --completion zsh >| "$TASK_COMPLETION"
+    fi
+
+    source "$TASK_COMPLETION"
+fi
+
+
+
 # Tmux
 tmxdirs () {
     if [ ! -z "${TMUX}" ]; then
@@ -130,12 +154,4 @@ if (( $+commands[zoxide] )); then
     fi
 
     source "$ZOXIDE_INIT"
-fi
-
-
-
-# Rust
-CARGO_HOME="$HOME/.cargo"
-if [ -f "$CARGO_HOME/env" ]; then
-    source "$CARGO_HOME/env"       # For sh/bash/zsh/ash/dash/pdksh
 fi
