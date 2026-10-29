@@ -113,3 +113,8 @@ tasks:
     desc: Setup SSH config
     cmds:
       - cp ./.ssh/config $HOME/.ssh/config
+
+  tmux-refresh:
+    desc: Refresh tmux configuration
+    cmds:
+      - tmux source-file ~/.tmux.conf
