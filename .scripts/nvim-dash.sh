@@ -33,3 +33,6 @@ fi
         stty echo
     fi
 }
+
+# Keep the process alive so Neovim's terminal doesn't print "[Process exited 0]"
+exec tail -f /dev/null
