@@ -7,7 +7,7 @@ is_command () {
 
 # Essentials
 [ -f /usr/bin/gcc ] && export CC=/usr/bin/gcc
-[ -f /usr/bin/g++ ] && export CCX=/usr/bin/g++
+[ -f /usr/bin/g++ ] && export CXX=/usr/bin/g++
 
 get_path () {
     local target_path="$1"
@@ -186,7 +186,7 @@ OPENCODE_DIRPATH="$HOME/.opencode/bin"
 
 
 # pnpm
-export PNPM_HOME="/home/tenshiro/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;

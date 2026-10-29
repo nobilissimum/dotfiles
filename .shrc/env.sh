@@ -3,7 +3,7 @@ export TERM="xterm-256color"
 
 [ -f /usr/bin/gcc ] && export CC=/usr/bin/gcc
 [ -f /usr/bin/g++ ] && export CXX=/usr/bin/g++
-[ -f /usr/bin/yacc ] && export CXX=/usr/bin/yacc
+[ -f /usr/bin/yacc ] && export YACC=/usr/bin/yacc
 
 
 # Bun
@@ -15,7 +15,7 @@ export DOCKER_BUILDKIT=1
 
 
 # Godot
-[[ "$OSTYPE" == "linux" ]] && export GODOT_LSP_HOST="$(grep -m1 nameserver /etc/resolv.conf | awk '{print $2}')"
+[[ "$OSTYPE" == "linux" || "$OSTYPE" == "linux-gnu"* ]] && export GODOT_LSP_HOST="$(grep -m1 nameserver /etc/resolv.conf | awk '{print $2}')"
 export GODOT_LSP_PORT=6005
 
 
@@ -29,7 +29,6 @@ MODULAR_HOME="$HOME/.modular"
 if [ -d "$MODULAR_HOME" ]; then
     export MODULAR_HOME="$MODULAR_HOME"
     export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"
-    export PATH=""$HOME/.cargo/env":$PATH"
 fi
 
 

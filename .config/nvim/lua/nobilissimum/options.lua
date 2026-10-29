@@ -75,18 +75,29 @@ else
   vim.notify("No suitable clipboard tool found", vim.log.levels.WARN)
 end
 
-vim.g.clipboard = {
-  name = name,
-  copy = {
+local clipboard = {}
+if name ~= nil then
+  clipboard.name = name
+end
+
+if copy ~= nil then
+  clipboard.copy = {
     ["+"] = shell(sanitize .. " | " .. copy),
     ["*"] = shell(sanitize .. " | " .. copy),
-  },
-  paste = {
+  }
+end
+
+if paste ~= nil then
+  clipboard.paste = {
     ["+"] = shell(paste .. " | " .. sanitize),
     ["*"] = shell(paste .. " | " .. sanitize),
-  },
-  cache_enabled = 0,
-}
+  }
+end
+
+if next(clipboard) ~= nil then
+  clipboard.cache_enabled = 0
+  vim.g.clipboard = clipboard
+end
 
 vim.keymap.set("n", "<C-s>", ":%s/\\%u00A0/ /g<CR>", { desc = "Sanitize text" })
 

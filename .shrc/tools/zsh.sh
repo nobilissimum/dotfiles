@@ -3,7 +3,7 @@ source ~/.shrc/tools/common.sh
 
 
 # Git
-gitblamepath () {
+gitblamepath () (
     local TARGET_DIRS=("$@")
     local ALIASES="$(declare | grep "association author_aliases")"
 
@@ -16,7 +16,7 @@ gitblamepath () {
     echo -e "${BOLD}Calculating blamed lines for directories: ${BOLD_GREEN}${TARGET_DIRS[@]}${RESET}"
     echo -e "${YELLOW}This might take a while for large directories...${RESET}"
 
-    cd "$(git rev-parse --show-toplevel)" || exit 1
+    cd "$(git rev-parse --show-toplevel)" || return 1
 
     for TARGET_DIR in "${TARGET_DIRS[@]}"; do
         if ! git ls-files --error-unmatch -- "$TARGET_DIR" &>/dev/null; then
@@ -50,14 +50,14 @@ gitblamepath () {
     done
 
     echo ""
-}
+)
 
-gitblameuser () {
+gitblameuser () (
     local user="${1:-root}"
 
     declare -A files
 
-    cd "$(git rev-parse --show-toplevel)" || exit 1
+    cd "$(git rev-parse --show-toplevel)" || return 1
 
     echo -e "Files with blamed lines by: ${BOLD_GREEN}$user${RESET}"
     for TARGET_DIR in "."; do
@@ -80,7 +80,7 @@ gitblameuser () {
         echo -e " • ${GREEN}$file${RESET}: $count"
     done
     echo ""
-}
+)
 
 
 
