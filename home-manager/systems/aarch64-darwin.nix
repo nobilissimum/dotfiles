@@ -17,7 +17,7 @@ in
         ];
 
         file = {
-            "${xdgConfigHome}/Library/Application Support/lazygit" = {
+            "${homeDirectory}/Library/Application Support/lazygit" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/lazygit";
                 force = true;
             };
