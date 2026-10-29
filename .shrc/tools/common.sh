@@ -196,7 +196,10 @@ esac
 # Nix
 NIX_PROFILE="$HOME/.nix-profile"
 if [ -d "$NIX_PROFILE/bin" ]; then
-    source "$NIX_PROFILE/bin"
+    case ":$PATH:" in
+      *":$NIX_PROFILE/bin:"*) ;;
+      *) export PATH="$NIX_PROFILE/bin:$PATH" ;;
+    esac
 fi
 
 

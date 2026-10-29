@@ -7,7 +7,7 @@ export TERM="xterm-256color"
 
 
 # Bun
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+[ -n "$ZSH_VERSION" ] && [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 
 # Docker
