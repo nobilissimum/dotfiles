@@ -98,7 +98,7 @@ tmxdirs () {
     fi
 
     local target_session=""
-    for key in "${!tmx_dirs[@]}"; do
+    for key in "${tmx_dirs[@]}"; do
         if [[ ! -d "$key" ]]; then
             echo -e "${RED}Directory ${BOLD_RED}${key}${RESET}${RED} does not exist. Skipping...${RESET}"
             continue
