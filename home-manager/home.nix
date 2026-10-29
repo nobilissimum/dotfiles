@@ -150,10 +150,6 @@ in
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/delta";
                 force = true;
             };
-            "${xdgConfigHome}/lazygit" = {
-                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/lazygit";
-                force = true;
-            };
             "${xdgConfigHome}/lf" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/lf";
                 force = true;

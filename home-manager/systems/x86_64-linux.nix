@@ -23,6 +23,10 @@ in
         ];
 
         file = {
+            "${xdgConfigHome}/lazygit" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/lazygit";
+                force = true;
+            };
             "${xdgConfigHome}/superfile/config.toml" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/superfile/config.toml";
                 force = true;

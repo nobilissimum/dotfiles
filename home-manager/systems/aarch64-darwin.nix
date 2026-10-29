@@ -17,6 +17,10 @@ in
         ];
 
         file = {
+            "${xdgConfigHome}/Library/Application Support/lazygit" = {
+                source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/lazygit";
+                force = true;
+            };
             "${homeDirectory}/Library/Application Support/superfile/config.toml" = {
                 source = config.lib.file.mkOutOfStoreSymlink "${dotfilesHome}/.config/superfile/config.toml";
                 force = true;
