@@ -1,7 +1,7 @@
 theme = hush
 
-background-opacity = 0.95
-background-blur = 30
+background-opacity = 1
+background-blur = 0
 
 cursor-style = underline
 cursor-style-blink = false
