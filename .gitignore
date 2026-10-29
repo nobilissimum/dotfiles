@@ -4,11 +4,11 @@
 # Alacritty terminal
 alacritty.toml
 
+# Hammerspoon
+.hammerspoon/Spoons/*/annotations
+
 # Nix
 flake.lock
-
-# Wezterm
-wezterm-custom.lua
 
 # Taskfile
 Taskfile.yaml
@@ -18,6 +18,9 @@ taskfile.yml
 
 # Tmux
 tmux-terminal
+
+# Wezterm
+wezterm-custom.lua
 
 custom.lua
 lazy-lock.json

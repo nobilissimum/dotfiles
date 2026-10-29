@@ -1,5 +1,7 @@
 local utils = require("utils")
 
+hs.loadSpoon("EmmyLua")
+
 local app_bindings = {
   ["1"] = "Ghostty",
 }
