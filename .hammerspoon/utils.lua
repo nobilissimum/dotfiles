@@ -11,7 +11,7 @@ M.toast_style = {
   padding_x = 24,
   padding_y = 16,
   bottom_margin = 150,
-  duration = 10,
+  duration = 1.5,
   fade = 0.2,
   shadow_color = { white = 0, alpha = 0.45 },
   shadow_blur = 16,
