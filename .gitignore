@@ -7,6 +7,9 @@ alacritty.toml
 # Hammerspoon
 .hammerspoon/Spoons/*/annotations
 
+# Lazygit
+.config/lazygit/state.yml
+
 # Nix
 flake.lock
 
