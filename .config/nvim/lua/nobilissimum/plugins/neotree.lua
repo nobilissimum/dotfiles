@@ -36,6 +36,21 @@ return {
         mappings = {
           ["h"] = "close_node",
           ["l"] = "open",
+          ["gL"] = function(state)
+            local path = state.tree:get_node().path
+            local result = vim.system({
+              "git", "log", "-1", "--follow",
+              "--format=%an <%ae>%n%ad%n%h %s",
+              "--date=relative",
+              "--", path,
+            }, { cwd = vim.fs.dirname(path), text = true }):wait()
+
+            local out = vim.trim(result.stdout or "")
+            if result.code ~= 0 or out == "" then
+              out = "No git history for this file"
+            end
+            vim.notify(out, vim.log.levels.INFO, { title = vim.fn.fnamemodify(path, ":t") })
+          end,
         },
         position = "current",
       },
