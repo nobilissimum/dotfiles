@@ -221,6 +221,9 @@ return {
       local python = require("nobilissimum.lsp.python")
       python.setup()
 
+      local csharp = require("nobilissimum.lsp.csharp")
+      csharp.setup()
+
       -- Mason
       require("mason").setup({
         ui = {
