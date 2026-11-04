@@ -112,7 +112,10 @@ tasks:
   ssh-setup:
     desc: Setup SSH config
     cmds:
-      - cp ./.ssh/config $HOME/.ssh/config
+      - mkdir -p ~/.ssh
+      - cp ./.ssh/config ~/.ssh/config
+    status:
+      - test -f ~/.ssh/config
 
   tmux-refresh:
     desc: Refresh tmux configuration
