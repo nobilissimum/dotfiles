@@ -119,6 +119,11 @@ function F.debounce(ms, fn)
   end
 end
 
+function F.env(name)
+    local value = vim.env[name]
+    return (value and value ~= "") and value or nil
+end
+
 function F.get_windows_host()
   for line in io.lines("/etc/resolv.conf") do
     local ip = line:match("^nameserver%s+(%S+)")
@@ -126,4 +131,13 @@ function F.get_windows_host()
       return ip
     end
   end
+end
+
+function F.to_int(value)
+  local n = tonumber(value)
+  if n and n == math.floor(n) then
+    return n
+  end
+
+  return nil
 end
