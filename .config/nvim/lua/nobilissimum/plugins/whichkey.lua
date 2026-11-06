@@ -41,6 +41,10 @@ return {
         },
       },
       spec = {
+        { "<M-t>L", group = "[L]ocation" },
+        { "<M-t>l", group = "[L]SP" },
+        { "<M-t>q", group = "[Q]uickfix" },
+        { "<M-t>s", group = "[S]ymbols" },
         { "<leader>c", group = "[C]ode", mode = { "n", "x" } },
         { "<leader>d", group = "[D]ocument" },
         { "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
