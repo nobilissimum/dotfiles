@@ -72,16 +72,71 @@ return {
         },
         virtualtext = {
           auto_trigger_ft = { "*" },
-          keymap = {
-            accept = "<M-A>",
-            accept_line = "<M-a>",
-            accept_n_lines = "<M-z>",
-            prev = "<M-[>",
-            next = "<M-]>",
-            dismiss = "<M-e>",
-          },
         },
       })
+
+      local minuet_action = require("minuet.virtualtext").action
+      local keymaps = {
+        {
+          key = "<M-A>",
+          action = minuet_action.accept,
+          desc = "Accept suggestion",
+        },
+        {
+          key = "Å",
+          action = minuet_action.accept,
+          desc = "Accept suggestion",
+        },
+        {
+          key = "<M-a>",
+          action = minuet_action.accept_line,
+          desc = "Accept line suggestion",
+        },
+        {
+          key = "å",
+          action = minuet_action.accept_line,
+          desc = "Accept line suggestion",
+        },
+        {
+          key = "<M-z>",
+          action = minuet_action.accept_n_lines,
+          desc = "Accept N lines",
+        },
+        {
+          key = "<M-[>",
+          action = minuet_action.prev,
+          desc = "Previous suggestion",
+        },
+        {
+          key = "“",
+          action = minuet_action.prev,
+          desc = "Previous suggestion",
+        },
+        {
+          key = "<M-]>",
+          action = minuet_action.next,
+          desc = "Next suggestion",
+        },
+        {
+          key = "‘",
+          action = minuet_action.next,
+          desc = "Next suggestion",
+        },
+        {
+          key = "<M-e>",
+          action = minuet_action.dismiss,
+          desc = "Dismiss suggestion",
+        },
+        {
+          key = "´",
+          action = minuet_action.dismiss,
+          desc = "Dismiss suggestion",
+        },
+      }
+
+      for _, map in ipairs(keymaps) do
+        vim.keymap.set("i", map.key, map.action, { desc = map.desc, silent = true })
+      end
     end,
   },
 }
