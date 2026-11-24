@@ -45,11 +45,17 @@ vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open diagn
 
 -- Copy keymaps
 vim.keymap.set("n", "<leader>yb", function()
-  local relative_path = vim.fn.expand("%")
-  if relative_path == "" then
+  local absolute_path = vim.api.nvim_buf_get_name(0)
+  if absolute_path == "" then
     vim.notify("Buffer is empty", vim.log.levels.WARN)
     return
   end
+  absolute_path = vim.fs.normalize(vim.fn.fnamemodify(absolute_path, ":p"))
+
+  -- Buffer names may be stored as absolute paths (e.g. when opened via LSP or pickers),
+  -- so always resolve relative to the project root, falling back to the cwd
+  local root = vim.fs.root(absolute_path, ".git") or vim.fn.getcwd()
+  local relative_path = vim.fs.relpath(root, absolute_path) or vim.fn.fnamemodify(absolute_path, ":.")
 
   vim.fn.setreg("+", relative_path)
   vim.notify("Copied relative path of current buffer", vim.log.levels.INFO)
