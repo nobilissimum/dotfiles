@@ -3,6 +3,18 @@ return {
     "milanglacier/minuet-ai.nvim",
     event = "InsertEnter",
     dependencies = { "nvim-lua/plenary.nvim" },
+    cond = function()
+      local provider = F.env("MINUET_PROVIDER") or "gemini"
+      local key_env = ({
+        claude = "ANTHROPIC_API_KEY",
+        codestral = "CODESTRAL_API_KEY",
+        gemini = "GEMINI_API_KEY",
+        openai = "OPENAI_API_KEY",
+        openai_compatible = F.env("MINUET_API_KEY_ENV") or "OPENROUTER_API_KEY",
+        openai_fim_compatible = F.env("MINUET_API_KEY_ENV") or "DEEPSEEK_API_KEY",
+      })[provider]
+      return key_env ~= nil and F.env(key_env) ~= nil
+    end,
     config = function()
       local provider = F.env("MINUET_PROVIDER") or "gemini"
       local model = F.env("MINUET_MODEL")
