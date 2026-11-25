@@ -30,7 +30,7 @@ return {
         },
       }
       if provider == "gemini" then
-        if not model or vim.starswith(model, "gemini-3") then
+        if not model or vim.startswith(model, "gemini-3") then
           gemini.optional.generationConfig.thinkingConfig.thinkingLevel = "minimal"
         elseif vim.startswith(model, "gemini-2.5") then
           gemini.optional.generationConfig.thinkingConfig.thinkingBudget = 0
